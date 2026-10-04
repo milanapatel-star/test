@@ -1,0 +1,1044 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Utsav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
+<style>
+/* Layout: a mandir noticeboard rebuilt as a timetable. A date rail with the moon's phase on the left,
+   events as rows, festivals as the stations everything else hangs from. Marigold toran on top,
+   peacock teal for action, kumkum red only for "needs people now". */
+:root{
+  --bg:#FAF8F4;
+  --surface:#FFFFFF;
+  --sunk:#F1EEE7;
+  --ink:#1B1A2C;
+  --muted:#5D5A6E;
+  --line:rgba(27,26,44,.12);
+  --peacock:#0B6B68;
+  --peacock-soft:rgba(11,107,104,.10);
+  --marigold:#F0A00A;
+  --marigold-soft:rgba(240,160,10,.16);
+  --marigold-ink:#8A5A00;
+  --kumkum:#C21E3A;
+  --kumkum-soft:rgba(194,30,58,.10);
+  --leaf:#3F7D3A;
+  --moon-dark:#D9D4E6;
+  --moon-lit:#F6C453;
+  --shadow:0 1px 2px rgba(27,26,44,.06),0 10px 30px rgba(27,26,44,.07);
+
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari","Kohinoor Devanagari",serif;
+
+  --r:14px;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1120;--surface:#151A2D;--sunk:#10152A;--ink:#EDEAF5;--muted:#A6A3BC;
+    --line:rgba(237,234,245,.12);--peacock:#3CC6BF;--peacock-soft:rgba(60,198,191,.13);
+    --marigold:#FFB627;--marigold-soft:rgba(255,182,39,.14);--marigold-ink:#FFC95C;
+    --kumkum:#FF5C77;--kumkum-soft:rgba(255,92,119,.13);--leaf:#7DC46F;
+    --moon-dark:#2A3050;--moon-lit:#FFD36E;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1120;--surface:#151A2D;--sunk:#10152A;--ink:#EDEAF5;--muted:#A6A3BC;
+  --line:rgba(237,234,245,.12);--peacock:#3CC6BF;--peacock-soft:rgba(60,198,191,.13);
+  --marigold:#FFB627;--marigold-soft:rgba(255,182,39,.14);--marigold-ink:#FFC95C;
+  --kumkum:#FF5C77;--kumkum-soft:rgba(255,92,119,.13);--leaf:#7DC46F;
+  --moon-dark:#2A3050;--moon-lit:#FFD36E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);margin:0;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:var(--peacock)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--marigold);outline-offset:2px;border-radius:6px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:20px}
+.deva{font-family:var(--deva);font-weight:400;letter-spacing:0}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* prototype notice */
+.notice{background:var(--sunk);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.notice .wrap{display:flex;gap:10px;align-items:center;padding-block:8px;flex-wrap:wrap}
+.notice b{color:var(--ink);font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill-proto{background:var(--marigold-soft);color:var(--marigold-ink)}
+
+/* header + toran */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.toran{display:block;width:100%;height:22px;color:var(--marigold)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px 12px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+.brand .en{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.03em}
+.brand .hi{font-family:var(--deva);font-size:20px;color:var(--marigold-ink)}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs button{border:0;background:transparent;padding:9px 14px;border-radius:999px;font-weight:600;font-size:15px;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+nav.tabs button:hover{color:var(--ink);background:var(--sunk)}
+nav.tabs button[aria-current="page"]{background:var(--ink);color:var(--bg)}
+
+/* generic */
+section.view{padding-block:28px 64px}
+section.view[hidden]{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-weight:700;font-size:15px;padding:12px 18px;border-radius:999px;min-height:46px;text-decoration:none;transition:transform .1s,background .15s,box-shadow .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--peacock);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 0 0 4px var(--peacock-soft)}
+.btn-quiet{background:var(--sunk);color:var(--ink)}
+.btn-quiet:hover{background:var(--line)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn[disabled]{cursor:default;opacity:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:0;cursor:pointer;padding:8px 14px;border-radius:999px;font-size:14.5px;font-weight:600;background:var(--sunk);color:var(--muted);min-height:38px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.sec-head h2{font-size:clamp(24px,3vw,32px)}
+.sec-head p{color:var(--muted);max-width:60ch}
+.stack{display:grid;gap:44px}
+
+/* ===== HOME HERO ===== */
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:stretch}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;gap:18px;padding-block:18px}
+.hero-copy .hi-line{font-family:var(--deva);font-size:22px;color:var(--marigold-ink)}
+.hero h1{font-size:clamp(38px,5.6vw,68px);font-weight:800;letter-spacing:-.035em}
+.hero h1 .accent{color:var(--peacock)}
+.hero .sub{font-size:18.5px;color:var(--muted);max-width:46ch}
+.finder{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--surface);padding:8px;border-radius:999px;box-shadow:var(--shadow);max-width:560px}
+.finder input{flex:1 1 140px;min-width:0;border:0;background:transparent;padding:10px 14px;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;outline:none}
+.finder select{border:0;background:var(--sunk);padding:10px 12px;border-radius:999px;font-weight:600;font-size:14.5px}
+.hero-note{font-size:14px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
+.hero-note span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--leaf);margin-right:7px;vertical-align:middle}
+
+/* today card */
+.today{position:relative;overflow:hidden;border-radius:22px;background:var(--ink);color:var(--bg);padding:26px;display:flex;flex-direction:column;gap:18px;min-height:360px;isolation:isolate}
+.today canvas{position:absolute;right:-120px;top:-110px;width:420px;height:420px;z-index:-1;opacity:.55}
+.today .label{color:color-mix(in srgb,var(--bg) 62%,transparent)}
+.today-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.today-tithi{display:flex;gap:16px;align-items:center}
+.today-tithi h3{font-size:clamp(30px,3.6vw,40px);font-weight:800}
+.today-tithi .paksha{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:15px;margin-top:4px}
+.observance{background:color-mix(in srgb,var(--marigold) 20%,transparent);border:1px solid color-mix(in srgb,var(--marigold) 45%,transparent);border-radius:12px;padding:12px 14px;font-size:15px}
+.observance b{color:var(--marigold)}
+.today-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:color-mix(in srgb,var(--bg) 16%,transparent);border-radius:12px;overflow:hidden}
+.today-grid div{background:var(--ink);padding:10px 12px}
+.today-grid .v{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;margin-top:2px}
+.reckon{display:inline-flex;background:color-mix(in srgb,var(--bg) 12%,transparent);border-radius:999px;padding:3px}
+.reckon button{border:0;background:transparent;color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer}
+.reckon button[aria-pressed="true"]{background:var(--bg);color:var(--ink)}
+.countdown{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px}
+.countdown b{font-family:var(--display);font-size:22px;color:var(--marigold)}
+.today .fine{font-size:12.5px;color:color-mix(in srgb,var(--bg) 55%,transparent)}
+
+/* moon glyph */
+.moon{flex:none;display:block}
+.moon .dark{fill:var(--moon-dark)}
+.moon .lit{fill:var(--moon-lit)}
+.today .moon .dark{fill:color-mix(in srgb,var(--bg) 18%,transparent)}
+
+/* festival stations */
+.stations{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.station{position:relative;border:0;text-align:left;cursor:pointer;background:var(--surface);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;color:var(--ink);transition:transform .15s}
+.station:hover{transform:translateY(-2px)}
+.station .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.station h3{font-size:21px}
+.station p{font-size:14.5px;color:var(--muted)}
+.station .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--peacock)}
+.station.feature{background:linear-gradient(160deg,var(--marigold-soft),transparent 70%),var(--surface)}
+.station .edge{font-size:13px;color:var(--marigold-ink);background:var(--marigold-soft);padding:8px 10px;border-radius:8px}
+
+/* timetable */
+.board{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.board-tools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer}
+.toggle input{width:18px;height:18px;accent-color:var(--peacock)}
+.day{display:grid;grid-template-columns:96px minmax(0,1fr);border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.rail{padding:16px 10px 16px 16px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;border-right:1px dashed var(--line)}
+.rail .dow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rail .dnum{font-family:var(--display);font-weight:800;font-size:30px;line-height:1}
+.rail .tithi{font-size:11.5px;color:var(--muted);line-height:1.3}
+.rail.is-today .dnum{color:var(--peacock)}
+.rows{min-width:0}
+.ev{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;padding:14px 16px;align-items:start;border-bottom:1px solid var(--line)}
+.ev:last-child{border-bottom:0}
+.ev .time{font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums;padding-top:2px}
+.ev h4{font-size:17.5px;font-weight:700;letter-spacing:-.01em}
+.ev .meta{font-size:14px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.ev .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ev .act{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.ev .act .btn{padding:8px 14px;min-height:38px;font-size:14px}
+.src{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.src-posted{background:var(--peacock-soft);color:var(--peacock)}
+.src-collected{background:var(--marigold-soft);color:var(--marigold-ink)}
+.src-tip{background:var(--sunk);color:var(--muted)}
+.src-promo{background:var(--kumkum-soft);color:var(--kumkum)}
+.tag{font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.tag-free{background:color-mix(in srgb,var(--leaf) 16%,transparent);color:var(--leaf)}
+.tag-seva{background:var(--kumkum-soft);color:var(--kumkum)}
+.empty{padding:28px 16px;color:var(--muted);text-align:center}
+
+/* source legend */
+.legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.legend > div{background:var(--surface);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);display:grid;gap:8px;align-content:start}
+.legend p{font-size:14.5px;color:var(--muted)}
+
+/* digest */
+.digest{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden}
+.digest h2{font-size:clamp(26px,3.2vw,36px)}
+.digest .lead{color:var(--muted);margin-top:10px;max-width:46ch}
+.digest form{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.digest input{flex:1 1 220px;min-width:0;border:1.5px solid var(--line);background:var(--bg);border-radius:999px;padding:12px 16px}
+.digest .ok{margin-top:12px;font-size:14.5px;color:var(--leaf);font-weight:600}
+.mail{background:var(--bg);border-radius:14px;border:1px solid var(--line);overflow:hidden;font-size:14.5px}
+.mail-h{padding:12px 16px;border-bottom:1px solid var(--line);display:grid;gap:2px}
+.mail-h .subj{font-weight:700}
+.mail-b{padding:14px 16px;display:grid;gap:10px}
+.mail-b .row{display:flex;gap:10px;align-items:baseline}
+.mail-b .row .mono{flex:none;width:66px;color:var(--muted);font-size:12.5px}
+
+/* ===== FESTIVAL ===== */
+.fest-hero{border-radius:24px;padding:30px;background:var(--ink);color:var(--bg);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:24px;position:relative;overflow:hidden;isolation:isolate}
+.fest-hero canvas{position:absolute;left:-160px;bottom:-200px;width:480px;height:480px;z-index:-1;opacity:.35}
+.fest-hero .hi{font-family:var(--deva);font-size:26px;color:var(--marigold)}
+.fest-hero h1{font-size:clamp(36px,5vw,60px);font-weight:800;margin-top:6px}
+.fest-hero p{color:color-mix(in srgb,var(--bg) 72%,transparent);margin-top:12px;max-width:52ch}
+.fest-facts{display:grid;gap:10px;align-content:start}
+.fact{background:color-mix(in srgb,var(--bg) 9%,transparent);border-radius:12px;padding:12px 14px}
+.fact .label{color:color-mix(in srgb,var(--bg) 58%,transparent)}
+.fact .v{font-family:var(--display);font-weight:600;font-size:19px;margin-top:2px}
+.nights{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.night{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:8px;border:0;text-align:left;cursor:pointer;color:var(--ink)}
+.night[aria-pressed="true"]{box-shadow:0 0 0 2px var(--peacock),var(--shadow)}
+.night .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.night .date{font-family:var(--display);font-weight:800;font-size:22px}
+.night .form{font-size:14px;color:var(--marigold-ink);font-weight:600}
+.night .count{font-size:13px;color:var(--muted)}
+.night.dussehra{background:linear-gradient(160deg,var(--marigold-soft),transparent 70%),var(--surface)}
+.promo-note{display:flex;gap:12px;align-items:flex-start;background:var(--kumkum-soft);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.promo-note b{color:var(--kumkum)}
+
+/* ===== SEVA ===== */
+.seva-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end}
+.seva-intro h1{font-size:clamp(34px,4.6vw,54px);font-weight:800}
+.seva-intro h1 .hi{font-family:var(--deva);color:var(--marigold-ink);font-weight:400}
+.seva-intro p{color:var(--muted);font-size:17.5px;max-width:52ch}
+.principle{border-left:3px solid var(--marigold);padding:4px 0 4px 16px;font-size:15.5px;color:var(--muted)}
+.principle b{color:var(--ink)}
+.seva-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:22px;align-items:start}
+.shift{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.shift:last-child{border-bottom:0}
+.shift h4{font-size:16.5px}
+.shift .meta{font-size:13.5px;color:var(--muted);margin-top:2px}
+.need{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.fill{width:92px;height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.fill i{display:block;height:100%;background:var(--peacock);border-radius:99px}
+.fill.short i{background:var(--kumkum)}
+.need .count{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+.need .count.short{color:var(--kumkum);font-weight:500}
+.group-h{padding:14px 16px;background:var(--sunk);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.group-h h3{font-size:18px}
+.group-h .label{font-size:11.5px}
+.side{display:grid;gap:16px;position:sticky;top:120px}
+.panel{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;display:grid;gap:12px}
+.panel h3{font-size:19px}
+.panel p{font-size:14.5px;color:var(--muted)}
+.record-line{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;padding-block:8px;border-top:1px solid var(--line)}
+.record-line .s{font-size:12.5px;color:var(--muted)}
+.record-line .h{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pending{color:var(--muted)}
+.big-hrs{font-family:var(--display);font-weight:800;font-size:44px;line-height:1}
+.big-hrs small{font-family:var(--mono);font-size:13px;font-weight:400;color:var(--muted);margin-left:6px}
+
+/* booking sheet */
+.sheet-back{position:fixed;inset:0;background:rgba(10,10,20,.5);z-index:80;display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.sheet{background:var(--surface);color:var(--ink);border-radius:20px;max-width:460px;width:100%;padding:22px;display:grid;gap:14px;box-shadow:var(--shadow);margin-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+@media(min-width:700px){.sheet-back{align-items:center}}
+.sheet h3{font-size:22px}
+.field{display:grid;gap:6px}
+.field label{font-size:13.5px;font-weight:600}
+.field input{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 12px}
+.sheet .row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.sheet .small{font-size:13px;color:var(--muted)}
+
+/* ===== MANDIR (coordinator) ===== */
+.claim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.listing{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.listing-h{padding:18px;display:grid;gap:6px;border-bottom:1px solid var(--line)}
+.listing-h h3{font-size:22px}
+.conf{display:flex;align-items:center;gap:10px;font-size:14px}
+.conf .bar2{flex:1;max-width:160px;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.conf .bar2 i{display:block;height:100%;width:72%;background:var(--marigold)}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);align-items:center;font-size:15px}
+.lrow:last-child{border-bottom:0}
+.lrow .s{font-size:13px;color:var(--muted)}
+.lrow .fix{font-size:13px;font-weight:700;color:var(--peacock);background:none;border:0;cursor:pointer;padding:6px}
+.lrow.flag{background:var(--kumkum-soft)}
+.steps{display:grid;gap:12px;counter-reset:s}
+.step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.step::before{counter-increment:s;content:counter(s);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--peacock-soft);color:var(--peacock);font-family:var(--display);font-weight:800}
+.step h4{font-size:16.5px}
+.step p{font-size:14.5px;color:var(--muted);margin-top:2px}
+
+.rota-wrap{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.rota-tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.rota-tools .btns{display:flex;gap:8px;flex-wrap:wrap}
+.rota-tools .btn{min-height:40px;padding:9px 14px;font-size:14px}
+.rota-scroll{overflow-x:auto}
+table.rota{border-collapse:separate;border-spacing:0;width:100%;min-width:760px;font-size:14px}
+.rota th,.rota td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:center}
+.rota th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.rota th:first-child,.rota td:first-child{text-align:left;padding-left:16px;position:sticky;left:0;background:var(--surface);z-index:1}
+.rota td:first-child{font-weight:600}
+.rota td:first-child .s{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.cell{display:inline-grid;place-items:center;min-width:46px;padding:5px 6px;border-radius:8px;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.c-full{background:var(--peacock-soft);color:var(--peacock)}
+.c-mid{background:var(--marigold-soft);color:var(--marigold-ink)}
+.c-short{background:var(--kumkum-soft);color:var(--kumkum);font-weight:500}
+.rota-key{display:flex;gap:14px;flex-wrap:wrap;padding:12px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.rota-key span{display:inline-flex;gap:6px;align-items:center}
+.rota-key i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:600;font-size:14.5px;z-index:90;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
+.confirm-list .lrow .btn{min-height:36px;padding:7px 12px;font-size:13.5px}
+.policy{font-size:14px;color:var(--muted);background:var(--sunk);border-radius:12px;padding:14px 16px}
+.policy b{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding-block:26px 40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* responsive */
+@media(max-width:980px){
+  .hero,.digest,.fest-hero,.seva-intro,.seva-grid,.claim{grid-template-columns:minmax(0,1fr)}
+  .stations{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nights{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .side{position:static}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  .wrap{padding-inline:16px}
+  .stations,.legend{grid-template-columns:minmax(0,1fr)}
+  .nights{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .day{grid-template-columns:64px minmax(0,1fr)}
+  .rail{padding:14px 6px 14px 12px}
+  .rail .dnum{font-size:24px}
+  .ev{grid-template-columns:minmax(0,1fr);gap:6px}
+  .ev .act{flex-direction:row;align-items:center;justify-content:flex-start}
+  .today-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shift{grid-template-columns:minmax(0,1fr)}
+  .need{justify-content:flex-start}
+  nav.tabs{width:100%;overflow-x:auto;flex-wrap:nowrap}
+  nav.tabs button{flex:none;padding:8px 11px;font-size:14.5px}
+  .finder{border-radius:18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="notice" role="note">
+  <div class="wrap">
+    <span class="pill pill-proto">Prototype</span>
+    <span><b>Mandirs, events and people are invented.</b> Festival dates are computed for London sunrise and still need checking by a panditji.</span>
+  </div>
+</div>
+
+<header>
+  <svg class="toran" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <pattern id="toranP" width="48" height="22" patternUnits="userSpaceOnUse">
+        <path d="M0 3 Q12 9 24 3 T48 3" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1"/>
+        <circle cx="12" cy="11" r="5" fill="currentColor"/>
+        <circle cx="12" cy="11" r="2.2" fill="currentColor" style="filter:brightness(.8)" opacity=".6"/>
+        <circle cx="12" cy="18.5" r="2.6" fill="currentColor" opacity=".85"/>
+        <path d="M36 4 C31 9 32 16 36 21 C40 16 41 9 36 4Z" fill="var(--leaf)"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="22" fill="url(#toranP)"/>
+  </svg>
+  <div class="wrap bar">
+    <a class="brand" href="#home" data-go="home" aria-label="Utsav home"><span class="en">Utsav</span><span class="hi" lang="hi">उत्सव</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <button data-go="home">What's on</button>
+      <button data-go="navratri">Navratri</button>
+      <button data-go="seva">Seva</button>
+      <button data-go="mandir">For mandirs</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================= HOME ======================= -->
+<section class="view" id="v-home" data-view="home">
+  <div class="wrap stack">
+
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="hi-line" lang="hi">आपके पास क्या हो रहा है</div>
+        <h1>What's on at mandirs <span class="accent">near you</span>.</h1>
+        <p class="sub">Aarti, bhajans, garba, classes and seva from every mandir nearby, in one list that's kept up to date. Free, and nothing to install.</p>
+        <form class="finder" id="finder">
+          <label class="sr" for="pc">Your postcode</label>
+          <input id="pc" value="HA3 9" autocomplete="postal-code" aria-label="Postcode">
+          <label class="sr" for="radius">Distance</label>
+          <select id="radius"><option>Within 3 miles</option><option selected>Within 5 miles</option><option>Within 10 miles</option></select>
+          <button class="btn btn-primary" type="submit">Show events</button>
+        </form>
+        <div class="hero-note"><span>12 mandirs within 5 miles</span><span>Checked this morning</span><span>No account needed</span></div>
+      </div>
+
+      <aside class="today" aria-label="Today in London">
+        <canvas class="mandala" width="840" height="840" aria-hidden="true"></canvas>
+        <div class="today-top">
+          <div class="label">Today in London · Sun 4 Oct</div>
+          <div class="reckon" role="group" aria-label="Month reckoning">
+            <button aria-pressed="true" data-reckon="amanta">Amanta</button>
+            <button aria-pressed="false" data-reckon="purnimanta">Purnimanta</button>
+          </div>
+        </div>
+        <div class="today-tithi">
+          <span data-moon="24" data-size="58"></span>
+          <div>
+            <h3>Krishna Navami</h3>
+            <div class="paksha" id="month-line">Bhadrapada · waning moon</div>
+          </div>
+        </div>
+        <div class="observance"><b>Pitru Paksha.</b> Today is Navami shraddha, for mothers and married women of the family who have passed. Sarva Pitru Amavasya is next Saturday, 10 October.</div>
+        <div class="today-grid">
+          <div><div class="label">Sunrise</div><div class="v">07:06</div></div>
+          <div><div class="label">Sunset</div><div class="v">18:32</div></div>
+          <div><div class="label">Moonrise</div><div class="v">00:12 Mon</div></div>
+        </div>
+        <div class="countdown"><span>Navratri begins Sunday 11 October</span><b>7 days</b></div>
+        <div class="fine">Tithi taken at sunrise in London, not India. Change city or tradition in settings.</div>
+      </aside>
+    </div>
+
+    <div>
+      <div class="sec-head">
+        <div><div class="label">Coming up</div><h2>Festivals, and who's marking them</h2></div>
+        <p>Every date links to the mandirs near you holding something for it.</p>
+      </div>
+      <div class="stations" id="stations"></div>
+    </div>
+
+    <div>
+      <div class="sec-head">
+        <div><div class="label">Near HA3 · next 14 days</div><h2>This fortnight</h2></div>
+      </div>
+      <div class="board">
+        <div class="board-tools">
+          <div class="chips" id="filters" role="group" aria-label="Filter events">
+            <button class="chip" data-f="all" aria-pressed="true">All</button>
+            <button class="chip" data-f="navratri" aria-pressed="false">Navratri</button>
+            <button class="chip" data-f="bhajan" aria-pressed="false">Aarti &amp; bhajan</button>
+            <button class="chip" data-f="ritual" aria-pressed="false">Puja &amp; shraddha</button>
+            <button class="chip" data-f="class" aria-pressed="false">Classes</button>
+            <button class="chip" data-f="seva" aria-pressed="false">Needs seva</button>
+            <button class="chip" data-f="free" aria-pressed="false">Free</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="promo"> Include ticketed garba nights run by promoters</label>
+        </div>
+        <div id="board"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head">
+        <div><div class="label">Where listings come from</div><h2>Every event says how we know</h2></div>
+        <p>We read what mandirs already publish, so the list is full before anyone joins. Each row shows its source, so you know how much to trust it.</p>
+      </div>
+      <div class="legend">
+        <div><span class="src src-posted">Posted by mandir</span><p>The mandir claimed its page and posted this itself. You can book or sign up here.</p></div>
+        <div><span class="src src-collected">From their website</span><p>Read from the mandir's own site and checked by a person. We link back to them for the details.</p></div>
+        <div><span class="src src-tip">Community tip</span><p>Someone told us about it and we confirmed it with the organisers before listing it.</p></div>
+      </div>
+    </div>
+
+    <div class="digest">
+      <div>
+        <div class="label">Every Thursday</div>
+        <h2>The week ahead, near you</h2>
+        <p class="lead">One short email with what's on near your postcode and the festival dates coming up, sent before the weekend. Forward it to your family WhatsApp group.</p>
+        <form id="digest-form">
+          <label class="sr" for="email">Email address</label>
+          <input id="email" type="email" placeholder="you@example.com" required>
+          <button class="btn btn-primary" type="submit">Send me the week</button>
+        </form>
+        <p class="ok" id="digest-ok" hidden>You're on the list for HA3. (Prototype: nothing was sent.)</p>
+      </div>
+      <div class="mail" aria-label="Example digest email">
+        <div class="mail-h"><span class="label">Thu 8 Oct · Utsav</span><span class="subj">Navratri starts Sunday: 9 garba nights near HA3</span></div>
+        <div class="mail-b">
+          <div class="row"><span class="mono">SAT 10</span><span>Sarva Pitru Amavasya tarpan, Shree Hari Darshan Mandir</span></div>
+          <div class="row"><span class="mono">SAT 10</span><span>Beginners' garba practice, Harrow Hindu Youth Collective</span></div>
+          <div class="row"><span class="mono">SUN 11</span><span>Ghatasthapana 08:30, then garba nightly from 20:00</span></div>
+          <div class="row"><span class="mono">SEVA</span><span><b style="color:var(--kumkum)">14 shifts still short</b> for the first three nights</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================= NAVRATRI ======================= -->
+<section class="view" id="v-navratri" data-view="navratri" hidden>
+  <div class="wrap stack">
+    <div class="fest-hero">
+      <canvas class="mandala" width="960" height="960" aria-hidden="true"></canvas>
+      <div>
+        <div class="hi" lang="hi">शारदीय नवरात्रि</div>
+        <h1>Sharad Navratri</h1>
+        <p>Nine nights for the nine forms of Durga, from Ashvin Shukla Pratipada. In London this year it runs from Sunday 11 to Monday 19 October, with Dussehra on Tuesday 20th.</p>
+      </div>
+      <div class="fest-facts">
+        <div class="fact"><div class="label">Ghatasthapana</div><div class="v">Sun 11 Oct, morning</div></div>
+        <div class="fact"><div class="label">Durga Ashtami</div><div class="v">Sun 18 Oct</div></div>
+        <div class="fact"><div class="label">Vijayadashami</div><div class="v">Tue 20 Oct</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head">
+        <div><div class="label">Pick a night</div><h2>Who's holding what, night by night</h2></div>
+        <p>Counts are for mandirs within 5 miles of HA3.</p>
+      </div>
+      <div class="nights" id="nights"></div>
+    </div>
+
+    <div>
+      <div class="sec-head"><div><div class="label" id="night-label">Night 1</div><h2 id="night-title">Sun 11 Oct</h2></div></div>
+      <div class="board"><div id="night-board"></div></div>
+    </div>
+
+    <div class="promo-note">
+      <span class="src src-promo">Promoter</span>
+      <p><b>Ticketed garba nights run by promoters are kept separate.</b> They're popular and easy to find elsewhere, so they only show when you ask for them. Mandir-run nights always come first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SEVA ======================= -->
+<section class="view" id="v-seva" data-view="seva" hidden>
+  <div class="wrap stack">
+    <div class="seva-intro">
+      <div>
+        <div class="label">Volunteering</div>
+        <h1>Give your time at Navratri. <span class="hi" lang="hi">सेवा</span></h1>
+      </div>
+      <div style="display:grid;gap:14px">
+        <p>Mandirs post the shifts they need filled. Pick one, turn up, and the mandir's seva coordinator confirms your hours afterwards.</p>
+        <p class="principle"><b>No points, no rewards, no leaderboard.</b> Seva is given freely. We keep a plain record of what you gave, confirmed by the mandir.</p>
+      </div>
+    </div>
+
+    <div class="seva-grid">
+      <div class="board" id="shift-board"></div>
+      <div class="side">
+        <div class="panel">
+          <div class="label">Your seva record</div>
+          <div class="big-hrs" id="hrs">9<small>hours confirmed</small></div>
+          <div id="record">
+            <div class="record-line"><div>Kitchen preparation<div class="s">Shree Hari Darshan Mandir · 13 Sep · confirmed by R. Shah, seva coordinator</div></div><span class="h">5h</span></div>
+            <div class="record-line"><div>Janmashtami shoe area<div class="s">Navdurga Seva Mandal · 4 Sep · confirmed by P. Iyer, trustee</div></div><span class="h">4h</span></div>
+          </div>
+          <p>Each entry names the person who confirmed it and the mandir's charity number. What schools and DofE assessors will accept is still being agreed with them.</p>
+        </div>
+        <div class="panel">
+          <h3>Who's responsible</h3>
+          <p>The mandir runs the shift and is responsible for supervision, insurance and any checks a role needs. Each mandir sets the minimum age for each role, shown on the shift.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= MANDIR ======================= -->
+<section class="view" id="v-mandir" data-view="mandir" hidden>
+  <div class="wrap stack">
+    <div class="seva-intro">
+      <div>
+        <div class="label">For mandir committees</div>
+        <h1>Your mandir is probably listed already.</h1>
+      </div>
+      <p>We read your website so your events reach people without anyone typing them in twice. Claim your page to correct anything we got wrong, then run your seva rota from it. Free, with no contract, and removed the same day if you ask.</p>
+    </div>
+
+    <div class="claim">
+      <div class="listing">
+        <div class="listing-h">
+          <div class="label">How you're listed today</div>
+          <h3>Shree Hari Darshan Mandir</h3>
+          <div class="s" style="color:var(--muted);font-size:14px">Kenton, HA3 · Gujarati · read from your website at 06:10 today</div>
+          <div class="conf"><span>Checked</span><span class="bar2"><i></i></span><span class="mono" style="font-size:13px">13 of 18 events</span></div>
+        </div>
+        <div class="lrow"><div>Navratri garba, nightly 20:00<div class="s">11–19 Oct · from your Navratri page</div></div><button class="fix" data-toast="Edit form would open here">Correct</button></div>
+        <div class="lrow flag"><div>Sharad Purnima kheer, 19:00<div class="s">Your site says 24 Oct. Purnima falls on Sun 25 Oct in London. Which is right?</div></div><button class="fix" data-toast="Thanks. We'd ask you to confirm the date">Check</button></div>
+        <div class="lrow"><div>Sarva Pitru Amavasya tarpan, 10:00<div class="s">Sat 10 Oct · from your homepage notice</div></div><button class="fix" data-toast="Edit form would open here">Correct</button></div>
+        <div class="lrow"><div>Gujarati class, Tuesdays 18:00<div class="s">Term to 15 Dec · from your classes page</div></div><button class="fix" data-toast="Edit form would open here">Correct</button></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div><h4>Claim your page</h4><p>We send a code to an email on your mandir's own website, or ring the number you publish. It takes about two minutes.</p></div></div>
+        <div class="step"><div><h4>Fix what we got wrong</h4><p>Flagged rows are where your site and the calendar disagree. Correct them in one tap.</p></div></div>
+        <div class="step"><div><h4>Run your seva rota here</h4><p>Post shifts, share one link in your volunteers' WhatsApp group, and see what's short by Thursday, not on the night.</p></div></div>
+        <button class="btn btn-primary" data-toast="Claim flow would start here (prototype)">Claim Shree Hari Darshan Mandir</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head">
+        <div><div class="label">Coordinator view · Shree Hari Darshan Mandir</div><h2>Navratri seva rota</h2></div>
+        <p>Filled against needed, per night. Red means short. Volunteers book through the shared link; you never re-type a name.</p>
+      </div>
+      <div class="rota-wrap">
+        <div class="rota-tools">
+          <span class="mono" style="font-size:13px;color:var(--muted)" id="rota-sum"></span>
+          <div class="btns">
+            <button class="btn btn-quiet" id="copy-last">Copy last year's rota</button>
+            <button class="btn btn-quiet" id="share-link">Copy link for WhatsApp</button>
+            <button class="btn btn-primary" data-toast="New shift form would open here">Add a shift</button>
+          </div>
+        </div>
+        <div class="rota-scroll"><table class="rota" id="rota"></table></div>
+        <div class="rota-key">
+          <span><i style="background:var(--peacock-soft)"></i>Filled</span>
+          <span><i style="background:var(--marigold-soft)"></i>Over half filled</span>
+          <span><i style="background:var(--kumkum-soft)"></i>Short</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="claim">
+      <div class="listing confirm-list">
+        <div class="listing-h"><div class="label">After the event</div><h3>Confirm hours from Janmashtami</h3><p style="color:var(--muted);font-size:14.5px">One tap per volunteer. This is what turns a booking into a record.</p></div>
+        <div id="confirm"></div>
+      </div>
+      <div class="policy"><b>Before launch:</b> the minimum age for seva sign-ups, and how we handle the fact that a seva booking shows someone's faith, both need proper advice (safeguarding and UK GDPR). They're open decisions, not settled ones.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b style="color:var(--ink)">Utsav</b> prototype · events, festival dates and seva from mandirs near you</span>
+    <span>We never sell or share what you do here.</span>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="sheet" class="sheet-back" hidden>
+  <form class="sheet" id="sheet-form" aria-labelledby="sheet-title">
+    <div class="label" id="sheet-mandir"></div>
+    <h3 id="sheet-title"></h3>
+    <p class="small" id="sheet-when"></p>
+    <div class="field"><label for="vname">Your name</label><input id="vname" required value="Anika Patel"></div>
+    <div class="field"><label for="vphone">Mobile, for a reminder the day before</label><input id="vphone" required value="07700 900123"></div>
+    <p class="small" id="sheet-age"></p>
+    <div class="row">
+      <button class="btn btn-line" type="button" id="sheet-cancel">Cancel</button>
+      <button class="btn btn-primary" type="submit">Book this shift</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- calendar data (computed for London sunrise, BST until 25 Oct) ----------
+     tithi index 1–30: 1–15 Shukla (waxing), 16–30 Krishna (waning), 30 = Amavasya. */
+  var DAYS = [
+    {d:"2026-10-04", t:24, n:"K. Navami"},     {d:"2026-10-05", t:25, n:"K. Dashami"},
+    {d:"2026-10-06", t:26, n:"Indira Ekadashi"},{d:"2026-10-07", t:27, n:"K. Dwadashi"},
+    {d:"2026-10-08", t:28, n:"K. Trayodashi"}, {d:"2026-10-09", t:29, n:"K. Chaturdashi"},
+    {d:"2026-10-10", t:30, n:"Amavasya"},      {d:"2026-10-11", t:1,  n:"Pratipada"},
+    {d:"2026-10-12", t:2,  n:"Dwitiya"},       {d:"2026-10-13", t:3,  n:"Tritiya"},
+    {d:"2026-10-14", t:4,  n:"Chaturthi"},     {d:"2026-10-15", t:5,  n:"Panchami"},
+    {d:"2026-10-16", t:6,  n:"Shashthi"},      {d:"2026-10-17", t:7,  n:"Saptami"},
+    {d:"2026-10-18", t:8,  n:"Ashtami"}
+  ];
+  var TODAY = "2026-10-04";
+
+  var M = {
+    hari:  {name:"Shree Hari Darshan Mandir", area:"Kenton", mi:"0.4"},
+    durga: {name:"Navdurga Seva Mandal", area:"Wembley", mi:"2.1"},
+    valli: {name:"Sri Valli Murugan Kovil", area:"Rayners Lane", mi:"2.8"},
+    gita:  {name:"Gita Prakash Bhavan", area:"Stanmore", mi:"1.9"},
+    radha: {name:"Radha Madhav Satsang", area:"Queensbury", mi:"1.2"},
+    youth: {name:"Harrow Hindu Youth Collective", area:"Harrow", mi:"1.6"},
+    bengal:{name:"Harrow Sarbojanin Durgotsav", area:"Harrow Weald", mi:"2.4"},
+    promo: {name:"Raas Nights London", area:"Harrow Leisure Centre", mi:"1.8"}
+  };
+
+  var EVENTS = [
+    {d:"2026-10-04", time:"11:00", t:"Navami shraddha and tarpan", m:"gita", src:"collected", cats:["ritual"], free:true},
+    {d:"2026-10-04", time:"18:30", t:"Sunday satsang and aarti", m:"radha", src:"posted", cats:["bhajan"], free:true, book:true},
+    {d:"2026-10-06", time:"19:30", t:"Indira Ekadashi kirtan", m:"radha", src:"posted", cats:["bhajan"], free:true, book:true},
+    {d:"2026-10-06", time:"18:00", t:"Gujarati class, beginners and improvers", m:"hari", src:"collected", cats:["class"], free:false, price:"£4"},
+    {d:"2026-10-07", time:"19:30", t:"Bhagavad Gita study circle, in English", m:"gita", src:"tip", cats:["class"], free:true},
+    {d:"2026-10-10", time:"10:00", t:"Sarva Pitru Amavasya, collective tarpan", m:"hari", src:"posted", cats:["ritual"], free:true, book:true},
+    {d:"2026-10-10", time:"18:00", t:"Beginners' garba practice", m:"youth", src:"tip", cats:["navratri","class"], free:true},
+    {d:"2026-10-11", time:"08:30", t:"Ghatasthapana", m:"durga", src:"collected", cats:["navratri","ritual"], free:true},
+    {d:"2026-10-11", time:"20:00", t:"Navratri garba, night 1", m:"hari", src:"posted", cats:["navratri"], free:true, book:true, seva:5},
+    {d:"2026-10-11", time:"19:30", t:"Raas Nights: Navratri opening", m:"promo", src:"promo", cats:["navratri"], free:false, price:"from £15"},
+    {d:"2026-10-12", time:"20:00", t:"Navratri garba, night 2", m:"hari", src:"posted", cats:["navratri"], free:true, seva:6},
+    {d:"2026-10-12", time:"20:00", t:"Garba and aarti, night 2", m:"durga", src:"collected", cats:["navratri"], free:true},
+    {d:"2026-10-13", time:"18:30", t:"Navaratri golu open house", m:"valli", src:"collected", cats:["navratri","bhajan"], free:true},
+    {d:"2026-10-13", time:"20:00", t:"Navratri garba, night 3", m:"hari", src:"posted", cats:["navratri"], free:true, seva:3},
+    {d:"2026-10-14", time:"20:00", t:"Garba and aarti, night 4", m:"durga", src:"collected", cats:["navratri"], free:true},
+    {d:"2026-10-15", time:"19:00", t:"Lalita Panchami, Lalita Sahasranama", m:"valli", src:"collected", cats:["navratri","bhajan"], free:true},
+    {d:"2026-10-16", time:"20:00", t:"Garba for under-30s, live dhol", m:"youth", src:"tip", cats:["navratri"], free:false, price:"£5"},
+    {d:"2026-10-17", time:"10:00", t:"Durga Puja, Saptami", m:"bengal", src:"tip", cats:["navratri","ritual"], free:true},
+    {d:"2026-10-17", time:"19:30", t:"Raas Nights: Saturday special", m:"promo", src:"promo", cats:["navratri"], free:false, price:"from £18"},
+    {d:"2026-10-18", time:"09:00", t:"Ashtami havan", m:"durga", src:"collected", cats:["navratri","ritual"], free:true},
+    {d:"2026-10-18", time:"20:00", t:"Navratri garba, night 8", m:"hari", src:"posted", cats:["navratri"], free:true, seva:2}
+  ];
+
+  var STATIONS = [
+    {key:"navratri", when:"Sun 11 – Mon 19 Oct", t:"Sharad Navratri", p:"Nine nights of garba, golu and puja. Dussehra on Tuesday 20th.", c:"23 events near you", t1:1, feature:true},
+    {key:"purnima", when:"Sun 25 Oct", t:"Sharad Purnima", p:"Full moon night; kheer is left out under the moonlight. Clocks go back that morning.", c:"4 events near you", t1:15},
+    {key:"diwali", when:"Sun 8 Nov", t:"Diwali", p:"Lakshmi puja at dusk on Amavasya. Dhanteras is Friday 6th.", c:"11 events near you", t1:30},
+    {key:"newyear", when:"Mon 9 or Tue 10 Nov", t:"Gujarati New Year", p:"Annakut and Govardhan puja.", c:"6 events near you", t1:1,
+     edge:"London's Pratipada starts four minutes before Monday's sunrise and runs past Tuesday's. Calendars made for India say Tuesday. Each mandir's own date is shown."}
+  ];
+
+  var NIGHTS = [
+    {d:"2026-10-11", f:"Shailaputri"}, {d:"2026-10-12", f:"Brahmacharini"}, {d:"2026-10-13", f:"Chandraghanta"},
+    {d:"2026-10-14", f:"Kushmanda"},   {d:"2026-10-15", f:"Skandamata"},    {d:"2026-10-16", f:"Katyayani"},
+    {d:"2026-10-17", f:"Kalaratri"},   {d:"2026-10-18", f:"Mahagauri"},     {d:"2026-10-19", f:"Siddhidatri"},
+    {d:"2026-10-20", f:"Vijayadashami", dussehra:true}
+  ];
+  // Extra events for nights beyond the fortnight board.
+  var LATE = [
+    {d:"2026-10-19", time:"20:00", t:"Navratri garba, night 9", m:"hari", src:"posted", cats:["navratri"], free:true, seva:4},
+    {d:"2026-10-19", time:"19:00", t:"Navami kanya puja and bhajans", m:"durga", src:"collected", cats:["navratri"], free:true},
+    {d:"2026-10-20", time:"10:00", t:"Vidyarambham for young children", m:"valli", src:"collected", cats:["navratri","ritual"], free:true},
+    {d:"2026-10-20", time:"18:30", t:"Vijayadashami aarti and Shami puja", m:"gita", src:"tip", cats:["navratri","ritual"], free:true}
+  ];
+
+  var SHIFTS = [
+    {m:"hari", ev:"Navratri, night 1 · Sun 11 Oct", rows:[
+      {r:"Shoe area", time:"19:30–22:30", need:4, have:1, age:14},
+      {r:"Prasad counter", time:"21:30–23:00", need:3, have:3, age:14},
+      {r:"Car park marshal", time:"19:00–21:00", need:3, have:1, age:18},
+      {r:"Hall reset", time:"23:00–00:00", need:4, have:2, age:16}]},
+    {m:"durga", ev:"Ghatasthapana and night 1 · Sun 11 Oct", rows:[
+      {r:"Kitchen, puja prasad", time:"06:30–09:30", need:3, have:2, age:16},
+      {r:"Welcome desk", time:"08:00–10:00", need:2, have:2, age:14}]},
+    {m:"radha", ev:"Indira Ekadashi kirtan · Tue 6 Oct", rows:[
+      {r:"Set up and sound", time:"18:30–19:30", need:2, have:1, age:16}]}
+  ];
+
+  var ROTA_ROLES = [
+    {r:"Shoe area", s:"min age 14", need:4, have:[1,2,4,4,3,4,4,2,1]},
+    {r:"Car park marshal", s:"min age 18", need:3, have:[1,1,3,2,3,3,3,1,0]},
+    {r:"Prasad counter", s:"min age 14", need:3, have:[3,3,3,2,3,3,3,3,2]},
+    {r:"Garba ring stewards", s:"min age 16", need:4, have:[2,3,4,4,4,4,4,2,2]},
+    {r:"Hall reset", s:"min age 16", need:4, have:[2,0,2,2,4,4,4,1,1]}
+  ];
+
+  var CONFIRM = [
+    {n:"Anika Patel", r:"Shoe area", h:4}, {n:"Dev Mistry", r:"Car park marshal", h:3},
+    {n:"Kavya Shah", r:"Prasad counter", h:2.5}, {n:"Rohan Varsani", r:"Hall reset", h:1.5}
+  ];
+
+  /* ---------- helpers ---------- */
+  var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function parse(s){ var p=s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function fmt(s){ var d=parse(s); return DOW[d.getDay()]+" "+d.getDate()+" "+MON[d.getMonth()]; }
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function $(id){ return document.getElementById(id); }
+
+  // Moon phase glyph from tithi (1–30). Waxing lit on the right, as seen from the UK.
+  function moonSVG(tithi, size){
+    var e = (tithi - 0.5) * 12 * Math.PI / 180;            // sun–moon elongation
+    var r = 10, k = Math.cos(e), waxing = tithi <= 15;
+    var rx = Math.abs(k) * r;
+    var litRight = waxing;
+    // Lit region: a half disc on the lit side, plus or minus the terminator ellipse.
+    var sweepOuter = litRight ? 1 : 0;
+    var sweepInner = (k > 0) === litRight ? 0 : 1;
+    var d = "M12 2 A"+r+" "+r+" 0 0 "+sweepOuter+" 12 22 A"+rx.toFixed(2)+" "+r+" 0 0 "+sweepInner+" 12 2Z";
+    var lit = (tithi === 30) ? "" : '<path class="lit" d="'+d+'"/>';
+    if (tithi === 15) lit = '<circle class="lit" cx="12" cy="12" r="10"/>';
+    return '<svg class="moon" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" aria-hidden="true">'+
+      '<circle class="dark" cx="12" cy="12" r="10"/>'+lit+'</svg>';
+  }
+  function fillMoons(root){
+    (root||document).querySelectorAll("[data-moon]").forEach(function(el){
+      el.innerHTML = moonSVG(+el.getAttribute("data-moon"), +(el.getAttribute("data-size")||22));
+    });
+  }
+
+  var toastTimer;
+  function toast(msg){
+    var t=$("toast"); t.textContent=msg; t.hidden=false;
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.hidden=true;},2600);
+  }
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-toast]"); if(b) toast(b.getAttribute("data-toast"));
+  });
+
+  /* ---------- routing (bare #tokens) ---------- */
+  var VIEWS=["home","navratri","seva","mandir"];
+  function go(v, push){
+    if(VIEWS.indexOf(v)<0) v="home";
+    document.querySelectorAll(".view").forEach(function(s){ s.hidden = s.getAttribute("data-view")!==v; });
+    document.querySelectorAll("nav.tabs button").forEach(function(b){
+      if(b.getAttribute("data-go")===v) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+    });
+    if(push && location.hash!=="#"+v){ try{ history.replaceState(null,"","#"+v); }catch(_){} }
+    window.scrollTo(0,0);
+    drawMandalas();
+  }
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-go]"); if(!b) return;
+    e.preventDefault(); go(b.getAttribute("data-go"), true);
+  });
+  window.addEventListener("hashchange",function(){ go(location.hash.slice(1)); });
+
+  /* ---------- event rows ---------- */
+  var SRC = {posted:["src-posted","Posted by mandir"], collected:["src-collected","From their website"],
+             tip:["src-tip","Community tip"], promo:["src-promo","Promoter · ticketed"]};
+  function evRow(ev){
+    var m=M[ev.m], s=SRC[ev.src];
+    var tags = '<span class="src '+s[0]+'">'+s[1]+'</span>' +
+      (ev.free ? '<span class="tag tag-free">Free</span>' : '<span class="tag">'+esc(ev.price)+'</span>') +
+      (ev.seva ? '<span class="tag tag-seva">'+ev.seva+' seva shifts short</span>' : '');
+    var act = ev.book
+      ? '<button class="btn btn-primary" data-book>Book a free place</button>'
+      : (ev.seva ? '<button class="btn btn-quiet" data-go="seva">Help with seva</button>'
+                 : '<button class="btn btn-line" data-toast="Opens the organiser\'s own page">Details ↗</button>');
+    return '<div class="ev"><div class="time">'+ev.time+'</div>'+
+      '<div><h4>'+esc(ev.t)+'</h4><div class="meta"><span>'+esc(m.name)+'</span><span>'+esc(m.area)+' · '+m.mi+' mi</span></div>'+
+      '<div class="tags">'+tags+'</div></div>'+
+      '<div class="act">'+act+'</div></div>';
+  }
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-book]"); if(!b) return;
+    b.textContent="Place booked ✓"; b.disabled=true; b.className="btn btn-quiet";
+    toast("Booked. We'd email a calendar invite (prototype: nothing sent)");
+  });
+
+  var filter="all";
+  function drawBoard(){
+    var promo=$("promo").checked, html="";
+    DAYS.forEach(function(day){
+      var list=EVENTS.filter(function(ev){
+        if(ev.d!==day.d) return false;
+        if(ev.src==="promo" && !promo) return false;
+        if(filter==="all") return true;
+        if(filter==="free") return ev.free;
+        if(filter==="seva") return !!ev.seva;
+        return ev.cats.indexOf(filter)>=0;
+      }).sort(function(a,b){return a.time<b.time?-1:1;});
+      if(!list.length && filter!=="all") return;
+      var d=parse(day.d);
+      html+='<div class="day"><div class="rail'+(day.d===TODAY?' is-today':'')+'">'+
+        '<span class="dow">'+(day.d===TODAY?"Today":DOW[d.getDay()])+'</span>'+
+        '<span class="dnum">'+d.getDate()+'</span>'+moonSVG(day.t,22)+
+        '<span class="tithi">'+esc(day.n)+'</span></div>'+
+        '<div class="rows">'+(list.length?list.map(evRow).join(""):'<div class="empty">Nothing listed yet. Know of something? Tell us.</div>')+'</div></div>';
+    });
+    $("board").innerHTML = html || '<div class="empty">Nothing matches that filter in the next fortnight.</div>';
+  }
+  $("filters").addEventListener("click",function(e){
+    var c=e.target.closest(".chip"); if(!c) return;
+    this.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed", x===c?"true":"false");});
+    filter=c.getAttribute("data-f"); drawBoard();
+  });
+  $("promo").addEventListener("change",drawBoard);
+  $("finder").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=$("pc").value.trim().toUpperCase()||"HA3";
+    toast("Showing events within 5 miles of "+v+" (prototype data is for HA3)");
+    document.querySelector(".board").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+  });
+
+  /* ---------- stations ---------- */
+  $("stations").innerHTML = STATIONS.map(function(s){
+    return '<button class="station'+(s.feature?' feature':'')+'" '+(s.key==="navratri"?'data-go="navratri"':'data-toast="Festival page for '+esc(s.t)+' would open here"')+'>'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="when">'+s.when+'</span>'+moonSVG(s.t1,22)+'</div>'+
+      '<h3>'+esc(s.t)+'</h3><p>'+esc(s.p)+'</p>'+
+      (s.edge?'<div class="edge">'+esc(s.edge)+'</div>':'')+
+      '<div class="foot"><span>'+s.c+'</span><span aria-hidden="true">→</span></div></button>';
+  }).join("");
+
+  /* ---------- reckoning toggle ---------- */
+  document.querySelector(".reckon").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b) return;
+    this.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed", x===b?"true":"false");});
+    $("month-line").textContent = b.getAttribute("data-reckon")==="amanta"
+      ? "Bhadrapada · waning moon"
+      : "Ashvin · waning moon (month starts at full moon)";
+  });
+
+  /* ---------- digest ---------- */
+  $("digest-form").addEventListener("submit",function(e){ e.preventDefault(); $("digest-ok").hidden=false; });
+
+  /* ---------- navratri nights ---------- */
+  var ALL = EVENTS.concat(LATE);
+  var night=0;
+  function drawNights(){
+    $("nights").innerHTML = NIGHTS.map(function(n,i){
+      var c=ALL.filter(function(ev){return ev.d===n.d && ev.src!=="promo" && ev.cats.indexOf("navratri")>=0;}).length;
+      return '<button class="night'+(n.dussehra?' dussehra':'')+'" aria-pressed="'+(i===night)+'" data-night="'+i+'">'+
+        '<span class="n">'+(n.dussehra?"Dussehra":"Night "+(i+1))+'</span>'+
+        '<span class="date">'+fmt(n.d)+'</span><span class="form">'+n.f+'</span>'+
+        '<span class="count">'+c+' at mandirs</span></button>';
+    }).join("");
+    var n=NIGHTS[night];
+    $("night-label").textContent = n.dussehra ? "Dussehra" : "Night "+(night+1)+" · "+n.f;
+    $("night-title").textContent = fmt(n.d);
+    var list=ALL.filter(function(ev){return ev.d===n.d && ev.cats.indexOf("navratri")>=0;})
+      .sort(function(a,b){ return (a.src==="promo")-(b.src==="promo") || (a.time<b.time?-1:1); });
+    $("night-board").innerHTML = list.length ? list.map(evRow).join("") : '<div class="empty">Nothing listed yet for this night.</div>';
+  }
+  $("nights").addEventListener("click",function(e){
+    var b=e.target.closest("[data-night]"); if(!b) return; night=+b.getAttribute("data-night"); drawNights();
+  });
+
+  /* ---------- seva shifts ---------- */
+  function drawShifts(){
+    $("shift-board").innerHTML = SHIFTS.map(function(g,gi){
+      return '<div class="group-h"><h3>'+esc(M[g.m].name)+'</h3><span class="label">'+esc(g.ev)+'</span></div>'+
+        g.rows.map(function(s,si){
+          var short=s.have<s.need, pct=Math.round(s.have/s.need*100);
+          return '<div class="shift"><div><h4>'+esc(s.r)+'</h4><div class="meta">'+s.time+' · minimum age '+s.age+' · '+esc(M[g.m].area)+'</div></div>'+
+            '<div class="need"><span class="fill'+(short?' short':'')+'"><i style="width:'+pct+'%"></i></span>'+
+            '<span class="count'+(short?' short':'')+'">'+s.have+' of '+s.need+'</span>'+
+            (short ? '<button class="btn btn-primary" style="min-height:38px;padding:8px 14px;font-size:14px" data-shift="'+gi+'.'+si+'">Sign up</button>'
+                   : '<span class="tag">Filled</span>')+'</div></div>';
+        }).join("");
+    }).join("");
+  }
+  var pending=null;
+  $("shift-board").addEventListener("click",function(e){
+    var b=e.target.closest("[data-shift]"); if(!b) return;
+    var p=b.getAttribute("data-shift").split("."), g=SHIFTS[+p[0]], s=g.rows[+p[1]];
+    pending={g:g,s:s};
+    $("sheet-mandir").textContent=M[g.m].name;
+    $("sheet-title").textContent=s.r;
+    $("sheet-when").textContent=g.ev.split(" · ")[1]+", "+s.time+". The coordinator confirms your hours afterwards.";
+    $("sheet-age").textContent="This mandir asks for volunteers aged "+s.age+" or over for this role.";
+    $("sheet").hidden=false; $("vname").focus();
+  });
+  function closeSheet(){ $("sheet").hidden=true; pending=null; }
+  $("sheet-cancel").addEventListener("click",closeSheet);
+  $("sheet").addEventListener("click",function(e){ if(e.target===this) closeSheet(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !$("sheet").hidden) closeSheet(); });
+  $("sheet-form").addEventListener("submit",function(e){
+    e.preventDefault(); if(!pending) return;
+    pending.s.have++;
+    var line=document.createElement("div"); line.className="record-line";
+    line.innerHTML='<div>'+esc(pending.s.r)+'<div class="s">'+esc(M[pending.g.m].name)+' · '+esc(pending.g.ev.split(" · ")[1])+' · awaiting confirmation</div></div><span class="h pending">'+
+      hoursOf(pending.s.time)+'h</span>';
+    $("record").insertBefore(line,$("record").firstChild);
+    closeSheet(); drawShifts();
+    toast("You're down for it. We'd text a reminder the day before");
+  });
+  function hoursOf(span){
+    var p=span.split("–"), a=p[0].split(":"), b=p[1].split(":");
+    var m=(+b[0]*60+ +b[1])-(+a[0]*60+ +a[1]); if(m<=0) m+=1440;
+    return (m/60).toString().replace(/\.0$/,"");
+  }
+
+  /* ---------- coordinator rota ---------- */
+  function drawRota(){
+    var head='<tr><th scope="col">Role</th>'+NIGHTS.slice(0,9).map(function(n,i){
+      var d=parse(n.d); return '<th scope="col">N'+(i+1)+'<br>'+DOW[d.getDay()]+' '+d.getDate()+'</th>';}).join("")+'</tr>';
+    var shortN=0;
+    var body=ROTA_ROLES.map(function(r){
+      return '<tr><td>'+esc(r.r)+'<span class="s">'+r.s+' · need '+r.need+'</span></td>'+r.have.map(function(h){
+        var cls = h>=r.need ? "c-full" : (h*2>r.need ? "c-mid" : "c-short");
+        shortN += Math.max(0, r.need-h);
+        return '<td><span class="cell '+cls+'">'+h+'/'+r.need+'</span></td>';
+      }).join("")+'</tr>';
+    }).join("");
+    $("rota").innerHTML='<thead>'+head+'</thead><tbody>'+body+'</tbody>';
+    $("rota-sum").textContent = shortN+" volunteer slots still open across 9 nights";
+  }
+  $("copy-last").addEventListener("click",function(){ toast("Last year's 5 roles and times copied in. Check the dates before sharing"); });
+  $("share-link").addEventListener("click",function(){
+    var link="utsav.example/r/hari-navratri";
+    var done=function(){ toast("Link copied: "+link); };
+    try{ navigator.clipboard.writeText(link).then(done, function(){ toast("Copy this link: "+link); }); }
+    catch(_){ toast("Copy this link: "+link); }
+  });
+
+  /* ---------- confirm hours ---------- */
+  function drawConfirm(){
+    $("confirm").innerHTML = CONFIRM.map(function(c,i){
+      return '<div class="lrow"><div>'+esc(c.n)+'<div class="s">'+esc(c.r)+' · Janmashtami, Fri 4 Sep · '+c.h+' hours booked</div></div>'+
+        (c.ok ? '<span class="tag tag-free">Confirmed</span>'
+              : '<button class="btn btn-quiet" data-confirm="'+i+'">Confirm '+c.h+'h</button>')+'</div>';
+    }).join("");
+  }
+  $("confirm").addEventListener("click",function(e){
+    var b=e.target.closest("[data-confirm]"); if(!b) return;
+    CONFIRM[+b.getAttribute("data-confirm")].ok=true; drawConfirm();
+    toast("Confirmed. It now appears on their seva record");
+  });
+
+  /* ---------- rangoli mandala (canvas) ---------- */
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var spin = 0, raf = null;
+  function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function drawMandala(cv, rot){
+    var ctx=cv.getContext("2d"), W=cv.width, c=W/2;
+    var gold=cssVar("--marigold"), teal=cssVar("--peacock"), red=cssVar("--kumkum");
+    ctx.clearRect(0,0,W,W);
+    ctx.save(); ctx.translate(c,c); ctx.rotate(rot);
+    var rings=[
+      {n:8,  r:W*0.12, len:W*0.09, w:W*0.035, col:gold},
+      {n:16, r:W*0.24, len:W*0.07, w:W*0.022, col:teal},
+      {n:24, r:W*0.34, len:W*0.06, w:W*0.016, col:gold},
+      {n:32, r:W*0.43, len:W*0.04, w:W*0.010, col:red}
+    ];
+    rings.forEach(function(ring,ri){
+      for(var i=0;i<ring.n;i++){
+        ctx.save(); ctx.rotate(i*2*Math.PI/ring.n + (ri%2? Math.PI/ring.n:0));
+        ctx.beginPath();                                   // petal
+        ctx.moveTo(0,ring.r-ring.len/2);
+        ctx.quadraticCurveTo(ring.w, ring.r, 0, ring.r+ring.len/2);
+        ctx.quadraticCurveTo(-ring.w, ring.r, 0, ring.r-ring.len/2);
+        ctx.fillStyle=ring.col; ctx.globalAlpha=.9; ctx.fill();
+        ctx.beginPath(); ctx.arc(0, ring.r+ring.len/2+W*0.012, W*0.005, 0, 2*Math.PI);   // kolam dot
+        ctx.globalAlpha=.8; ctx.fill();
+        ctx.restore();
+      }
+      ctx.beginPath(); ctx.arc(0,0,ring.r+ring.len/2+W*0.03,0,2*Math.PI);
+      ctx.strokeStyle=ring.col; ctx.globalAlpha=.25; ctx.lineWidth=1.5; ctx.setLineDash([2,10]); ctx.stroke(); ctx.setLineDash([]);
+    });
+    ctx.globalAlpha=1; ctx.beginPath(); ctx.arc(0,0,W*0.04,0,2*Math.PI); ctx.fillStyle=gold; ctx.fill();
+    ctx.restore();
+  }
+  function drawMandalas(){
+    document.querySelectorAll(".view:not([hidden]) canvas.mandala").forEach(function(cv){ drawMandala(cv, spin); });
+  }
+  function loop(){ spin += 0.0008; drawMandalas(); raf=requestAnimationFrame(loop); }
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change",drawMandalas);
+  new MutationObserver(drawMandalas).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+  /* ---------- go ---------- */
+  fillMoons();
+  drawBoard(); drawNights(); drawShifts(); drawRota(); drawConfirm();
+  go(location.hash.slice(1)||"home");
+  if(!reduce) loop();
+})();
+</script>
