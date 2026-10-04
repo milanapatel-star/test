@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utsav — Hindu events, calendar and seva near you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#150C33;
+  --ink-2:#231553;
+  --ink-3:#33206E;
+  --marigold:#F2A33C;
+  --marigold-lo:#FFB753;
+  --magenta:#D93A76;
+  --leaf:#2F7D63;
+  --mirror:#E8E2F0;
+  --paper:#FBF6EC;
+  --paper-2:#F1E7D6;
+  --white:#fff;
+  --rule:rgba(21,12,51,.13);
+  --rule-lt:rgba(232,226,240,.16);
+
+  --display:"Fraunces",Georgia,serif;
+  --body:"Karla","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --wonk:'SOFT' 40,'WONK' 1;
+
+  --pad:30px;
+  --maxw:1160px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--display);
+  font-variation-settings:var(--wonk);
+  font-weight:600;
+  line-height:1.06;
+  letter-spacing:-.015em;
+  margin:0;
+}
+p{margin:0}
+a{color:inherit}
+img{max-width:100%}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.narrow{max-width:820px}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--magenta);
+}
+.eyebrow-lt{color:var(--marigold)}
+
+/* ============ buttons ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--body);font-weight:700;font-size:17px;
+  padding:15px 26px;border-radius:3px;
+  border:2px solid transparent;
+  text-decoration:none;cursor:pointer;
+  transition:background .16s ease,border-color .16s ease,transform .12s ease;
+  min-height:52px;
+}
+.btn:active{transform:translateY(1px)}
+.btn-fill{background:var(--marigold);color:var(--ink);border-color:var(--marigold)}
+.btn-fill:hover{background:var(--marigold-lo);border-color:var(--marigold-lo)}
+.btn-dark{background:var(--ink);color:var(--mirror);border-color:var(--ink)}
+.btn-dark:hover{background:var(--ink-3);border-color:var(--ink-3)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--mirror)}
+.btn-line{border-color:rgba(232,226,240,.45);color:var(--mirror)}
+.btn-line:hover{border-color:var(--mirror);background:rgba(232,226,240,.08)}
+.btn .arw{font-family:var(--mono);font-size:15px}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:3px;border-radius:2px}
+
+/* ============ demo bar ============ */
+.demobar{
+  background:var(--magenta);color:#fff;text-align:center;
+  font-family:var(--mono);font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;padding:9px 16px;
+}
+
+/* ============ nav ============ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(21,12,51,.92);
+  backdrop-filter:saturate(150%) blur(14px);
+  -webkit-backdrop-filter:saturate(150%) blur(14px);
+  color:var(--mirror);
+  border-bottom:1px solid var(--rule-lt);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px;height:72px}
+.brand{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:27px;font-weight:700;letter-spacing:-.02em;
+  text-decoration:none;flex:none;
+}
+.brand i{color:var(--marigold);font-style:normal}
+.navlinks{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{
+  text-decoration:none;font-size:16px;font-weight:500;
+  padding:9px 14px;border-radius:3px;opacity:.82;
+  transition:opacity .15s ease,background .15s ease;
+}
+.navlinks a:hover{opacity:1;background:rgba(232,226,240,.09)}
+.navlinks a.on{opacity:1;background:rgba(242,163,60,.16);color:var(--marigold)}
+.navlinks a.navcta{
+  border:2px solid rgba(232,226,240,.4);opacity:1;font-weight:700;
+}
+.navlinks a.navcta:hover{border-color:var(--mirror)}
+
+/* ============ views ============ */
+.view{display:none}
+.view.live{display:block}
+
+/* ============ reveal ============ */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.22,.7,.3,1),transform .75s cubic-bezier(.22,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+}
+
+/* ============ hero ============ */
+.hero{
+  background:var(--ink);color:var(--mirror);
+  position:relative;overflow:hidden;
+  padding:110px 0 120px;
+}
+.hero-rings{
+  position:absolute;top:50%;left:50%;
+  width:1180px;height:1180px;margin:-590px 0 0 -590px;
+  opacity:.5;pointer-events:none;
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero-rings{animation:turn 150s linear infinite}
+}
+@keyframes turn{to{transform:rotate(360deg)}}
+.hero-in{position:relative;z-index:2;text-align:center}
+.hero h1{
+  font-size:clamp(46px,7vw,86px);color:#fff;
+  margin:22px auto 26px;max-width:15ch;
+}
+.hero h1 em{font-style:italic;color:var(--marigold)}
+.hero-sub{
+  font-size:clamp(19px,2.1vw,23px);line-height:1.5;
+  color:rgba(232,226,240,.8);max-width:52ch;margin:0 auto;
+}
+
+/* postcode finder */
+.finder{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin:40px auto 0;max-width:560px;
+}
+.finder input{
+  flex:1 1 260px;min-width:0;
+  font-family:var(--body);font-size:18px;
+  padding:15px 18px;border-radius:3px;
+  border:2px solid rgba(232,226,240,.28);
+  background:rgba(232,226,240,.07);color:#fff;
+  min-height:52px;
+}
+.finder input::placeholder{color:rgba(232,226,240,.5)}
+.finder input:focus{border-color:var(--marigold);background:rgba(232,226,240,.12)}
+.hero-foot{
+  margin-top:26px;font-family:var(--mono);font-size:13px;
+  color:rgba(232,226,240,.52);
+}
+
+/* ============ generic sections ============ */
+.sec{padding:110px 0}
+.sec-sm{padding:74px 0}
+.band-paper2{background:var(--paper-2)}
+.band-ink{background:var(--ink);color:var(--mirror)}
+.band-ink h2,.band-ink h3{color:#fff}
+.band-white{background:var(--white)}
+
+.lead h2{font-size:clamp(34px,4.6vw,56px);margin:16px 0 20px;max-width:18ch}
+.lead p{font-size:20px;opacity:.76;max-width:56ch}
+.band-ink .lead p{color:rgba(232,226,240,.76);opacity:1}
+.mid{text-align:center}
+.mid h2,.mid p{margin-left:auto;margin-right:auto}
+
+/* ============ feature blocks ============ */
+.fblock{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.fblock.flip .ftext{order:2}
+.fnum{
+  font-family:var(--mono);font-size:13px;letter-spacing:.2em;
+  color:var(--magenta);display:block;margin-bottom:14px;
+}
+.band-ink .fnum{color:var(--marigold)}
+.ftext h2{font-size:clamp(32px,4vw,48px);margin-bottom:18px}
+.ftext .kicker{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:21px;font-style:italic;color:var(--magenta);margin-bottom:18px;
+}
+.band-ink .ftext .kicker{color:var(--marigold)}
+.ftext p{font-size:18.5px;opacity:.78}
+.band-ink .ftext p{color:rgba(232,226,240,.8);opacity:1}
+.flist{list-style:none;margin:24px 0 0;padding:0}
+.flist li{
+  padding:13px 0 13px 30px;border-top:1px solid var(--rule);
+  font-size:16.5px;position:relative;
+}
+.band-ink .flist li{border-color:var(--rule-lt)}
+.flist li::before{
+  content:"";position:absolute;left:2px;top:22px;
+  width:9px;height:9px;border-radius:50%;background:var(--marigold);
+}
+.ftext .btn{margin-top:30px}
+
+/* preview cards (fake UI) */
+.prev{
+  background:var(--white);border:1px solid var(--rule);border-radius:6px;
+  box-shadow:0 20px 50px rgba(21,12,51,.13);overflow:hidden;
+}
+.band-ink .prev{box-shadow:0 24px 60px rgba(0,0,0,.4);border-color:transparent}
+.prev-bar{
+  background:var(--ink);color:var(--mirror);padding:13px 18px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  display:flex;justify-content:space-between;gap:12px;
+}
+.prev-body{padding:8px 0}
+
+.row{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:16px 20px;border-bottom:1px solid var(--rule);
+}
+.row:last-child{border-bottom:0}
+.dchip{
+  background:var(--ink);color:var(--mirror);border-radius:3px;flex:none;
+  padding:9px 11px;text-align:center;font-family:var(--mono);line-height:1.15;
+}
+.dchip b{display:block;font-size:19px;font-weight:500}
+.dchip span{font-size:10px;letter-spacing:.13em;opacity:.72}
+.row h4{font-size:17.5px;margin-bottom:4px}
+.row p{font-size:14.5px;opacity:.68}
+.rmeta{font-family:var(--mono);font-size:12px;opacity:.58;margin-top:7px}
+.tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:4px 8px;border-radius:2px;white-space:nowrap;
+}
+.tag-a{background:rgba(47,125,99,.15);color:var(--leaf)}
+.tag-b{background:rgba(242,163,60,.2);color:#8A5A10}
+.tag-c{background:rgba(21,12,51,.09);color:rgba(21,12,51,.6)}
+.tag-open{background:rgba(217,58,118,.13);color:var(--magenta)}
+.tag-done{background:rgba(47,125,99,.15);color:var(--leaf)}
+.tag-full{background:rgba(21,12,51,.09);color:rgba(21,12,51,.55)}
+.free{color:var(--leaf);font-weight:600}
+
+/* panchang mini */
+.pmini{padding:26px 24px}
+.pmini .today{
+  font-family:var(--mono);font-size:12px;letter-spacing:.15em;
+  text-transform:uppercase;opacity:.55;margin-bottom:8px;
+}
+.pmini .tithi{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:33px;line-height:1.1;margin-bottom:6px;
+}
+.pmini .sub{font-size:15.5px;opacity:.7}
+.pgrid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:4px;
+  margin-top:22px;overflow:hidden;
+}
+.pcell{background:var(--white);padding:13px 15px}
+.pcell .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;opacity:.5}
+.pcell .v{font-size:16.5px;font-weight:600;margin-top:3px}
+
+/* ============ trust / stats ============ */
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+.tri .cell{background:var(--paper);padding:34px 28px}
+.band-white .tri .cell{background:var(--white)}
+.tri h3{font-size:21px;margin-bottom:10px}
+.tri p{font-size:16px;opacity:.72}
+
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.step{
+  background:rgba(232,226,240,.07);border:1px solid var(--rule-lt);
+  border-radius:5px;padding:24px 22px;position:relative;
+}
+.step .n{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  color:var(--marigold);display:block;margin-bottom:12px;
+}
+.step h4{font-size:19px;color:#fff;margin-bottom:8px}
+.step p{font-size:15px;color:rgba(232,226,240,.7)}
+
+/* ============ page headers (inner pages) ============ */
+.phead{background:var(--ink);color:var(--mirror);padding:74px 0 62px}
+.phead h1{font-size:clamp(38px,5.2vw,62px);color:#fff;margin:16px 0 18px;max-width:20ch}
+.phead p{font-size:19px;color:rgba(232,226,240,.76);max-width:56ch}
+.crumb{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(232,226,240,.5);text-decoration:none;display:inline-block;margin-bottom:6px;
+}
+.crumb:hover{color:var(--marigold)}
+
+/* ============ controls ============ */
+.controls{
+  background:var(--white);border:1px solid var(--rule);border-radius:5px;
+  padding:22px;margin-bottom:34px;
+}
+.ctrl-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ctrl-row input,.ctrl-row select{
+  font-family:var(--body);font-size:17px;padding:13px 15px;
+  border:2px solid var(--rule);border-radius:3px;background:var(--white);
+  color:var(--ink);min-height:50px;
+}
+.ctrl-row input{flex:1 1 220px;min-width:0}
+.ctrl-row select{flex:0 1 210px}
+.ctrl-row input:focus,.ctrl-row select:focus{border-color:var(--ink)}
+.lbl{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;
+  text-transform:uppercase;opacity:.55;display:block;margin-bottom:16px;
+}
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.chip{
+  font-family:var(--body);font-size:15px;font-weight:600;
+  padding:9px 16px;border-radius:40px;cursor:pointer;
+  border:2px solid var(--rule);background:transparent;color:var(--ink);
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+  min-height:44px;
+}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--mirror)}
+
+/* ============ event list (events page) ============ */
+.elist{background:var(--white);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+.eitem{display:flex;gap:20px;padding:22px 24px;border-bottom:1px solid var(--rule);align-items:flex-start;flex-wrap:wrap}
+.eitem:last-child{border-bottom:0}
+.eitem .grow{flex:1 1 300px;min-width:0}
+.eitem h3{font-size:21px;margin-bottom:6px}
+.eitem p{font-size:16px;opacity:.72}
+.eitem .acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.eitem .btn{font-size:15.5px;padding:11px 18px;min-height:46px}
+.tierline{
+  font-family:var(--mono);font-size:11.5px;opacity:.5;margin-top:12px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.empty{
+  background:var(--white);border:2px dashed var(--rule);border-radius:5px;
+  padding:56px 30px;text-align:center;
+}
+.empty h3{font-size:24px;margin-bottom:12px}
+.empty p{opacity:.7;max-width:42ch;margin:0 auto 22px}
+
+/* ============ calendar page ============ */
+.calgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:start}
+.bigp{
+  background:var(--ink);color:var(--mirror);border-radius:6px;
+  padding:40px 36px;position:relative;overflow:hidden;
+}
+.bigp .today{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(232,226,240,.55);
+}
+.bigp .tithi{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:clamp(38px,4.6vw,54px);color:#fff;line-height:1.05;margin:12px 0 10px;
+}
+.bigp .paksha{font-size:18px;color:var(--marigold)}
+.pgrid2{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--rule-lt);border-radius:5px;overflow:hidden;margin-top:30px;
+}
+.pcell2{background:var(--ink-2);padding:16px 18px}
+.pcell2 .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,226,240,.55)}
+.pcell2 .v{font-size:18px;font-weight:600;color:#fff;margin-top:4px}
+.suntime{
+  display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;
+  font-family:var(--mono);font-size:13.5px;color:rgba(232,226,240,.65);
+}
+
+.obs{background:var(--white);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+.obs-h{
+  padding:18px 22px;border-bottom:1px solid var(--rule);
+  font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;opacity:.6;
+}
+.oitem{display:flex;gap:16px;padding:17px 22px;border-bottom:1px solid var(--rule);align-items:center}
+.oitem:last-child{border-bottom:0}
+.oitem .when{
+  font-family:var(--mono);font-size:12px;text-align:center;flex:none;width:62px;
+  color:var(--magenta);
+}
+.oitem .when b{display:block;font-size:17px;font-weight:500;color:var(--ink)}
+.oitem h4{font-size:17.5px;margin-bottom:3px}
+.oitem p{font-size:14.5px;opacity:.66}
+.oitem .grow{flex:1}
+.fast{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  background:rgba(217,58,118,.12);color:var(--magenta);padding:4px 8px;border-radius:2px;flex:none;
+}
+
+.tradnote{
+  background:var(--paper-2);border-left:4px solid var(--marigold);
+  padding:22px 24px;border-radius:0 4px 4px 0;margin-top:30px;
+}
+.tradnote h4{font-size:18px;margin-bottom:8px}
+.tradnote p{font-size:15.5px;opacity:.75}
+
+/* ============ seva page ============ */
+.sevagrid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+.opp{background:var(--white);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-bottom:18px}
+.opp-h{
+  padding:20px 24px;border-bottom:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap;
+}
+.opp-h h3{font-size:21px;margin-bottom:5px}
+.opp-h .where{font-family:var(--mono);font-size:12.5px;opacity:.6}
+.slot{
+  display:flex;gap:16px;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:1px solid var(--rule);flex-wrap:wrap;
+}
+.slot:last-child{border-bottom:0}
+.slot .info{flex:1 1 240px;min-width:0}
+.slot .role{font-size:17px;font-weight:600}
+.slot .time{font-family:var(--mono);font-size:12.5px;opacity:.6;display:block;margin-top:3px}
+.slot .btn{font-size:15px;padding:10px 18px;min-height:44px}
+
+.record{
+  background:var(--ink);color:var(--mirror);border-radius:6px;overflow:hidden;
+  position:sticky;top:96px;
+}
+.record-h{padding:24px;border-bottom:1px solid var(--rule-lt)}
+.record-h .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,240,.55)}
+.record-h .hrs{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:52px;color:#fff;line-height:1;margin-top:10px;
+}
+.record-h .hrs small{font-family:var(--mono);font-size:13px;opacity:.6;font-weight:400}
+.rline{padding:15px 24px;border-bottom:1px solid var(--rule-lt);display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
+.rline .rl{font-size:15.5px;color:#fff}
+.rline .rs{font-family:var(--mono);font-size:11.5px;color:rgba(232,226,240,.55);display:block;margin-top:3px}
+.rline .rh{font-family:var(--mono);font-size:14px;color:var(--marigold);flex:none}
+.record-f{padding:22px 24px}
+.record-f .btn{width:100%;justify-content:center}
+.record-f .note{font-family:var(--mono);font-size:11.5px;color:rgba(232,226,240,.5);margin-top:14px;line-height:1.6}
+
+.pledge{
+  border-left:4px solid var(--magenta);padding:6px 0 6px 24px;margin:0 0 40px;
+}
+.pledge p{
+  font-family:var(--display);font-variation-settings:var(--wonk);
+  font-size:24px;line-height:1.35;
+}
+.pledge cite{
+  display:block;font-family:var(--mono);font-size:12.5px;
+  font-style:normal;opacity:.6;margin-top:12px;
+}
+
+/* ============ mandir page ============ */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tier{background:var(--white);border:1px solid var(--rule);border-radius:5px;padding:30px 26px}
+.tier.hero-tier{border:2px solid var(--ink)}
+.tier .tl{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--magenta);display:block;margin-bottom:14px;
+}
+.tier h3{font-size:22px;margin-bottom:10px}
+.tier p{font-size:16px;opacity:.74}
+.tier ul{list-style:none;margin:20px 0 0;padding:0}
+.tier li{padding:10px 0;border-top:1px solid var(--rule);font-size:15.5px;opacity:.8}
+
+/* ============ footer ============ */
+footer{background:var(--ink);color:rgba(232,226,240,.6);padding:60px 0 40px;border-top:1px solid var(--rule-lt)}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;margin-bottom:44px}
+.fgrid h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,240,.45);font-weight:400;margin-bottom:16px}
+.fgrid a{display:block;text-decoration:none;font-size:16px;padding:6px 0;color:rgba(232,226,240,.78)}
+.fgrid a:hover{color:var(--marigold)}
+.fbrand p{font-size:15.5px;margin-top:14px;max-width:34ch;line-height:1.65}
+.fbot{
+  border-top:1px solid var(--rule-lt);padding-top:26px;
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:12px;
+}
+
+/* ============ responsive ============ */
+@media(max-width:1000px){
+  .fblock,.calgrid,.sevagrid{grid-template-columns:1fr;gap:44px}
+  .fblock.flip .ftext{order:0}
+  .tri,.tiers{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .record{position:static}
+}
+@media(max-width:680px){
+  :root{--pad:20px}
+  body{font-size:17px}
+  .sec{padding:70px 0}
+  .sec-sm{padding:52px 0}
+  .hero{padding:70px 0 82px}
+  .nav-in{height:auto;padding:14px 0;flex-direction:column;align-items:stretch;gap:12px}
+  .navlinks{justify-content:flex-start}
+  .navlinks a{padding:9px 11px;font-size:15px}
+  .flow,.fgrid{grid-template-columns:1fr}
+  .pgrid,.pgrid2{grid-template-columns:1fr}
+  .phead{padding:52px 0 44px}
+}
+</style>
+</head>
+<body>
+
+<div class="demobar">Concept mock — all mandirs, events and data shown are invented</div>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#/" data-go="/">Utsav<i>.</i></a>
+    <div class="navlinks">
+      <a href="#/events" data-go="/events">Events</a>
+      <a href="#/calendar" data-go="/calendar">Calendar</a>
+      <a href="#/seva" data-go="/seva">Seva</a>
+      <a href="#/mandirs" data-go="/mandirs">For mandirs</a>
+      <a href="#/events" data-go="/events" class="navcta">Find events near me</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================== HOME ==================== -->
+<section class="view" id="v-home">
+
+  <header class="hero">
+    <svg class="hero-rings" viewBox="0 0 1180 1180" aria-hidden="true">
+      <g fill="none" stroke="rgba(232,226,240,.13)" stroke-width="1.5">
+        <circle cx="590" cy="590" r="180" stroke-dasharray="3 13"/>
+        <circle cx="590" cy="590" r="260" stroke-dasharray="3 15"/>
+        <circle cx="590" cy="590" r="340" stroke-dasharray="3 17"/>
+        <circle cx="590" cy="590" r="420" stroke-dasharray="3 19"/>
+        <circle cx="590" cy="590" r="500" stroke-dasharray="3 21"/>
+        <circle cx="590" cy="590" r="580" stroke-dasharray="3 23"/>
+      </g>
+      <circle cx="590" cy="590" r="100" fill="none" stroke="rgba(242,163,60,.3)" stroke-width="2" stroke-dasharray="2 11"/>
+    </svg>
+    <div class="wrap hero-in">
+      <div class="eyebrow eyebrow-lt">Free · No app to download</div>
+      <h1>Find what's on at your <em>mandir</em> this week.</h1>
+      <p class="hero-sub">Events, festival dates and volunteering from mandirs across the UK, gathered into one place. Nothing to install, nothing to pay.</p>
+      <div class="finder">
+        <label for="pc" class="sr-only" style="position:absolute;left:-9999px">Your postcode</label>
+        <input id="pc" type="text" placeholder="Enter your postcode" autocomplete="postal-code">
+        <button class="btn btn-fill" data-go="/events">Show me what's near <span class="arw">→</span></button>
+      </div>
+      <p class="hero-foot">Or browse the <a href="#/calendar" data-go="/calendar" style="color:var(--marigold)">festival calendar</a> · <a href="#/seva" data-go="/seva" style="color:var(--marigold)">seva opportunities</a></p>
+    </div>
+  </header>
+
+  <!-- feature 01 -->
+  <section class="sec">
+    <div class="wrap fblock">
+      <div class="ftext rv">
+        <span class="fnum">01 — EVENTS</span>
+        <h2>Everything in one place, at last.</h2>
+        <p class="kicker">Collected, not solicited.</p>
+        <p>Mandirs are busy places run by volunteers. So rather than waiting for anyone to type their events into our system, we gather what's already published on their own websites and pages, and put it on one page you can actually search.</p>
+        <ul class="flist">
+          <li>Search by postcode, festival, or type of event</li>
+          <li>Bhajans, kathas, garba nights, classes and community days</li>
+          <li>Book the free ones in seconds — no account needed</li>
+          <li>Print a weekly sheet for the noticeboard</li>
+        </ul>
+        <a class="btn btn-dark" href="#/events" data-go="/events">Open the events page <span class="arw">→</span></a>
+      </div>
+      <div class="rv">
+        <div class="prev">
+          <div class="prev-bar"><span>Near HA1 · This week</span><span>14 events</span></div>
+          <div class="prev-body">
+            <div class="row">
+              <div class="dchip"><b>14</b><span>AUG</span></div>
+              <div style="flex:1">
+                <h4>Sunday bhajan sandhya</h4>
+                <p>Weekly kirtan followed by prasad in the hall.</p>
+                <div class="rmeta">Harrow · 18:00 · <span class="free">Free</span></div>
+              </div>
+              <span class="tag tag-a">Claimed</span>
+            </div>
+            <div class="row">
+              <div class="dchip"><b>16</b><span>AUG</span></div>
+              <div style="flex:1">
+                <h4>Shravan Somvar abhishek</h4>
+                <p>Rudrabhishek from 7am, all welcome to participate.</p>
+                <div class="rmeta">Wembley · 07:00 · <span class="free">Free</span></div>
+              </div>
+              <span class="tag tag-b">Collected</span>
+            </div>
+            <div class="row">
+              <div class="dchip"><b>19</b><span>AUG</span></div>
+              <div style="flex:1">
+                <h4>Seniors' chai &amp; carrom afternoon</h4>
+                <p>Tea, games and company. Transport can be arranged.</p>
+                <div class="rmeta">Hounslow · 14:00 · <span class="free">Free</span></div>
+              </div>
+              <span class="tag tag-c">Submitted</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- feature 02 -->
+  <section class="sec band-ink">
+    <div class="wrap fblock flip">
+      <div class="ftext rv">
+        <span class="fnum">02 — CALENDAR</span>
+        <h2>A panchang that's right for where you live.</h2>
+        <p class="kicker">The daily reason to open it.</p>
+        <p>Most calendars you'll find online are computed for sunrise in India. Ours is computed for sunrise where you are, and for the tradition you follow — because Ekadashi genuinely does fall on different days depending on who you ask.</p>
+        <ul class="flist">
+          <li>Today's tithi, paksha, masa and nakshatra</li>
+          <li>Fasting days with enough notice to prepare</li>
+          <li>Amanta and Purnimanta reckoning, both handled</li>
+          <li>Smarta and Vaishnava Ekadashi shown separately</li>
+        </ul>
+        <a class="btn btn-fill" href="#/calendar" data-go="/calendar">See today's panchang <span class="arw">→</span></a>
+      </div>
+      <div class="rv">
+        <div class="prev">
+          <div class="prev-bar"><span>Today · London</span><span>Gujarati · Amanta</span></div>
+          <div class="pmini">
+            <div class="today">Monday 10 August 2026</div>
+            <div class="tithi">Tritiya</div>
+            <div class="sub">Krishna Paksha · Shravana masa</div>
+            <div class="pgrid">
+              <div class="pcell"><div class="k">Nakshatra</div><div class="v">Uttara Bhadrapada</div></div>
+              <div class="pcell"><div class="k">Vara</div><div class="v">Somvar</div></div>
+              <div class="pcell"><div class="k">Sunrise</div><div class="v">05:47</div></div>
+              <div class="pcell"><div class="k">Sunset</div><div class="v">20:26</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- feature 03 -->
+  <section class="sec">
+    <div class="wrap fblock">
+      <div class="ftext rv">
+        <span class="fnum">03 — SEVA</span>
+        <h2>Offer your time, and have it recognised.</h2>
+        <p class="kicker">Recorded, not rewarded.</p>
+        <p>Seva is given without expecting anything back, and we've built it that way — there are no points here, and nothing to redeem. What we do give you is a record: your hours, confirmed by a named person at the mandir, in a form an assessor or an employer will accept.</p>
+        <ul class="flist">
+          <li>See which shifts are short before the day itself</li>
+          <li>Book a slot in one tap and get a reminder</li>
+          <li>Hours confirmed by the mandir, not self-reported</li>
+          <li>Download a verified record for DofE or UCAS</li>
+        </ul>
+        <a class="btn btn-dark" href="#/seva" data-go="/seva">Open the seva portal <span class="arw">→</span></a>
+      </div>
+      <div class="rv">
+        <div class="prev">
+          <div class="prev-bar"><span>Janmashtami · Kitchen &amp; door</span><span>18 of 22 filled</span></div>
+          <div class="prev-body">
+            <div class="row"><div style="flex:1"><h4>Prasad counter</h4><div class="rmeta">Sat 5 Sep · 17:30–21:00</div></div><span class="tag tag-full">Full</span></div>
+            <div class="row"><div style="flex:1"><h4>Door welcome &amp; scanning</h4><div class="rmeta">Sat 5 Sep · 18:00–22:00</div></div><span class="tag tag-full">Full</span></div>
+            <div class="row"><div style="flex:1"><h4>Kitchen wash-up</h4><div class="rmeta">Sat 5 Sep · 21:00–23:00</div></div><span class="tag tag-open">2 needed</span></div>
+            <div class="row"><div style="flex:1"><h4>Hall reset</h4><div class="rmeta">Sat 5 Sep · 22:30–23:30</div></div><span class="tag tag-open">2 needed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- built for everyone -->
+  <section class="sec band-paper2">
+    <div class="wrap">
+      <div class="lead mid narrow rv">
+        <div class="eyebrow">Built for everyone</div>
+        <h2>Easy enough for your dadi. Fast enough for you.</h2>
+        <p>Most community apps are built for people who already find apps easy. This one isn't.</p>
+      </div>
+      <div class="tri rv" style="margin-top:52px">
+        <div class="cell">
+          <h3>No app to download</h3>
+          <p>It works in whatever browser is already on the phone or tablet. Nothing to install, no store account, no updates to worry about.</p>
+        </div>
+        <div class="cell">
+          <h3>Large type, plain words</h3>
+          <p>Readable without glasses at arm's length, and written without jargon. Every page prints cleanly for the noticeboard.</p>
+        </div>
+        <div class="cell">
+          <h3>Browse without signing in</h3>
+          <p>You only need an account to book a seva shift. Looking at what's on, and booking a free event, needs nothing at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it grows -->
+  <section class="sec band-ink">
+    <div class="wrap">
+      <div class="lead narrow rv">
+        <div class="eyebrow eyebrow-lt">How this gets built</div>
+        <h2>We start by being useful to nobody in particular.</h2>
+        <p>Each stage asks slightly more of the mandirs than the last — and every stage delivers something before anything is asked for.</p>
+      </div>
+      <div class="flow">
+        <div class="step rv"><span class="n">STAGE 01</span><h4>Calendar</h4><p>Needs nobody's permission. Free, standalone, and correct.</p></div>
+        <div class="step rv"><span class="n">STAGE 02</span><h4>Events, collected</h4><p>Gathered from what mandirs already publish. Still no permission needed.</p></div>
+        <div class="step rv"><span class="n">STAGE 03</span><h4>Claim your mandir</h4><p>A mandir corrects its own listing. The first real relationship.</p></div>
+        <div class="step rv"><span class="n">STAGE 04</span><h4>Seva</h4><p>Needs a verified mandir account. Only possible once stage three works.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- trust -->
+  <section class="sec band-white">
+    <div class="wrap fblock">
+      <div class="ftext rv">
+        <span class="fnum">OUR PROMISE</span>
+        <h2>We will never sell your data.</h2>
+        <p>Where you worship and when you attend is among the most sensitive information there is about a person — it's treated as a special category under UK data protection law, and we treat it that way too.</p>
+        <p style="margin-top:16px">We hold as little as we can, we never ask you your religion, and there is no arrangement under which any of it is sold, licensed or shared with advertisers or brokers. There isn't a price. This is the whole business, not a policy page.</p>
+        <a class="btn btn-ghost" href="#/mandirs" data-go="/mandirs">How mandirs work with us <span class="arw">→</span></a>
+      </div>
+      <div class="rv">
+        <div class="tri" style="grid-template-columns:1fr">
+          <div class="cell"><h3>No advertising trackers</h3><p>No third-party pixels, no ad networks, no cross-site tracking of any kind.</p></div>
+          <div class="cell"><h3>Browse anonymously</h3><p>You can use the calendar and the whole events listing without ever creating an account.</p></div>
+          <div class="cell"><h3>Mandirs keep control</h3><p>Any mandir can correct or remove its listing at any time, with one request and no argument.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- final CTA -->
+  <section class="sec band-ink">
+    <div class="wrap mid narrow rv">
+      <h2 style="font-size:clamp(34px,4.8vw,54px);max-width:18ch;margin:0 auto 20px">Have a look at what's on this week.</h2>
+      <p style="color:rgba(232,226,240,.75);max-width:46ch;margin:0 auto 34px;font-size:19px">Start with your postcode. If we've missed something at your mandir, tell us and we'll add it.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-fill" href="#/events" data-go="/events">Find events near me <span class="arw">→</span></a>
+        <a class="btn btn-line" href="#/seva" data-go="/seva">Browse seva</a>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+<!-- ==================== EVENTS ==================== -->
+<section class="view" id="v-events">
+  <header class="phead">
+    <div class="wrap">
+      <a class="crumb" href="#/" data-go="/">← Back to home</a>
+      <h1>What's on near you</h1>
+      <p>Events at mandirs and Hindu organisations across the UK, gathered into one list. Free to browse, no account needed.</p>
+    </div>
+  </header>
+
+  <section class="sec-sm">
+    <div class="wrap">
+      <div class="controls">
+        <span class="lbl">Find events</span>
+        <div class="ctrl-row">
+          <input id="ev-pc" type="text" placeholder="Postcode or town — try Harrow" aria-label="Postcode or town">
+          <select id="ev-dist" aria-label="Distance">
+            <option>Within 5 miles</option>
+            <option selected>Within 10 miles</option>
+            <option>Within 25 miles</option>
+            <option>Anywhere in the UK</option>
+          </select>
+          <button class="btn btn-dark" id="ev-search">Search</button>
+        </div>
+        <div class="chips" id="ev-chips">
+          <button class="chip on" data-f="all">All events</button>
+          <button class="chip" data-f="bhajan">Bhajan &amp; kirtan</button>
+          <button class="chip" data-f="festival">Festival</button>
+          <button class="chip" data-f="katha">Katha &amp; discourse</button>
+          <button class="chip" data-f="class">Classes</button>
+          <button class="chip" data-f="community">Community</button>
+          <button class="chip" data-f="free">Free only</button>
+        </div>
+      </div>
+
+      <div id="ev-count" class="lbl" style="margin-bottom:14px">Showing 8 events near Harrow</div>
+      <div class="elist" id="ev-list"></div>
+
+      <div style="margin-top:34px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a class="btn btn-ghost" href="#/mandirs" data-go="/mandirs">Missing your mandir? Add it <span class="arw">→</span></a>
+        <span style="font-family:var(--mono);font-size:13px;opacity:.55">Or print this week's list for the noticeboard</span>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ==================== CALENDAR ==================== -->
+<section class="view" id="v-calendar">
+  <header class="phead">
+    <div class="wrap">
+      <a class="crumb" href="#/" data-go="/">← Back to home</a>
+      <h1>Panchang &amp; festival calendar</h1>
+      <p>Computed for UK sunrise, not Indian sunrise — and for the tradition you follow. Choose yours below and the dates change accordingly.</p>
+    </div>
+  </header>
+
+  <section class="sec-sm">
+    <div class="wrap">
+      <div class="controls">
+        <span class="lbl">Your settings</span>
+        <div class="ctrl-row">
+          <select id="cal-trad" aria-label="Tradition">
+            <option value="guj" selected>Gujarati — Amanta reckoning</option>
+            <option value="north">North Indian — Purnimanta reckoning</option>
+            <option value="tamil">Tamil — solar calendar</option>
+            <option value="bengali">Bengali — solar calendar</option>
+          </select>
+          <select id="cal-sampra" aria-label="Observance">
+            <option value="smarta" selected>Smarta observance</option>
+            <option value="vaishnava">Vaishnava observance</option>
+          </select>
+          <select id="cal-city" aria-label="Location">
+            <option selected>London</option>
+            <option>Leicester</option>
+            <option>Birmingham</option>
+            <option>Manchester</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calgrid">
+        <div>
+          <div class="bigp">
+            <div class="today">Monday 10 August 2026 · <span id="cal-city-lbl">London</span></div>
+            <div class="tithi" id="cal-tithi">Tritiya</div>
+            <div class="paksha" id="cal-paksha">Krishna Paksha · Shravana masa</div>
+            <div class="pgrid2">
+              <div class="pcell2"><div class="k">Nakshatra</div><div class="v">Uttara Bhadrapada</div></div>
+              <div class="pcell2"><div class="k">Yoga</div><div class="v">Shubha</div></div>
+              <div class="pcell2"><div class="k">Karana</div><div class="v">Vishti</div></div>
+              <div class="pcell2"><div class="k">Vara</div><div class="v">Somvar</div></div>
+            </div>
+            <div class="suntime">
+              <span>Sunrise 05:47</span>
+              <span>Sunset 20:26</span>
+              <span id="cal-moon">Moonrise 23:04</span>
+            </div>
+          </div>
+
+          <div class="tradnote">
+            <h4 id="tn-title">Why your setting matters</h4>
+            <p id="tn-body">You've chosen Amanta reckoning, where the month ends at the new moon. Under Purnimanta reckoning — common across North India — the same day sits in the following month, so the month name changes even though the tithi does not.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="obs">
+            <div class="obs-h">Coming up</div>
+            <div id="obs-list"></div>
+          </div>
+
+          <div style="margin-top:24px">
+            <a class="btn btn-dark" href="#/events" data-go="/events" style="width:100%;justify-content:center">See events for these festivals <span class="arw">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-sm band-paper2">
+    <div class="wrap">
+      <div class="lead narrow rv">
+        <div class="eyebrow">How it's calculated</div>
+        <h2>Astronomy, then tradition, then a panditji.</h2>
+        <p>Tithi is derived from the angular difference between the sun and the moon, reckoned at sunrise for your location. That part is arithmetic. Which observance falls on which tithi is not arithmetic — it's tradition, and it varies. So every calendar we publish is checked against a real one before it goes out.</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ==================== SEVA ==================== -->
+<section class="view" id="v-seva">
+  <header class="phead">
+    <div class="wrap">
+      <a class="crumb" href="#/" data-go="/">← Back to home</a>
+      <h1>Seva portal</h1>
+      <p>Volunteering opportunities at mandirs near you. Book a shift, turn up, and have your hours confirmed by the mandir afterwards.</p>
+    </div>
+  </header>
+
+  <section class="sec-sm">
+    <div class="wrap">
+      <blockquote class="pledge rv">
+        <p>Seva is offered without expectation of return. So there are no points here, nothing to redeem, and no leaderboard. We record what you gave — nothing more.</p>
+        <cite>What we do give you is evidence, in a form an assessor will accept.</cite>
+      </blockquote>
+
+      <div class="sevagrid">
+        <div>
+          <span class="lbl">Open opportunities near Harrow</span>
+          <div id="seva-list"></div>
+
+          <div class="empty" style="margin-top:8px;padding:34px 26px">
+            <h3 style="font-size:20px">Want your mandir listed here?</h3>
+            <p style="margin-bottom:18px">Any mandir can post seva opportunities free of charge. It takes about two minutes.</p>
+            <a class="btn btn-ghost" href="#/mandirs" data-go="/mandirs">For mandirs <span class="arw">→</span></a>
+          </div>
+        </div>
+
+        <aside>
+          <div class="record">
+            <div class="record-h">
+              <div class="k">Your seva record</div>
+              <div class="hrs"><span id="hr-total">14</span><small> hours confirmed</small></div>
+            </div>
+            <div id="rec-list">
+              <div class="rline">
+                <div><div class="rl">Prasad counter</div><span class="rs">Shree Mandir, Harrow · 12 Jul</span></div>
+                <div class="rh">4h</div>
+              </div>
+              <div class="rline">
+                <div><div class="rl">Kitchen preparation</div><span class="rs">Shree Mandir, Harrow · 28 Jun</span></div>
+                <div class="rh">6h</div>
+              </div>
+              <div class="rline">
+                <div><div class="rl">Car park marshal</div><span class="rs">Wembley Mandir · 14 Jun</span></div>
+                <div class="rh">4h</div>
+              </div>
+            </div>
+            <div class="record-f">
+              <a class="btn btn-fill" href="#/seva" data-go="/seva">Download my record</a>
+              <p class="note">Each entry is confirmed by a named committee member and carries the mandir's charity number. Accepted as evidence for DofE and university applications.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-sm band-ink">
+    <div class="wrap">
+      <div class="lead narrow rv">
+        <div class="eyebrow eyebrow-lt">Keeping people safe</div>
+        <h2>The mandir stays responsible.</h2>
+        <p>We list opportunities and record hours. Supervision, insurance and any checks required for roles involving children or vulnerable adults remain with the mandir, and every listing states the minimum age set by them. Volunteers under 16 aren't accepted through the portal at this stage.</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ==================== FOR MANDIRS ==================== -->
+<section class="view" id="v-mandirs">
+  <header class="phead">
+    <div class="wrap">
+      <a class="crumb" href="#/" data-go="/">← Back to home</a>
+      <h1>For mandirs</h1>
+      <p>Your events are probably already listed. Claim your mandir to correct them, add what we've missed, and post seva opportunities. It's free, and it stays free.</p>
+    </div>
+  </header>
+
+  <section class="sec-sm">
+    <div class="wrap">
+      <span class="lbl">How a listing gets here</span>
+      <div class="tiers">
+        <div class="tier">
+          <span class="tl">Tier C</span>
+          <h3>Submitted</h3>
+          <p>Somebody in the community told us about it, and we checked it before publishing.</p>
+          <ul>
+            <li>Reviewed by hand</li>
+            <li>Links out to you</li>
+            <li>Marked as unverified</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <span class="tl">Tier B</span>
+          <h3>Collected</h3>
+          <p>Read from your own website or public page. We store the facts — date, time, place — and send people to you for the rest.</p>
+          <ul>
+            <li>Updated when your page changes</li>
+            <li>No poster images copied</li>
+            <li>Removed on request, no questions</li>
+          </ul>
+        </div>
+        <div class="tier hero-tier">
+          <span class="tl">Tier A · Recommended</span>
+          <h3>Claimed by you</h3>
+          <p>You verify the mandir, then post directly. Takes about two minutes an event, and unlocks bookings and the seva roster.</p>
+          <ul>
+            <li>Bookings with an attendee list</li>
+            <li>Post seva opportunities</li>
+            <li>Confirm volunteer hours</li>
+            <li>Correct anything we got wrong</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-fill" href="#/mandirs" data-go="/mandirs">Claim your mandir <span class="arw">→</span></a>
+        <a class="btn btn-ghost" href="#/events" data-go="/events">See how you're currently listed</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-sm band-paper2">
+    <div class="wrap fblock">
+      <div class="ftext rv">
+        <span class="fnum">WHAT IT COSTS</span>
+        <h2>Nothing, and here's why.</h2>
+        <p>Listings, bookings for free events and the seva roster cost nothing, and we're not planning to charge for them. Ticketing platforms already compete down to pennies a ticket and we're not going to win that fight, so we're not fighting it — if you sell tickets, keep using whatever you use and we'll link to it.</p>
+        <p style="margin-top:16px">We'd rather be the thing every mandir uses than the thing forty mandirs pay for.</p>
+      </div>
+      <div class="rv">
+        <div class="tri" style="grid-template-columns:1fr">
+          <div class="cell"><h3>No contract, no lock-in</h3><p>Export your data whenever you want. Ask us to remove your listing and it's gone the same day.</p></div>
+          <div class="cell"><h3>No committee training needed</h3><p>If someone can use WhatsApp, they can post an event. There's nothing to learn.</p></div>
+          <div class="cell"><h3>We don't sell anything about your members</h3><p>Not to advertisers, not to brokers, not to anyone. Ever.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="brand" href="#/" data-go="/" style="color:var(--mirror)">Utsav<i>.</i></a>
+        <p>Events, festival dates and seva from mandirs across the UK. Free to use, free to list, and never funded by selling what we know about you.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#/events" data-go="/events">Events near you</a>
+        <a href="#/calendar" data-go="/calendar">Panchang</a>
+        <a href="#/seva" data-go="/seva">Seva portal</a>
+      </div>
+      <div>
+        <h4>Mandirs</h4>
+        <a href="#/mandirs" data-go="/mandirs">Claim your mandir</a>
+        <a href="#/mandirs" data-go="/mandirs">How listings work</a>
+        <a href="#/mandirs" data-go="/mandirs">Remove a listing</a>
+      </div>
+      <div>
+        <h4>About</h4>
+        <a href="#/" data-go="/">Our data promise</a>
+        <a href="#/" data-go="/">Accessibility</a>
+        <a href="#/" data-go="/">Contact</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>Utsav — concept mock</span>
+      <span>All mandirs, events and people shown are invented</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- data ---------- */
+  var EVENTS = [
+    {d:"14",m:"AUG",t:"Sunday bhajan sandhya",desc:"Weekly kirtan followed by prasad in the community hall. All welcome, no need to book.",place:"Shree Mandir, Harrow",time:"18:00",price:"Free",tier:"a",cat:"bhajan",book:true},
+    {d:"16",m:"AUG",t:"Shravan Somvar rudrabhishek",desc:"Abhishek from 7am with mantra recitation. Bring milk or flowers if you wish to participate.",place:"Wembley Mandir",time:"07:00",price:"Free",tier:"b",cat:"festival",book:false},
+    {d:"17",m:"AUG",t:"Children's Gujarati class",desc:"Weekly beginner and intermediate classes for ages 6 to 14. Term runs to December.",place:"Hindu Centre, Southall",time:"17:30",price:"£4 per session",tier:"a",cat:"class",book:true},
+    {d:"19",m:"AUG",t:"Seniors' chai & carrom afternoon",desc:"Tea, games and company every other Wednesday. Transport can be arranged — ring the office.",place:"Hounslow Mandir",time:"14:00",price:"Free",tier:"c",cat:"community",book:false},
+    {d:"22",m:"AUG",t:"Bhagavad Gita study circle",desc:"Chapter-by-chapter reading and discussion in English. Newcomers genuinely welcome.",place:"Hindu Centre, Southall",time:"19:00",price:"Free",tier:"a",cat:"katha",book:true},
+    {d:"24",m:"AUG",t:"Annadaan — kitchen seva day",desc:"Cooking and serving for the monthly community meal. Volunteers needed from 10am.",place:"Shree Mandir, Harrow",time:"10:00",price:"Free",tier:"a",cat:"community",book:true},
+    {d:"29",m:"AUG",t:"Raksha Bandhan celebration",desc:"Morning aarti, rakhi tying and lunch. Families encouraged to come early.",place:"Wembley Mandir",time:"10:30",price:"Free",tier:"b",cat:"festival",book:false},
+    {d:"05",m:"SEP",t:"Krishna Janmashtami — night celebration",desc:"Bhajans from 7pm, jhulan darshan, midnight aarti and prasad. The busiest night of the year here.",place:"Shree Mandir, Harrow",time:"19:00",price:"Free",tier:"a",cat:"festival",book:true}
+  ];
+
+  var OBS = [
+    {n:"12",mo:"AUG",t:"Aja Ekadashi",s:"Fasting observed from sunrise",fast:true},
+    {n:"14",mo:"AUG",t:"Pradosh Vrat",s:"Evening Shiva worship",fast:true},
+    {n:"16",mo:"AUG",t:"Shravan Amavasya",s:"New moon · Pitru tarpan",fast:false},
+    {n:"29",mo:"AUG",t:"Raksha Bandhan",s:"Shravan Purnima",fast:false},
+    {n:"05",mo:"SEP",t:"Krishna Janmashtami",s:"Fasting until midnight",fast:true},
+    {n:"14",mo:"SEP",t:"Ganesh Chaturthi",s:"Ten days of celebration begin",fast:false}
+  ];
+
+  var SEVA = [
+    {mandir:"Shree Mandir, Harrow", ev:"Krishna Janmashtami · 5 September",
+     slots:[
+       {role:"Prasad counter", time:"17:30 – 21:00", need:0, hrs:3.5},
+       {role:"Door welcome & scanning", time:"18:00 – 22:00", need:0, hrs:4},
+       {role:"Kitchen wash-up", time:"21:00 – 23:00", need:2, hrs:2},
+       {role:"Hall reset", time:"22:30 – 23:30", need:2, hrs:1}
+     ]},
+    {mandir:"Wembley Mandir", ev:"Monthly annadaan · 24 August",
+     slots:[
+       {role:"Cooking team", time:"10:00 – 13:00", need:3, hrs:3},
+       {role:"Serving & clearing", time:"12:30 – 15:00", need:4, hrs:2.5}
+     ]},
+    {mandir:"Hounslow Mandir", ev:"Seniors' afternoon · every other Wednesday",
+     slots:[
+       {role:"Tea, chat and carrom", time:"13:45 – 16:30", need:2, hrs:2.75},
+       {role:"Driver — collections", time:"13:00 – 17:00", need:1, hrs:4}
+     ]}
+  ];
+
+  /* ---------- routing ---------- */
+  var VIEWS = {"/":"v-home","/events":"v-events","/calendar":"v-calendar","/seva":"v-seva","/mandirs":"v-mandirs"};
+
+  function route(){
+    var h = (location.hash || "#/").replace(/^#/,"");
+    if(!VIEWS[h]) h = "/";
+    Object.keys(VIEWS).forEach(function(k){
+      document.getElementById(VIEWS[k]).classList.toggle("live", k === h);
+    });
+    document.querySelectorAll(".navlinks a").forEach(function(a){
+      var g = a.getAttribute("data-go");
+      a.classList.toggle("on", g === h && !a.classList.contains("navcta"));
+    });
+    window.scrollTo(0,0);
+    resetReveals();
+    document.title = ({
+      "/":"Utsav — Hindu events, calendar and seva near you",
+      "/events":"Events near you — Utsav",
+      "/calendar":"Panchang & festival calendar — Utsav",
+      "/seva":"Seva portal — Utsav",
+      "/mandirs":"For mandirs — Utsav"
+    })[h];
+  }
+
+  document.addEventListener("click", function(e){
+    var el = e.target.closest("[data-go]");
+    if(!el) return;
+    e.preventDefault();
+    var to = el.getAttribute("data-go");
+    if(("#"+to) === location.hash){ route(); }
+    else { location.hash = "#" + to; }
+  });
+  window.addEventListener("hashchange", route);
+
+  /* ---------- reveal on scroll ---------- */
+  var io = null;
+  if("IntersectionObserver" in window){
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:.08});
+  }
+  function resetReveals(){
+    var live = document.querySelector(".view.live");
+    if(!live) return;
+    live.querySelectorAll(".rv").forEach(function(el, i){
+      if(!io){ el.classList.add("in"); return; }
+      el.classList.remove("in");
+      el.style.transitionDelay = Math.min(i % 4, 3) * 70 + "ms";
+      io.observe(el);
+    });
+    // anything already in view on load
+    setTimeout(function(){
+      live.querySelectorAll(".rv").forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.top < window.innerHeight * 0.94) el.classList.add("in");
+      });
+    }, 60);
+  }
+
+  /* ---------- events page ---------- */
+  var filter = "all";
+  function drawEvents(){
+    var list = EVENTS.filter(function(ev){
+      if(filter === "all") return true;
+      if(filter === "free") return ev.price === "Free";
+      return ev.cat === filter;
+    });
+    var tierName = {a:"Posted by the mandir", b:"Collected from their website", c:"Community submitted"};
+    var tierCls = {a:"tag-a", b:"tag-b", c:"tag-c"};
+    var tierLbl = {a:"Claimed", b:"Collected", c:"Submitted"};
+
+    document.getElementById("ev-count").textContent =
+      "Showing " + list.length + " event" + (list.length===1?"":"s") + " near Harrow";
+
+    var html = list.map(function(ev){
+      return '<div class="eitem">' +
+        '<div class="dchip"><b>'+ev.d+'</b><span>'+ev.m+'</span></div>' +
+        '<div class="grow">' +
+          '<h3>'+ev.t+'</h3>' +
+          '<p>'+ev.desc+'</p>' +
+          '<div class="rmeta">'+ev.place+' · '+ev.time+' · ' +
+            (ev.price === "Free" ? '<span class="free">Free</span>' : ev.price) + '</div>' +
+          '<div class="acts">' +
+            (ev.book
+              ? '<button class="btn btn-dark ev-book">Book a place</button>'
+              : '<button class="btn btn-ghost">Go to mandir site <span class="arw">→</span></button>') +
+            '<span class="tag '+tierCls[ev.tier]+'">'+tierLbl[ev.tier]+'</span>' +
+          '</div>' +
+          '<div class="tierline">'+tierName[ev.tier]+'</div>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+
+    document.getElementById("ev-list").innerHTML = html ||
+      '<div class="eitem"><div class="grow"><h3>Nothing matches that yet</h3>' +
+      '<p>Try a different filter, or widen the distance.</p></div></div>';
+  }
+
+  document.getElementById("ev-chips").addEventListener("click", function(e){
+    var b = e.target.closest(".chip");
+    if(!b) return;
+    this.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("on"); });
+    b.classList.add("on");
+    filter = b.getAttribute("data-f");
+    drawEvents();
+  });
+
+  document.getElementById("ev-list").addEventListener("click", function(e){
+    var b = e.target.closest(".ev-book");
+    if(!b) return;
+    b.textContent = "Place booked ✓";
+    b.classList.remove("btn-dark");
+    b.classList.add("btn-fill");
+    b.disabled = true;
+  });
+
+  document.getElementById("ev-search").addEventListener("click", function(){
+    var v = document.getElementById("ev-pc").value.trim();
+    document.getElementById("ev-count").textContent =
+      "Showing " + EVENTS.length + " events near " + (v || "Harrow");
+  });
+
+  /* ---------- calendar page ---------- */
+  function drawObs(){
+    document.getElementById("obs-list").innerHTML = OBS.map(function(o){
+      return '<div class="oitem">' +
+        '<div class="when"><b>'+o.n+'</b>'+o.mo+'</div>' +
+        '<div class="grow"><h4>'+o.t+'</h4><p>'+o.s+'</p></div>' +
+        (o.fast ? '<span class="fast">Fast</span>' : '') +
+      '</div>';
+    }).join("");
+  }
+
+  var TRAD = {
+    guj:{tithi:"Tritiya", paksha:"Krishna Paksha · Shravana masa",
+      title:"Why your setting matters",
+      body:"You've chosen Amanta reckoning, where the month ends at the new moon. Under Purnimanta reckoning — common across North India — the same day sits in Bhadrapada instead, so the month name changes even though the tithi does not."},
+    north:{tithi:"Tritiya", paksha:"Krishna Paksha · Bhadrapada masa",
+      title:"Purnimanta reckoning applied",
+      body:"The month now ends at the full moon, so today falls in Bhadrapada rather than Shravana. The tithi is unchanged — only the month name moves. This is the single most common source of confusion between family members from different regions."},
+    tamil:{tithi:"Tritiya", paksha:"Krishna Paksha · Aadi month",
+      title:"Solar reckoning applied",
+      body:"The Tamil calendar tracks the sun's movement through the zodiac rather than lunar months, so month boundaries fall on different days entirely. Tithi is still lunar and unchanged."},
+    bengali:{tithi:"Tritiya", paksha:"Krishna Paksha · Shraban month",
+      title:"Solar reckoning applied",
+      body:"The Bengali calendar is solar, with months beginning at the sun's transit into each sign. Festival dating diverges noticeably from the Gujarati calendar around Durga Puja."}
+  };
+
+  function applyTrad(){
+    var t = TRAD[document.getElementById("cal-trad").value];
+    document.getElementById("cal-tithi").textContent = t.tithi;
+    document.getElementById("cal-paksha").textContent = t.paksha;
+    document.getElementById("tn-title").textContent = t.title;
+    document.getElementById("tn-body").textContent = t.body;
+  }
+  function applySampra(){
+    var v = document.getElementById("cal-sampra").value;
+    OBS[0].n = (v === "vaishnava") ? "13" : "12";
+    OBS[0].s = (v === "vaishnava")
+      ? "Observed a day later under Vaishnava practice"
+      : "Fasting observed from sunrise";
+    drawObs();
+  }
+  document.getElementById("cal-trad").addEventListener("change", applyTrad);
+  document.getElementById("cal-sampra").addEventListener("change", applySampra);
+  document.getElementById("cal-city").addEventListener("change", function(){
+    document.getElementById("cal-city-lbl").textContent = this.value;
+  });
+
+  /* ---------- seva page ---------- */
+  var confirmedHours = 14;
+
+  function drawSeva(){
+    document.getElementById("seva-list").innerHTML = SEVA.map(function(o, oi){
+      return '<div class="opp">' +
+        '<div class="opp-h"><div><h3>'+o.mandir+'</h3>' +
+        '<div class="where">'+o.ev+'</div></div></div>' +
+        o.slots.map(function(s, si){
+          var full = s.need === 0;
+          return '<div class="slot">' +
+            '<div class="info"><div class="role">'+s.role+'</div>' +
+            '<span class="time">'+s.time+' · '+s.hrs+' hours</span></div>' +
+            (full
+              ? '<span class="tag tag-full">Filled</span>'
+              : '<div style="display:flex;gap:10px;align-items:center">' +
+                  '<span class="tag tag-open">'+s.need+' needed</span>' +
+                  '<button class="btn btn-dark sv-book" data-o="'+oi+'" data-s="'+si+'">Book this shift</button>' +
+                '</div>') +
+          '</div>';
+        }).join("") +
+      '</div>';
+    }).join("");
+  }
+
+  document.getElementById("seva-list").addEventListener("click", function(e){
+    var b = e.target.closest(".sv-book");
+    if(!b) return;
+    var o = SEVA[+b.getAttribute("data-o")];
+    var s = o.slots[+b.getAttribute("data-s")];
+    s.need = Math.max(0, s.need - 1);
+
+    var rec = document.getElementById("rec-list");
+    var row = document.createElement("div");
+    row.className = "rline";
+    row.innerHTML = '<div><div class="rl">'+s.role+'</div>' +
+      '<span class="rs">'+o.mandir+' · awaiting confirmation</span></div>' +
+      '<div class="rh" style="color:rgba(232,226,240,.45)">'+s.hrs+'h</div>';
+    rec.insertBefore(row, rec.firstChild);
+
+    drawSeva();
+  });
+
+  /* ---------- nav shadow ---------- */
+  var nav = document.querySelector(".nav");
+  window.addEventListener("scroll", function(){
+    nav.style.boxShadow = window.scrollY > 12 ? "0 10px 30px rgba(21,12,51,.28)" : "none";
+  }, {passive:true});
+
+  /* ---------- go ---------- */
+  drawEvents();
+  drawObs();
+  drawSeva();
+  route();
+})();
+</script>
+
+</body>
+</html>
