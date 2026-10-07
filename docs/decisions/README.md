@@ -21,3 +21,5 @@ that replaces it and mark the old one Superseded.
 | 0004 | [Events are sourced claims, not plain facts](0004-events-as-claims.md) | Proposed |
 | 0005 | [Mandirs send us events; no social media scraping](0005-no-social-scraping.md) | Proposed |
 | 0006 | [Collect the least personal data possible](0006-data-minimisation.md) | Proposed |
+| 0007 | [Set up as a limited company](0007-limited-company.md) | Accepted |
+| 0008 | [Personal WhatsApp number for the pilot, company number before automating](0008-whatsapp-number.md) | Accepted |

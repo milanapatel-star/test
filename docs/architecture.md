@@ -200,7 +200,7 @@ Proposed (decision 0003), to be confirmed by both of us:
 | Hosting | Vercel, UK/EU region | Free to start, automatic preview copy for every change |
 | Background jobs | Scheduled functions (crawler, digest, reminders) | No servers to manage |
 | Email | Postmark or Resend | Reliable delivery for the digest and login links |
-| WhatsApp | WhatsApp Business Platform via a provider | Needed for the forward route and reminders; paid per conversation |
+| WhatsApp | Personal number by hand in the pilot; WhatsApp Business Platform on a company number from v1 | Forward route and reminders; the platform is paid per message (decision 0008) |
 | AI extraction | Claude API | Reads posters and messages into event fields |
 | Errors and uptime | Sentry, plus an uptime check | Know before users tell us |
 | Visitor stats | Plausible | No cookies, no personal tracking |
@@ -258,9 +258,8 @@ rules → design polish.
 
 - Which pilot areas first: Harrow/Brent and Leicester, as planned, or
   wherever email replies are strongest?
-- WhatsApp number: a dedicated business number from day one, or start with
-  email-forwarding only to keep costs at zero?
-- Company structure (limited company or CIC) and a written agreement on who
-  owns the code, before any code is written.
 - Who on each committee should be the admin, based on the email replies?
 - Name check: trademark and domain for the final name before launch.
+
+Settled: a limited company (decision 0007), and the personal WhatsApp number
+for the pilot with a company number before automating (decision 0008).
