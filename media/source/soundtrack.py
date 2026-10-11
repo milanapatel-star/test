@@ -15,6 +15,14 @@ R = np.zeros(N)
 rng = np.random.default_rng(7)
 
 SA = 146.83  # D3
+BEAT = 0.6  # 100 BPM; everything rhythmic sits on this grid
+GRID0 = 0.1  # grid offset so the groove downbeat lands at 13.9 s
+
+
+def q16(t):
+    """Snap a time to the nearest sixteenth note on the grid."""
+    step = BEAT / 4
+    return GRID0 + round((t - GRID0) / step) * step
 BHUPALI = [1, 9 / 8, 5 / 4, 3 / 2, 5 / 3]  # Sa Re Ga Pa Dha
 
 
@@ -72,7 +80,7 @@ def bell(f, sec=4.0, wobble=True):
     t = tvec(sec)
     out = np.zeros_like(t)
     for ratio, amp, dec in [(1, 1, 2.6), (2.0, 0.6, 1.8), (2.76, 0.5, 1.3), (5.4, 0.3, 0.7), (8.9, 0.15, 0.4)]:
-        wob = 1 + 0.002 * np.sin(2 * np.pi * 4.5 * t) if wobble else 1
+        wob = 1  # steady pitch (vibrato removed: it made the bells warble)
         out += amp * np.sin(2 * np.pi * f * ratio * wob * t) * np.exp(-t / dec)
     return out * np.minimum(t / 0.002, 1) * 0.16
 
@@ -124,16 +132,18 @@ def tabla(stroke):
 
 # ---- drone across the whole piece (Pa Sa' Sa' Sa cycle) -------------------
 cycle = [3 / 2, 2, 2, 1]
-t = 0.0
 k = 0
+t = GRID0
+BAR_K = round((13.9 - GRID0) / BEAT)  # beat index of a groove downbeat
 while t < DUR - 0.5:
     vol = 1.0
     if 3.4 < t < 13.0:
         vol = 0.9  # darker, quieter under the problem scenes
-    calm = 0.04 if t < 3.0 else 0.25  # steady drone under the opening
-    add(tanpura_pluck(SA * cycle[k % 4], shimmer=calm), t, vol, pan=-0.3 + 0.2 * (k % 4))
-    t += 0.65
+    calm = 0.04  # steady drone: its only pulse is the pluck on each beat
+    c = (k - BAR_K) % 4  # Pa falls on the first beat of every bar
+    add(tanpura_pluck(SA * cycle[c], shimmer=calm), t, vol, pan=-0.3 + 0.2 * c)
     k += 1
+    t = GRID0 + k * BEAT
 
 # ---- 1. opening: bell + one santoor note per garland drop -----------------
 add(bell(note(10), wobble=False), 0.05, 0.8)
@@ -168,7 +178,6 @@ for i in range(6):
     add(santoor(note(10 + i * 2 % 5)), 13.75 + 0.07 * i, 0.3, pan=-0.5 + 0.2 * i)
 
 # ---- 4 + 5. the groove: keherwa-style tabla + Bhupali santoor --------------
-BEAT = 0.6
 start = 13.9
 pattern = ["dha", "ge", "na", "ti", "na", "ti", "dhi", "na"]
 melody = [5, None, 6, None, 7, 8, 9, None, 8, None, 7, None, 6, 7, 5, None]
@@ -182,24 +191,24 @@ while start + b * BEAT / 2 < 23.5:
         add(santoor(note(m)), tb, 0.38, pan=-0.2)
     b += 1
 for i in range(4):  # event cards slide in
-    add(pop(1568, 0.08), 14.55 + 0.22 * i, 0.35, 0.4)
-add(noise_sweep(0.5, 800, 3000, 0.06), 19.0)  # screen swap
+    add(pop(1568, 0.08), q16(14.55 + 0.22 * i), 0.35, 0.4)
+add(noise_sweep(0.5, 800, 3000, 0.06), q16(19.0))  # screen swap
 
 # tap, then success chimes as each slot row fills
-add(pop(1760, 0.06), 20.52, 0.8)
-add(tabla("ti"), 20.52, 0.5)
+add(pop(1760, 0.06), q16(20.52), 0.8)
+add(tabla("ti"), q16(20.52), 0.5)
 for i in range(4):
-    add(santoor(note(10 + i), 1.2, 1.3), 21.8 + 0.18 * i, 0.55, pan=-0.3 + 0.2 * i)
-add(santoor(note(15), 2.0, 1.3), 22.6, 0.5)
+    add(santoor(note(10 + i), 1.2, 1.3), q16(21.8 + 0.18 * i), 0.55, pan=-0.3 + 0.2 * i)
+add(santoor(note(15), 2.0, 1.3), q16(22.6), 0.5)
 
 # ---- 6. end card: whoosh, bell, final chord, fade -----------------------------
 add(noise_sweep(0.8, 5000, 400, 0.10), 23.2)
 for i in range(11):
     add(santoor(note(5 + i)), 24.2 + 0.06 * i, 0.4, pan=-0.6 + 0.12 * i)
-add(bell(note(5)), 24.4, 1.0)
+add(bell(note(5)), q16(24.4), 1.0)
 for d in (0, 2, 3, 5):  # Sa Ga Pa Sa' chord
-    add(santoor(note(d), 3.5), 25.1, 0.45)
-add(bell(note(10)), 25.6, 0.5)
+    add(santoor(note(d), 3.5), q16(25.05), 0.45)
+add(bell(note(10)), q16(25.6), 0.5)
 
 # ---- master: gentle fade-out, soft limit, normalise ---------------------------
 tt = np.arange(N) / SR
@@ -207,6 +216,6 @@ fade = np.clip((DUR - tt) / 1.8, 0, 1)
 fade_in = np.clip(tt / 0.05, 0, 1)
 stereo = np.stack([L, R], axis=1) * (fade * fade_in)[:, None]
 stereo = np.tanh(stereo * 1.4) / np.tanh(1.4)
-stereo *= 0.9976171252290732  # fixed master gain (keeps scenes after the opening unchanged)
+stereo *= 0.89 / np.max(np.abs(stereo))
 wavfile.write("soundtrack.wav", SR, (stereo * 32767).astype(np.int16))
 print("peak", np.max(np.abs(stereo)), "rms", np.sqrt(np.mean(stereo**2)))
