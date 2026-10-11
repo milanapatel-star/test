@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="fonts/local.css">
+<style>
+:root{
+  --cream:#FAF8F4; --ink:#1B1A2C; --muted:#5D5A6E; --line:rgba(27,26,44,.12);
+  --peacock:#0B6B68; --teal:#3CC6BF; --marigold:#F0A00A; --mink:#8A5A00;
+  --kumkum:#C21E3A; --leaf:#3F7D3A; --navy:#15142B; --mist:#C9C6DA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--cream)}
+body{font-family:'Figtree',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+#bg{position:absolute;inset:0}
+.layer{position:absolute;inset:0;opacity:0}
+.a{position:absolute;will-change:transform,opacity}
+.h{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-0.035em;line-height:1.02}
+.center{left:0;width:1080px;text-align:center}
+
+/* scene 2 cards */
+.card{width:600px;padding:30px 34px;border-radius:30px;background:#232241;border:2px solid rgba(255,255,255,.08);
+  color:#fff;display:flex;gap:26px;align-items:center;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.card .ic{flex:0 0 84px;height:84px;border-radius:24px;display:grid;place-items:center}
+.card .lbl{font-size:26px;font-weight:600;color:var(--mist);letter-spacing:.01em}
+.card .txt{font-size:36px;font-weight:700;margin-top:6px;line-height:1.15}
+
+/* rota card */
+.rota{background:#fff;border-radius:40px;padding:48px 50px;color:var(--ink);box-shadow:0 40px 80px rgba(0,0,0,.35)}
+.rrow{display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:28px;margin-top:56px}
+.rname{font-size:44px;font-weight:700}
+.track{height:32px;border-radius:16px;background:#EEEAF3;overflow:hidden}
+.fill{height:100%;border-radius:16px;width:0}
+.cnt{font-size:42px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+
+/* phone */
+#phone{left:200px;top:540px;width:680px;height:1300px;border-radius:84px;background:var(--ink);padding:18px;
+  box-shadow:0 50px 100px rgba(27,26,44,.28)}
+#screen{position:relative;width:100%;height:100%;border-radius:68px;background:var(--cream);overflow:hidden}
+.notch{position:absolute;top:22px;left:50%;width:170px;height:44px;margin-left:-85px;border-radius:22px;background:var(--ink)}
+.scr{position:absolute;inset:0;padding:100px 34px 0}
+.ev{display:flex;gap:24px;align-items:center;background:#fff;border-radius:32px;padding:28px 26px;margin-top:24px;
+  box-shadow:0 2px 3px rgba(27,26,44,.05),0 12px 26px rgba(27,26,44,.07)}
+.date{flex:0 0 104px;height:112px;border-radius:24px;background:#F1EEE7;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.date b{font-family:'Bricolage Grotesque';font-size:50px;font-weight:800;line-height:1}
+.date i{font-style:normal;font-size:22px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-top:4px}
+.et{font-size:36px;font-weight:700;line-height:1.15}
+.em{font-size:28px;font-weight:500;color:var(--muted);margin-top:6px}
+.ok{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:24px;font-weight:700;color:var(--peacock);
+  background:rgba(11,107,104,.10);padding:6px 14px;border-radius:999px}
+.chip{display:inline-flex;align-items:center;gap:12px;font-size:30px;font-weight:700;color:var(--mink);
+  background:rgba(240,160,10,.18);padding:12px 22px;border-radius:999px}
+.btn{height:110px;border-radius:32px;background:var(--peacock);color:#fff;font-size:38px;font-weight:700;display:grid;place-items:center}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+
+  <!-- 1. Opening -->
+  <div class="layer" id="s1">
+    <svg class="a" id="g1" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:560px"></svg>
+    <div class="a h center" id="s1word" style="top:780px;font-size:230px">Toran</div>
+    <div class="a center" id="s1tag" style="top:1040px;font-size:56px;font-weight:700;color:var(--peacock)">What's on at mandirs near you</div>
+  </div>
+
+  <!-- 2. Problem: scattered -->
+  <div class="layer" id="s2">
+    <div class="a h" id="s2h" style="left:90px;top:230px;width:900px;font-size:104px;color:#fff">Mandir events are <span style="color:var(--marigold)">everywhere</span></div>
+    <div class="a card" id="c0" style="left:60px;top:640px">
+      <div class="ic" style="background:#2E7D4F"><svg width="48" height="48" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
+      <div><div class="lbl">Group chat · forwarded</div><div class="txt">Garba this Friday?? 8 or 9pm</div></div>
+    </div>
+    <div class="a card" id="c1" style="left:420px;top:860px">
+      <div class="ic" style="background:#3B5BA9"><svg width="46" height="46" viewBox="0 0 24 24" fill="#fff"><path d="M3 10v4h4l6 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg></div>
+      <div><div class="lbl">Social post · 3 weeks ago</div><div class="txt">Annakut seva sign-up, DM us</div></div>
+    </div>
+    <div class="a card" id="c2" style="left:90px;top:1080px">
+      <div class="ic" style="background:var(--kumkum)"><svg width="44" height="44" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 0 0-6-6zm0 8.5A2.5 2.5 0 1 1 12 5.5a2.5 2.5 0 0 1 0 5z"/></svg></div>
+      <div><div class="lbl">Noticeboard by the shoe rack</div><div class="txt">Bhajan Sandhya, ask the office</div></div>
+    </div>
+    <div class="a card" id="c3" style="left:400px;top:1300px">
+      <div class="ic" style="background:var(--peacock)"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></div>
+      <div><div class="lbl">Website · last updated 2023</div><div class="txt">Events page coming soon</div></div>
+    </div>
+    <div class="a card" id="c4" style="left:120px;top:1520px;width:560px">
+      <div class="ic" style="background:#2E7D4F"><svg width="48" height="48" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
+      <div><div class="lbl">412 unread messages</div><div class="txt">Does anyone know the time?</div></div>
+    </div>
+    <div class="a center h" id="s2b" style="top:1720px;font-size:66px;color:var(--marigold)">…and nowhere at once.</div>
+  </div>
+
+  <!-- 3. Consequences -->
+  <div class="layer" id="s3">
+    <div class="a h" id="s3a" style="left:90px;top:240px;font-size:104px;color:#fff">Families miss out.</div>
+    <div class="a h" id="s3b" style="left:90px;top:370px;width:900px;font-size:104px;color:var(--marigold)">Committees scramble for seva.</div>
+    <div class="a rota" id="rota1" style="left:90px;top:720px;width:900px;padding:60px 56px 64px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:34px;font-weight:700;color:var(--muted);letter-spacing:.04em">NAVRATRI SEVA · NIGHT 3</div>
+        <div class="a" id="short" style="position:relative;font-size:32px;font-weight:700;color:#fff;background:var(--kumkum);padding:10px 22px;border-radius:999px">11 short</div>
+      </div>
+      <div class="rrow"><div class="rname">Kitchen</div><div class="track"><div class="fill" id="f0"></div></div><div class="cnt" id="n0">0/6</div></div>
+      <div class="rrow"><div class="rname">Parking</div><div class="track"><div class="fill" id="f1"></div></div><div class="cnt" id="n1">0/4</div></div>
+      <div class="rrow"><div class="rname">Aarti</div><div class="track"><div class="fill" id="f2"></div></div><div class="cnt" id="n2">0/3</div></div>
+      <div class="rrow"><div class="rname">Shoes</div><div class="track"><div class="fill" id="f3"></div></div><div class="cnt" id="n3">0/4</div></div>
+    </div>
+    <div class="a center" id="s3c" style="top:1600px;font-size:52px;font-weight:600;color:var(--mist)">Most find out on the night.</div>
+  </div>
+
+  <!-- 4 + 5 headlines (light) -->
+  <div class="layer" id="s4">
+    <div class="a h center" id="s4a" style="top:170px;font-size:100px">Every mandir near you.</div>
+    <div class="a h center" id="s4b" style="top:290px;font-size:100px;color:var(--peacock)">One place.</div>
+  </div>
+  <div class="layer" id="s5">
+    <div class="a h center" id="s5a" style="top:170px;font-size:100px">Seva in one tap.</div>
+    <div class="a center" id="s5b" style="top:300px;font-size:44px;font-weight:600;color:var(--muted);line-height:1.3">One link in your WhatsApp group.<br>Reminders sent for you.</div>
+  </div>
+
+  <!-- phone (scenes 4 and 5) -->
+  <div class="layer" id="ph">
+    <div class="a" id="flyers"></div>
+    <div class="a" id="phone">
+      <div id="screen">
+        <div class="notch"></div>
+        <!-- events list -->
+        <div class="scr" id="list">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div class="h" style="font-size:52px">Toran</div>
+            <div style="font-size:27px;font-weight:600;color:var(--muted)">Near HA3 · this week</div>
+          </div>
+          <div class="a chip" id="chip" style="position:relative;margin-top:22px"><span style="width:16px;height:16px;border-radius:50%;background:var(--marigold);display:inline-block"></span>Navratri starts today</div>
+          <div class="a ev" id="e0" style="position:relative"><div class="date"><b>11</b><i>OCT</i></div><div><div class="et">Navratri Garba, night 1</div><div class="em">8pm · Harrow · 1.2 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
+          <div class="a ev" id="e1" style="position:relative"><div class="date"><b>12</b><i>OCT</i></div><div><div class="et">Navratri Garba, night 2</div><div class="em">8pm · Kenton · 2.0 mi</div></div></div>
+          <div class="a ev" id="e2" style="position:relative"><div class="date"><b>18</b><i>OCT</i></div><div><div class="et">Hanuman Chalisa</div><div class="em">7pm · Wembley · 2.6 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
+          <div class="a ev" id="e3" style="position:relative"><div class="date"><b>8</b><i>NOV</i></div><div><div class="et">Diwali celebrations</div><div class="em">6pm · Neasden · 3.1 mi</div></div></div>
+        </div>
+        <!-- rota -->
+        <div class="scr" id="rotascr" style="opacity:0">
+          <div style="font-size:27px;font-weight:700;color:var(--muted);letter-spacing:.06em">NAVRATRI SEVA · NIGHT 3</div>
+          <div class="h" style="font-size:64px;margin-top:10px">Pick a slot</div>
+          <div id="rrows"></div>
+          <div class="a btn" id="take" style="position:relative;margin-top:64px">Take this slot</div>
+          <div class="a" id="tap" style="width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.18);border:5px solid rgba(255,255,255,.9);left:240px;top:0"></div>
+          <div class="a" id="toast" style="position:relative;margin-top:26px;background:var(--ink);color:#fff;border-radius:28px;padding:28px 30px;font-size:31px;font-weight:600;line-height:1.35">
+            You're on Kitchen, Fri 6–10pm.<br><span style="color:var(--mist);font-weight:500">We'll remind you the day before.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. End card -->
+  <div class="layer" id="s6">
+    <svg class="a" id="g6" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:520px"></svg>
+    <div class="a h center" id="s6w" style="top:720px;font-size:230px;color:#fff">Toran</div>
+    <div class="a h center" id="s6a" style="top:1000px;font-size:84px;color:var(--marigold)">Free for mandirs.</div>
+    <div class="a center" id="s6b" style="top:1120px;font-size:48px;font-weight:600;color:var(--mist)">Built with committees · Launching 2027</div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (x,a=0,b=1) => Math.min(b,Math.max(a,x));
+const prog = (t,a,b) => clamp((t-a)/(b-a));
+const eOut = p => 1-Math.pow(1-p,3);
+const eInOut = p => p<.5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2;
+const eBack = p => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2); };
+const lerp = (a,b,p) => a+(b-a)*p;
+function set(el, {o=1,x=0,y=0,s=1,r=0}={}) {
+  el.style.opacity = o;
+  el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
+}
+// fade window for a layer: in over [a,a+d], out over [b-d,b]
+function win(t,a,b,d=.4){ return Math.min(prog(t,a,a+d), 1-prog(t,b-d,b)); }
+function hex(c){ return [1,3,5].map(i=>parseInt(c.slice(i,i+2),16)); }
+function mix(c1,c2,p){ const a=hex(c1),b=hex(c2); return `rgb(${a.map((v,i)=>Math.round(lerp(v,b[i],p))).join(',')})`; }
+
+// garland builder
+function garland(svg, n=11){
+  const ns='http://www.w3.org/2000/svg', W=820;
+  const path=document.createElementNS(ns,'path');
+  path.setAttribute('d',`M6 18 Q${W/2} 70 ${W-6} 18`);
+  path.setAttribute('fill','none'); path.setAttribute('stroke','#8A5A00'); path.setAttribute('stroke-width','5');
+  path.setAttribute('stroke-linecap','round');
+  svg.appendChild(path);
+  const len=path.getTotalLength(); path.style.strokeDasharray=len;
+  const drops=[];
+  for(let i=0;i<n;i++){
+    const pt=path.getPointAtLength(len*(i+0.5)/n);
+    const g=document.createElementNS(ns,'g');
+    if(i%2===0){
+      const c=document.createElementNS(ns,'circle');
+      c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y+26); c.setAttribute('r',20); c.setAttribute('fill','#F0A00A');
+      g.appendChild(c);
+    } else {
+      const p=document.createElementNS(ns,'path');
+      p.setAttribute('d',`M${pt.x} ${pt.y+4} q16 30 0 66 q-16 -36 0 -66z`); p.setAttribute('fill','#3F7D3A');
+      g.appendChild(p);
+    }
+    g.style.transformBox='fill-box'; g.style.transformOrigin='50% 0%';
+    svg.appendChild(g); drops.push(g);
+  }
+  return {path,len,drops};
+}
+function drawGarland(G,t,start){
+  G.path.style.strokeDashoffset = G.len*(1-eInOut(prog(t,start,start+0.8)));
+  G.drops.forEach((g,i)=>{
+    const p=prog(t,start+0.35+i*0.06,start+0.85+i*0.06);
+    const sway=Math.sin((t-start)*2.2+i*0.7)*3*p;
+    g.style.opacity=p;
+    g.style.transform=`translateY(${lerp(-40,0,eBack(p))}px) rotate(${sway}deg)`;
+  });
+}
+const G1=garland($('g1')), G6=garland($('g6'));
+
+// rota rows on the phone
+const roles=[['Kitchen',6,2],['Parking',4,1],['Aarti',3,3],['Shoes',4,0]];
+$('rrows').innerHTML = roles.map((r,i)=>`
+  <div style="display:grid;grid-template-columns:170px 1fr 90px;gap:18px;align-items:center;margin-top:${i?44:56}px">
+    <div style="font-size:36px;font-weight:700">${r[0]}</div>
+    <div class="track" style="height:28px"><div class="fill" id="pf${i}"></div></div>
+    <div class="cnt" id="pn${i}" style="font-size:34px">${r[2]}/${r[1]}</div>
+  </div>`).join('');
+
+// flyers: source icons that gather into the phone
+const flyCols=['#2E7D4F','#3B5BA9','#C21E3A','#0B6B68','#2E7D4F','#F0A00A'];
+const flyFrom=[[-140,520],[1140,640],[-160,1180],[1160,1240],[200,1980],[860,2000]];
+$('flyers').innerHTML = flyCols.map((c,i)=>`<div class="a" id="fl${i}" style="width:110px;height:110px;border-radius:30px;background:${c};left:0;top:0;box-shadow:0 20px 40px rgba(27,26,44,.2)"></div>`).join('');
+
+const T=28;
+function render(t){
+  // background
+  let bg;
+  if(t<3.2) bg='#FAF8F4';
+  else if(t<3.6) bg=mix('#FAF8F4','#15142B',eInOut(prog(t,3.2,3.6)));
+  else if(t<12.9) bg='#15142B';
+  else if(t<13.3) bg=mix('#15142B','#FAF8F4',eInOut(prog(t,12.9,13.3)));
+  else if(t<23.5) bg='#FAF8F4';
+  else bg=mix('#FAF8F4','#15142B',eInOut(prog(t,23.5,23.9)));
+  $('bg').style.background=bg;
+
+  // ---------- 1. opening 0–3.4
+  $('s1').style.opacity = 1-prog(t,3.0,3.35);
+  drawGarland(G1,t,0.1);
+  let p=eOut(prog(t,0.9,1.6));
+  set($('s1word'),{o:p,y:lerp(70,0,p)});
+  p=eOut(prog(t,1.5,2.2));
+  set($('s1tag'),{o:p,y:lerp(40,0,p)});
+  if(t>2.9){ const q=eInOut(prog(t,2.9,3.35)); $('s1').style.transform=`scale(${lerp(1,1.06,q)})`; } else $('s1').style.transform='';
+
+  // ---------- 2. scattered 3.3–8.6
+  $('s2').style.opacity = win(t,3.3,8.6,.35);
+  p=eOut(prog(t,3.5,4.2));
+  set($('s2h'),{o:p,y:lerp(60,0,p)});
+  const rots=[-4,3,-2,4,-3];
+  for(let i=0;i<5;i++){
+    const a=4.2+i*0.38, q=prog(t,a,a+0.55);
+    const fy=Math.sin(t*1.6+i*1.3)*10, fx=Math.cos(t*1.2+i)*6;
+    const out=eInOut(prog(t,7.9,8.6));
+    set($('c'+i),{o:Math.min(q*1.4,1)*(1-out),x:fx,y:fy+lerp(0,40,out),s:lerp(0.6,1,eBack(q)),r:rots[i]+Math.sin(t*1.1+i)*1.2});
+  }
+  p=eOut(prog(t,6.6,7.2));
+  set($('s2b'),{o:p,y:lerp(30,0,p)});
+
+  // ---------- 3. consequences 8.5–13.2
+  $('s3').style.opacity = win(t,8.5,13.2,.35);
+  p=eOut(prog(t,8.7,9.3)); set($('s3a'),{o:p,y:lerp(50,0,p)});
+  p=eOut(prog(t,9.6,10.2)); set($('s3b'),{o:p,y:lerp(50,0,p)});
+  p=eOut(prog(t,10.0,10.7)); set($('rota1'),{o:p,y:lerp(120,0,p)});
+  const low=[[2,6],[1,4],[3,3],[0,4]];
+  low.forEach(([v,m],i)=>{
+    const q=eOut(prog(t,10.5+i*0.12,11.4+i*0.12));
+    const full=v===m;
+    $('f'+i).style.width=(q*v/m*100)+'%';
+    $('f'+i).style.background= full ? '#0B6B68' : '#C21E3A';
+    $('n'+i).textContent=Math.round(q*v)+'/'+m;
+    $('n'+i).style.color= full ? '#0B6B68' : '#C21E3A';
+  });
+  const blink = t>11.4 ? 0.75+0.25*Math.sin((t-11.4)*9) : 0;
+  set($('short'),{o:t>11.2?1:0,s:t>11.2?lerp(0.5,1,eBack(prog(t,11.2,11.6)))*(0.97+0.03*blink):0.5});
+  p=eOut(prog(t,11.7,12.3)); set($('s3c'),{o:p,y:lerp(30,0,p)});
+
+  // ---------- 4. one place 13.1–19.3 (headline)
+  $('s4').style.opacity = win(t,13.1,19.3,.35);
+  p=eOut(prog(t,14.0,14.6)); set($('s4a'),{o:p,y:lerp(50,0,p)});
+  p=eOut(prog(t,14.4,15.0)); set($('s4b'),{o:p,y:lerp(50,0,p),s:lerp(0.9,1,eBack(p))});
+
+  // phone layer 13.1–23.8
+  $('ph').style.opacity = win(t,13.1,23.8,.35);
+  p=eOut(prog(t,13.2,14.1));
+  set($('phone'),{y:lerp(700,0,p)});
+  // flyers gather into the phone (target screen centre ~ 540,900)
+  flyCols.forEach((c,i)=>{
+    const a=13.3+i*0.07, q=eInOut(prog(t,a,a+0.85));
+    const [fx,fy]=flyFrom[i];
+    const x=lerp(fx,485,q), y=lerp(fy,880,q);
+    set($('fl'+i),{o:q<0.98?1:0,x,y,s:lerp(1,0.25,q),r:lerp((i%2?1:-1)*30,0,q)});
+  });
+  p=eOut(prog(t,14.1,14.6)); set($('chip'),{o:p,s:lerp(0.7,1,eBack(p))});
+  for(let i=0;i<4;i++){
+    const q=eOut(prog(t,14.4+i*0.22,15.0+i*0.22));
+    set($('e'+i),{o:q,x:lerp(300,0,q)});
+  }
+  // list → rota cross-fade inside the screen at 19.0
+  const sw=eInOut(prog(t,19.0,19.5));
+  set($('list'),{o:1-sw,x:lerp(0,-120,sw)});
+  set($('rotascr'),{o:sw,x:lerp(120,0,sw)});
+
+  // ---------- 5. seva 19.1–23.8
+  $('s5').style.opacity = win(t,19.1,23.8,.35);
+  p=eOut(prog(t,19.4,20.0)); set($('s5a'),{o:p,y:lerp(50,0,p)});
+  p=eOut(prog(t,19.8,20.4)); set($('s5b'),{o:p,y:lerp(30,0,p)});
+  // tap at 20.6, then slots fill 20.9–22.4
+  const tapP=prog(t,20.45,21.0);
+  const btnTop = $('take').offsetTop;
+  set($('tap'),{o:tapP>0&&tapP<1?(1-tapP):0,x:0,y:btnTop-12,s:lerp(0.4,1.6,eOut(tapP))});
+  const press = t>20.5&&t<20.75 ? 0.95 : 1;
+  set($('take'),{s:press});
+  roles.forEach(([n,m,v],i)=>{
+    const q=eOut(prog(t,20.9+i*0.18,21.8+i*0.18));
+    const cur=v+(m-v)*q;
+    $('pf'+i).style.width=(cur/m*100)+'%';
+    $('pf'+i).style.background= q>0.98 ? '#0B6B68' : (q>0 ? '#3CC6BF' : (v===m?'#0B6B68':'#C21E3A'));
+    $('pn'+i).textContent=Math.round(cur)+'/'+m;
+    $('pn'+i).style.color= Math.round(cur)===m ? '#0B6B68' : '#C21E3A';
+  });
+  p=eOut(prog(t,21.0,21.5)); set($('toast'),{o:p,y:lerp(40,0,p)});
+
+  // ---------- 6. end card 23.6–28
+  $('s6').style.opacity = prog(t,23.6,24.0);
+  drawGarland(G6,t,23.8);
+  p=eOut(prog(t,24.4,25.1)); set($('s6w'),{o:p,y:lerp(70,0,p)});
+  p=eOut(prog(t,25.1,25.7)); set($('s6a'),{o:p,y:lerp(40,0,p)});
+  p=eOut(prog(t,25.6,26.2)); set($('s6b'),{o:p,y:lerp(30,0,p)});
+}
+window.render=render; window.DURATION=T;
+render(0);
+</script>
+</body>
+</html>
