@@ -43,36 +43,36 @@ def tvec(sec):
     return np.arange(int(sec * SR)) / SR
 
 
-def santoor(f, sec=1.6, bright=1.0):
+def santoor(f, sec=1.6, bright=1.0, detune=0.0012):
     """Hammered-string pluck: harmonics with faster decay up high, two
     strings detuned slightly for shimmer."""
     t = tvec(sec)
     out = np.zeros_like(t)
-    for det in (-0.0012, 0.0012):
+    for det in ((-detune, detune) if detune else (0.0,)):
         for h in range(1, 9):
-            amp = (1 / h**1.15) * (bright if h > 2 else 1)
+            amp = (1 / h**1.15) * (bright if h > 2 else 1) * (1 if detune else 2)
             dec = 0.9 / (1 + 0.45 * h)
             out += amp * np.sin(2 * np.pi * f * h * (1 + det) * t) * np.exp(-t / dec)
     attack = rng.standard_normal(len(t)) * np.exp(-t / 0.004) * 0.15
     return (out * np.minimum(t / 0.002, 1) + attack) * 0.18
 
 
-def tanpura_pluck(f, sec=3.2):
+def tanpura_pluck(f, sec=3.2, shimmer=0.25):
     """Bright drone string: many harmonics with slow beating (jawari)."""
     t = tvec(sec)
     out = np.zeros_like(t)
     for h in range(1, 14):
-        beat = 1 + 0.25 * np.sin(2 * np.pi * (0.7 + 0.13 * h) * t)
+        beat = 1 + shimmer * np.sin(2 * np.pi * (0.7 + 0.13 * h) * t)
         out += (1 / h**0.9) * beat * np.sin(2 * np.pi * f * h * t) * np.exp(-t / (1.6 / (1 + 0.08 * h)))
     return out * np.minimum(t / 0.01, 1) * 0.05
 
 
-def bell(f, sec=4.0):
+def bell(f, sec=4.0, wobble=True):
     """Temple bell (ghanti): inharmonic partials, long ring."""
     t = tvec(sec)
     out = np.zeros_like(t)
     for ratio, amp, dec in [(1, 1, 2.6), (2.0, 0.6, 1.8), (2.76, 0.5, 1.3), (5.4, 0.3, 0.7), (8.9, 0.15, 0.4)]:
-        wob = 1 + 0.002 * np.sin(2 * np.pi * 4.5 * t)
+        wob = 1 + 0.002 * np.sin(2 * np.pi * 4.5 * t) if wobble else 1
         out += amp * np.sin(2 * np.pi * f * ratio * wob * t) * np.exp(-t / dec)
     return out * np.minimum(t / 0.002, 1) * 0.16
 
@@ -130,17 +130,18 @@ while t < DUR - 0.5:
     vol = 1.0
     if 3.4 < t < 13.0:
         vol = 0.9  # darker, quieter under the problem scenes
-    add(tanpura_pluck(SA * cycle[k % 4]), t, vol, pan=-0.3 + 0.2 * (k % 4))
+    calm = 0.04 if t < 3.0 else 0.25  # steady drone under the opening
+    add(tanpura_pluck(SA * cycle[k % 4], shimmer=calm), t, vol, pan=-0.3 + 0.2 * (k % 4))
     t += 0.65
     k += 1
 
 # ---- 1. opening: bell + one santoor note per garland drop -----------------
-add(bell(note(10)), 0.05, 0.8)
+add(bell(note(10), wobble=False), 0.05, 0.8)
 for i in range(11):
-    add(santoor(note(5 + i)), 0.5 + 0.06 * i, 0.55, pan=-0.6 + 0.12 * i)
-add(santoor(note(5), 2.2), 0.95, 0.5)  # under the wordmark
-add(santoor(note(7), 2.2), 0.95, 0.35)
-add(santoor(note(8), 2.2), 1.55, 0.4)  # under the tagline
+    add(santoor(note(5 + i), detune=0), 0.5 + 0.06 * i, 0.55, pan=-0.6 + 0.12 * i)
+add(santoor(note(5), 2.2, detune=0), 0.95, 0.5)  # under the wordmark
+add(santoor(note(7), 2.2, detune=0), 0.95, 0.35)
+add(santoor(note(8), 2.2, detune=0), 1.55, 0.4)  # under the tagline
 
 # ---- 2. scattered sources ----------------------------------------------------
 add(noise_sweep(0.6, 3000, 300, 0.10), 3.0)  # into the dark
@@ -206,6 +207,6 @@ fade = np.clip((DUR - tt) / 1.8, 0, 1)
 fade_in = np.clip(tt / 0.05, 0, 1)
 stereo = np.stack([L, R], axis=1) * (fade * fade_in)[:, None]
 stereo = np.tanh(stereo * 1.4) / np.tanh(1.4)
-stereo *= 0.89 / np.max(np.abs(stereo))
+stereo *= 0.9976171252290732  # fixed master gain (keeps scenes after the opening unchanged)
 wavfile.write("soundtrack.wav", SR, (stereo * 32767).astype(np.int16))
 print("peak", np.max(np.abs(stereo)), "rms", np.sqrt(np.mean(stereo**2)))
