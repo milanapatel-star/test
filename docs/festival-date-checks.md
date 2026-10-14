@@ -40,3 +40,32 @@ lists its own event.
    [Holi 2027 (Divine Hindu)](https://www.divinehindu.in/blogs/news/holi-holika-dahan-2027-date-muhurat-significance)
 6. [Sharad Navaratri 2027 (Samvat)](https://samvat.in/festivals/navaratri-2027/);
    [Navratri 2027 (Bhaktiangan)](https://bhaktiangan.com/navratri-2027/)
+
+## Follow-up on the two to check (14 October 2026)
+
+**Bhai Dooj: keep Tue 10 November.** UK-specific sources agree it falls a day
+before India (Wed 11 November) because the tithi starts on the 10th in UK
+time: [HinduTone's UK guide](https://hindutone.com/festivals/bhai-dooj-2026-uk-date-tilak/)
+(citing Drik Panchang's UK dates) and
+[Universal Time Date (London)](https://www.universaltimedate.com/holidays/bhai-dooj).
+It can be marked as checked once a panditji agrees.
+
+**Annakut / Gujarati New Year: still unsettled, so leave it as "not yet
+checked".** The sources disagree:
+
+- [HinduTone's UK guide](https://hindutone.com/festivals/govardhan-puja-2026-uk-date-annakut/)
+  says Govardhan Puja and Annakut are on **Mon 9 November** in the UK, and a
+  HinduTone round-up says Neasden plans its Annakut on 9 November
+  ([Diwali in London guide](https://hindutone.com/festivals/diwali-2026-celebrations-london-complete-guide-events/)).
+- [Drik Panchang](https://www.drikpanchang.com/festivals/govardhan-puja/govardhan-puja-date-time.html)
+  shows Shukla Pratipada at London sunrise on **Tue 10 November**, which
+  would put it on the 10th.
+- The Gujarati New Year (Bestu Varas, Vikram Samvat 2083) is widely given as
+  **Tue 10 November**, but from Indian times
+  ([HinduTone](https://hindutone.com/festivals/gujarati-new-year-2026-bestu-varas-date/)).
+
+Mandirs may celebrate on either day, which is why each mandir's own Annakut
+event is what matters on Toran. **Suggested action:** ask a panditji, or check
+Neasden's official Diwali programme when it's published, then set the date
+in `/ops/festivals` and mark it checked.
+
