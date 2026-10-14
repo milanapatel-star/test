@@ -118,3 +118,9 @@ Gmail draft.
 >
 > With thanks, and wishing you a happy Diwali,
 > Milan
+
+Optional extra line, once the "For mandir committees" page is live
+(Toran-com/Toran-Main-Code#41), before "With thanks":
+
+> If it's easier, there's a one-page summary of what we're building here:
+> https://toran-main-code.vercel.app/for-mandirs
