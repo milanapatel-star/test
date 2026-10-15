@@ -1,28 +1,39 @@
 """Original soundtrack for the Toran explainer, synthesised from scratch.
 
-Every sound is generated here (no samples, no licensed music) and timed to
-the animation in scene.html. Output: soundtrack.wav, 44.1 kHz stereo, 28 s.
+Every sound is generated here (no samples, no licensed music). Timing comes
+from cues.js, the same file scene.html animates from, so each sound effect
+lands on the frame its animation starts. Output: soundtrack.wav, 44.1 kHz
+stereo, 60 s.
 """
+import json
+from pathlib import Path
+
 import numpy as np
 from scipy.signal import butter, sosfilt
 from scipy.io import wavfile
 
 SR = 44100
-DUR = 28.0
+CUES = json.loads(Path(__file__).with_name("cues.js").read_text().split("=", 1)[1].strip().rstrip(";"))
+BEAT = 60 / CUES["bpm"]  # 100 BPM: 0.6 s a beat, 2.4 s a bar
+DUR = CUES["beats"] * BEAT
 N = int(SR * DUR)
 L = np.zeros(N)
 R = np.zeros(N)
 rng = np.random.default_rng(7)
 
 SA = 146.83  # D3
-BEAT = 0.6  # 100 BPM; everything rhythmic sits on this grid
-GRID0 = 0.1  # grid offset so the groove downbeat lands at 13.9 s
 
 
-def q16(t):
-    """Snap a time to the nearest sixteenth note on the grid."""
-    step = BEAT / 4
-    return GRID0 + round((t - GRID0) / step) * step
+def T(b):
+    """Seconds at beat b."""
+    return b * BEAT
+
+
+def cue(name):
+    """Times (seconds) of a cue from cues.js."""
+    return [T(b) for b in CUES[name]["at"]]
+
+
 BHUPALI = [1, 9 / 8, 5 / 4, 3 / 2, 5 / 3]  # Sa Re Ga Pa Dha
 
 
@@ -130,92 +141,173 @@ def tabla(stroke):
     return mix * 0.32
 
 
-# ---- drone across the whole piece (Pa Sa' Sa' Sa cycle) -------------------
+
+
+def click(f=2400, sec=0.03, gain=1.0):
+    """Tiny key or counter tick."""
+    t = tvec(sec)
+    n = sosfilt(butter(2, 2500, btype="high", fs=SR, output="sos"), rng.standard_normal(len(t)))
+    return (0.5 * np.sin(2 * np.pi * f * t) + 0.3 * n) * np.exp(-t / 0.006) * 0.25 * gain
+
+
+def thump(f0=90, f1=45, sec=0.9):
+    """Deep hit with a falling pitch, for bad news and the drop."""
+    t = tvec(sec)
+    ph = 2 * np.pi * np.cumsum(f1 + (f0 - f1) * np.exp(-t / 0.08)) / SR
+    return np.sin(ph) * env(len(t), 0.004, 0.32) * 0.6
+
+
+def paper(sec=0.2):
+    """Paper flick: a quick bright rustle."""
+    n = int(sec * SR)
+    x = sosfilt(butter(2, [1800, 7000], btype="band", fs=SR, output="sos"), rng.standard_normal(n))
+    t = np.arange(n) / SR
+    return x * np.minimum(t / 0.01, 1) * np.exp(-t / 0.05) * 0.35
+
+
+def ding():
+    """Two-note notification."""
+    out = np.zeros(int(0.9 * SR))
+    for k, f in enumerate((note(12), note(14))):
+        t = tvec(0.75)
+        s = (np.sin(2 * np.pi * f * t) + 0.25 * np.sin(2 * np.pi * 2.76 * f * t)) * env(len(t), 0.002, 0.22)
+        i = int(k * BEAT / 4 * SR)
+        out[i : i + len(s)] += s * 0.3
+    return out
+
+
+# ---- sound effects, one per cue in cues.js ----------------------------------
+def sfx(kind, t, i, n):
+    pan = [-0.35, 0.35][i % 2]
+    if kind == "type":
+        add(click(2200 + 150 * (i % 3)), t, 0.8, pan * 0.5)
+    elif kind == "msg":
+        add(pop([880, 988, 1046, 1174, 932, 1108, 1318, 1046, 1174][i % 9]), t, 0.75, pan)
+    elif kind == "reply":  # each reply a little quieter: nobody is really answering
+        add(pop(1046 - 40 * i), t, 0.8 - 0.12 * i, pan)
+    elif kind == "fallPop":
+        add(pop([622, 587, 554, 523][i], 0.25), t, 0.7, -0.3 + 0.2 * i)
+    elif kind == "warn":
+        add(pop(740, 0.14), t, 0.6)
+        add(pop(622, 0.18), t + BEAT / 4, 0.6)
+    elif kind == "pop":
+        add(pop(1046), t, 0.7, pan)
+    elif kind == "paper":
+        add(paper(), t - 0.03, 1.0, pan)
+        add(tabla("na"), t, 0.35, pan)
+    elif kind == "blip":
+        add(pop(1568 + 60 * (i % 4), 0.08), t, 0.4, pan * 0.6)
+    elif kind == "tap":
+        add(pop(1760, 0.06), t, 0.8)
+        add(tabla("ti"), t, 0.5)
+    elif kind == "low":
+        add(low_tone(73.4, 1.2), t, 0.7)
+    elif kind == "thud":
+        add(thump(), t, 1.0)
+        add(low_tone(61.7, 1.4), t, 0.6)
+    elif kind == "chime":
+        add(santoor(note(10), 1.6, 1.2), t, 0.45, pan)
+        add(santoor(note(12), 1.6, 1.2), t + BEAT / 4, 0.4, pan)
+        add(bell(note(15), 2.0), t, 0.18)
+    elif kind == "santoorRun":
+        add(santoor(note(5 + i), detune=0), t, 0.5, -0.6 + 1.2 * i / max(n - 1, 1))
+    elif kind == "rise":  # one note higher for every row that fills
+        add(santoor(note(10 + 2 * i), 1.4, 1.3), t, 0.6, -0.3 + 0.3 * i)
+    elif kind == "chord":
+        for d in (0, 2, 3, 5):  # Sa Ga Pa Sa'
+            add(santoor(note(d + 5), 2.8), t, 0.4)
+        add(bell(note(10), 2.5), t, 0.3)
+    elif kind == "ding":
+        add(ding(), t, 1.0, 0.2)
+    elif kind == "whoosh":
+        add(noise_sweep(0.6, 3000, 300, 0.10), t - 0.1)
+    elif kind == "whooshUp":
+        add(noise_sweep(0.6, 300, 3500, 0.10), t - 0.1)
+    elif kind == "swish":
+        add(noise_sweep(0.35, 1500, 5000, 0.06), t - 0.05, 1.0, pan)
+    elif kind == "swoosh":
+        add(noise_sweep(0.5, 400, 4000, 0.12), t - 0.05, 1.0, -0.5)
+    elif kind == "snap":
+        add(click(3000, 0.04, 1.6), t)
+        add(tabla("na"), t, 0.6)
+        add(thump(140, 70, 0.4), t, 0.5)
+    elif kind == "bell":
+        add(bell(note(5)), t, 1.0)
+        add(bell(note(10)), t + 2 * BEAT, 0.4)
+    elif kind == "drop":
+        add(bell(note(5)), t, 1.0)
+        add(thump(110, 42, 1.4), t, 0.9)
+        add(noise_sweep(0.9, 6000, 500, 0.07), t)
+    else:
+        raise ValueError(kind)
+
+
+for name, c in CUES.items():
+    if not isinstance(c, dict) or "sfx" not in c or not c["sfx"]:
+        continue
+    times = cue(name)
+    if c["sfx"] == "ticks":  # the unread counter ticks on every sixteenth
+        a, b = times
+        for j in range(round((b - a) / (BEAT / 4)) + 1):
+            add(click(2800, 0.02), a + j * BEAT / 4, 0.55, 0.3)
+        continue
+    if c["sfx"] == "riser":
+        a, b = times
+        add(noise_sweep(b - a, 250, 7000, 0.05) * np.linspace(0.3, 1.6, int((b - a) * SR)), a)
+        for j in range(8):  # climbing santoor, eighths over the last bar and a half
+            add(santoor(note(j), 1.0, detune=0), b - 8 * BEAT / 2 + j * BEAT / 2 - 2 * BEAT, 0.12 + 0.03 * j, 0.4)
+        for j in range(8):  # tabla roll in sixteenths into the drop
+            add(tabla("na" if j % 2 else "ge"), b - 2 * BEAT + j * BEAT / 4, 0.3 + 0.06 * j)
+        continue
+    kinds = c["sfx"] if isinstance(c["sfx"], list) else [c["sfx"]] * len(times)
+    for i, (k, t) in enumerate(zip(kinds, times)):
+        sfx(k, t, i, len(times))
+
+# ---- music ------------------------------------------------------------------
+S = {k: T(v) for k, v in CUES["scenes"].items()}
+
+# drone on every beat (Pa Sa' Sa' Sa), darker under the problem half
 cycle = [3 / 2, 2, 2, 1]
 k = 0
-t = GRID0
-BAR_K = round((13.9 - GRID0) / BEAT)  # beat index of a groove downbeat
-while t < DUR - 0.5:
-    vol = 1.0
-    if 3.4 < t < 13.0:
-        vol = 0.9  # darker, quieter under the problem scenes
-    calm = 0.04  # steady drone: its only pulse is the pluck on each beat
-    c = (k - BAR_K) % 4  # Pa falls on the first beat of every bar
-    add(tanpura_pluck(SA * cycle[c], shimmer=calm), t, vol, pan=-0.3 + 0.2 * c)
+while T(k) < DUR - 0.5:
+    t = T(k)
+    vol = 0.9 if t < S["turn"] else (1.0 if t < S["end"] else 0.85)
+    add(tanpura_pluck(SA * cycle[k % 4], shimmer=0.04), t, vol, pan=-0.3 + 0.2 * (k % 4))
     k += 1
-    t = GRID0 + k * BEAT
 
-# ---- 1. opening: bell + one santoor note per garland drop -----------------
-add(bell(note(10), wobble=False), 0.05, 0.8)
-for i in range(11):
-    add(santoor(note(5 + i), detune=0), 0.5 + 0.06 * i, 0.55, pan=-0.6 + 0.12 * i)
-add(santoor(note(5), 2.2, detune=0), 0.95, 0.5)  # under the wordmark
-add(santoor(note(7), 2.2, detune=0), 0.95, 0.35)
-add(santoor(note(8), 2.2, detune=0), 1.55, 0.4)  # under the tagline
+# problem half: a low stroke on each bar, a quiet "na" on beat 3 from the
+# second question, sparse low santoor
+for bar in range(round(S["turn"] / T(4))):
+    t = T(4 * bar)
+    add(tabla("ge"), t, 0.75, 0.1)
+    if bar >= 4:
+        add(tabla("na"), t + T(2), 0.32, 0.1)
+    if bar % 2 == 1:
+        phrase = [(4, -1), (3, -1), (2, -1), (0, -1), (3, -1), (4, -1), (2, -1)]
+        d, o = phrase[(bar // 2) % len(phrase)]
+        add(santoor(note(d, o + 1), 2.2, 0.7), t + T(2.5), 0.3, -0.2)
 
-# ---- 2. scattered sources ----------------------------------------------------
-add(noise_sweep(0.6, 3000, 300, 0.10), 3.0)  # into the dark
-add(low_tone(73.4), 3.45, 0.8)
-for i, f in enumerate([1046, 880, 1174, 932, 988]):  # slightly clashing pops
-    add(pop(f), 4.3 + 0.38 * i, 1.0, pan=[-0.5, 0.5, -0.4, 0.4, -0.2][i])
-add(pop(1318, 0.12), 5.85, 0.6, 0.6)
-add(pop(1108, 0.12), 6.05, 0.6, -0.6)
-add(low_tone(65.4, 1.2), 6.6, 1.0)
-add(noise_sweep(0.7, 400, 2500, 0.08), 7.9)
-
-# ---- 3. consequences: falling tones as the rota goes red ---------------------
-add(low_tone(98.0), 8.7, 0.7)
-add(low_tone(92.5), 9.6, 0.7)
-for i, f in enumerate([622, 587, 554, 523]):
-    add(pop(f, 0.25), 10.6 + 0.12 * i, 0.7, pan=-0.3 + 0.2 * i)
-for k in range(3):  # "11 short" two-note alert
-    add(pop(740, 0.14), 11.25 + 0.42 * k, 0.55)
-    add(pop(698, 0.14), 11.42 + 0.42 * k, 0.55)
-
-# ---- transition: whoosh up, phone rises, sources fly in ----------------------
-add(noise_sweep(1.1, 250, 6000, 0.16), 12.8)
-for i in range(6):
-    add(santoor(note(10 + i * 2 % 5)), 13.75 + 0.07 * i, 0.3, pan=-0.5 + 0.2 * i)
-
-# ---- 4 + 5. the groove: keherwa-style tabla + Bhupali santoor --------------
-start = 13.9
+# from the turn: full keherwa groove on eighths, with Bhupali santoor melody
 pattern = ["dha", "ge", "na", "ti", "na", "ti", "dhi", "na"]
 melody = [5, None, 6, None, 7, 8, 9, None, 8, None, 7, None, 6, 7, 5, None]
 b = 0
-while start + b * BEAT / 2 < 23.5:
-    tb = start + b * BEAT / 2
+while T(CUES["scenes"]["turn"] + b / 2) < S["end"] - 0.01:
+    beat = CUES["scenes"]["turn"] + b / 2
+    tb = T(beat)
     stroke = pattern[b % 8]
-    add(tabla(stroke), tb, 0.9 if stroke in ("dha", "ge", "dhi") else 0.7, pan=0.1)
+    add(tabla(stroke), tb, 0.85 if stroke in ("dha", "ge", "dhi") else 0.65, pan=0.1)
     m = melody[b % 16]
-    if m is not None and tb > 14.3:
-        add(santoor(note(m)), tb, 0.38, pan=-0.2)
+    # melody rests while the garland and the rota play their own notes
+    if m is not None and (60 <= beat < 80 or 86 <= beat < 92):
+        add(santoor(note(m)), tb, 0.32, pan=-0.2)
     b += 1
-for i in range(4):  # event cards slide in
-    add(pop(1568, 0.08), q16(14.55 + 0.22 * i), 0.35, 0.4)
-add(noise_sweep(0.5, 800, 3000, 0.06), q16(19.0))  # screen swap
 
-# tap, then success chimes as each slot row fills
-add(pop(1760, 0.06), q16(20.52), 0.8)
-add(tabla("ti"), q16(20.52), 0.5)
-for i in range(4):
-    add(santoor(note(10 + i), 1.2, 1.3), q16(21.8 + 0.18 * i), 0.55, pan=-0.3 + 0.2 * i)
-add(santoor(note(15), 2.0, 1.3), q16(22.6), 0.5)
-
-# ---- 6. end card: whoosh, bell, final chord, fade -----------------------------
-add(noise_sweep(0.8, 5000, 400, 0.10), 23.2)
-for i in range(11):
-    add(santoor(note(5 + i)), 24.2 + 0.06 * i, 0.4, pan=-0.6 + 0.12 * i)
-add(bell(note(5)), q16(24.4), 1.0)
-for d in (0, 2, 3, 5):  # Sa Ga Pa Sa' chord
-    add(santoor(note(d), 3.5), q16(25.05), 0.45)
-add(bell(note(10)), q16(25.6), 0.5)
-
-# ---- master: gentle fade-out, soft limit, normalise ---------------------------
+# ---- master: fade-out, soft limit, normalise ---------------------------------
 tt = np.arange(N) / SR
-fade = np.clip((DUR - tt) / 1.8, 0, 1)
+fade = np.clip((DUR - tt) / (2 * BEAT * 2), 0, 1)
 fade_in = np.clip(tt / 0.05, 0, 1)
 stereo = np.stack([L, R], axis=1) * (fade * fade_in)[:, None]
 stereo = np.tanh(stereo * 1.4) / np.tanh(1.4)
 stereo *= 0.89 / np.max(np.abs(stereo))
-wavfile.write("soundtrack.wav", SR, (stereo * 32767).astype(np.int16))
+wavfile.write(Path(__file__).with_name("soundtrack.wav"), SR, (stereo * 32767).astype(np.int16))
 print("peak", np.max(np.abs(stereo)), "rms", np.sqrt(np.mean(stereo**2)))

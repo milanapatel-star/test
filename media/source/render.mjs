@@ -5,10 +5,11 @@ const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
 const errs=[]; p.on("pageerror", e=>errs.push(e.message)); p.on("console", m=>{ if(m.type()==="error") errs.push(m.text()); });
 await p.goto("file://" + dir + "/scene.html");
 await p.evaluate(() => document.fonts.ready);
+await p.waitForTimeout(300);
 if (mode === "keys") {
-  for (const t of [5.6, 12.4, 13.7, 16.2, 20.6, 22.4]) {
+  for (const t of (process.env.KEYS || "5,12,18,24,30,36,42,48,54,58").split(",").map(Number)) {
     await p.evaluate((t) => window.render(t), t);
-    await p.screenshot({ path: `${dir}/key-${t}.png` });
+    await p.screenshot({ path: `${dir}/keys/key-${t}.png` });
   }
 } else {
   const D = await p.evaluate(() => window.DURATION), F = Math.round(D * +fps);

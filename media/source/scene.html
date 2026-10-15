@@ -3,167 +3,362 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="fonts/local.css">
+<script src="cues.js"></script>
 <style>
 :root{
   --cream:#FAF8F4; --ink:#1B1A2C; --muted:#5D5A6E; --line:rgba(27,26,44,.12);
   --peacock:#0B6B68; --teal:#3CC6BF; --marigold:#F0A00A; --mink:#8A5A00;
-  --kumkum:#C21E3A; --leaf:#3F7D3A; --navy:#15142B; --mist:#C9C6DA;
+  --kumkum:#C21E3A; --leaf:#3F7D3A; --green:#23895A; --navy:#15142B; --mist:#C9C6DA;
+  --chat:#0E1621; --bubble:#1E2A36; --chatmuted:#8C99A6;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1080px;height:1920px;overflow:hidden;background:var(--cream)}
-body{font-family:'Figtree',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--navy)}
+body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
 #stage{position:relative;width:1080px;height:1920px;overflow:hidden}
-#bg{position:absolute;inset:0}
+#bg,#glow,#wipe,#fade{position:absolute;inset:0}
+#fade{background:#000;opacity:0}
 .layer{position:absolute;inset:0;opacity:0}
 .a{position:absolute;will-change:transform,opacity}
-.h{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-0.035em;line-height:1.02}
+.h{font-family:'Bricolage Grotesque','Noto Sans Gujarati';font-weight:800;letter-spacing:-0.035em;line-height:1.04}
 .center{left:0;width:1080px;text-align:center}
+.mg{color:var(--marigold)} .pk{color:var(--peacock)}
+.w{display:inline-block;opacity:0}
 
-/* scene 2 cards */
-.card{width:600px;padding:30px 34px;border-radius:30px;background:#232241;border:2px solid rgba(255,255,255,.08);
+/* phones */
+.phone{width:680px;height:1300px;border-radius:84px;background:#0B0A16;padding:18px;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06),0 60px 120px rgba(0,0,0,.45)}
+.screen{position:relative;width:100%;height:100%;border-radius:68px;overflow:hidden}
+.notch{position:absolute;top:22px;left:50%;width:170px;height:44px;margin-left:-85px;border-radius:22px;background:#0B0A16;z-index:9}
+
+/* chat (problem half) */
+.dark{background:var(--chat)}
+.chathead{position:absolute;left:0;right:0;top:0;height:190px;padding:86px 28px 0;display:flex;gap:18px;align-items:center;
+  background:#17212B;border-bottom:1px solid rgba(255,255,255,.05)}
+.av{flex:0 0 76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:38px}
+.gname{font-size:34px;font-weight:700;color:#fff}
+.gsub{font-size:24px;color:var(--chatmuted);margin-top:2px}
+.area{position:absolute;left:0;right:0;top:190px;bottom:118px;overflow:hidden}
+.msgs{position:absolute;left:22px;right:22px;top:0}
+.m{display:flex;padding-top:14px}
+.b{max-width:82%;background:var(--bubble);color:#fff;border-radius:8px 26px 26px 26px;padding:14px 20px 12px;transform-origin:0 100%}
+.who{font-size:24px;font-weight:700;margin-bottom:4px}
+.tx{font-size:31px;font-weight:500;line-height:1.28}
+.fw{font-size:22px;font-style:italic;color:var(--chatmuted);margin-bottom:4px}
+.tm{font-size:20px;color:var(--chatmuted);text-align:right;margin-top:4px}
+.img{width:380px;height:190px;border-radius:16px;display:grid;place-items:center;text-align:center;
+  font-family:'Bricolage Grotesque';font-weight:800;font-size:40px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+.inputbar{position:absolute;left:0;right:0;bottom:0;height:118px;padding:18px 22px 30px;display:flex;gap:16px;background:#17212B}
+.inputbar .f{flex:1;border-radius:40px;background:#232F3B;color:var(--chatmuted);font-size:28px;display:flex;align-items:center;padding:0 28px}
+.inputbar .mic{flex:0 0 70px;border-radius:50%;background:#2F7D6A}
+.unread{right:26px;bottom:140px;background:var(--kumkum);color:#fff;font-size:28px;font-weight:800;border-radius:999px;padding:12px 24px;
+  box-shadow:0 10px 24px rgba(0,0,0,.35);font-variant-numeric:tabular-nums;transform-origin:100% 100%}
+.banner{left:18px;right:18px;top:0;background:rgba(48,52,66,.97);border-radius:34px;padding:22px 26px;display:flex;gap:20px;align-items:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.45);z-index:8}
+
+/* source cards */
+.card{width:620px;padding:30px 34px;border-radius:30px;background:#232241;border:2px solid rgba(255,255,255,.08);
   color:#fff;display:flex;gap:26px;align-items:center;box-shadow:0 30px 60px rgba(0,0,0,.35)}
-.card .ic{flex:0 0 84px;height:84px;border-radius:24px;display:grid;place-items:center}
+.card .ic{flex:0 0 84px;height:84px;border-radius:24px;display:grid;place-items:center;font-size:44px}
 .card .lbl{font-size:26px;font-weight:600;color:var(--mist);letter-spacing:.01em}
 .card .txt{font-size:36px;font-weight:700;margin-top:6px;line-height:1.15}
+.card.paper{background:#F4ECD8;color:var(--ink);border:0;border-radius:6px}
+.card.paper .lbl{color:#7A6A4F}
+.pin{position:absolute;top:-14px;left:50%;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:var(--kumkum);box-shadow:0 4px 8px rgba(0,0,0,.3)}
 
-/* rota card */
-.rota{background:#fff;border-radius:40px;padding:48px 50px;color:var(--ink);box-shadow:0 40px 80px rgba(0,0,0,.35)}
-.rrow{display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:28px;margin-top:56px}
+/* rota */
+.rota{background:#fff;border-radius:40px;padding:56px 54px 60px;color:var(--ink);box-shadow:0 40px 80px rgba(0,0,0,.35)}
+.rrow{display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:26px;margin-top:52px}
 .rname{font-size:44px;font-weight:700}
 .track{height:32px;border-radius:16px;background:#EEEAF3;overflow:hidden}
 .fill{height:100%;border-radius:16px;width:0}
 .cnt{font-size:42px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.pill{font-size:30px;font-weight:800;color:#fff;background:var(--kumkum);padding:10px 22px;border-radius:999px;white-space:nowrap}
 
-/* phone */
-#phone{left:200px;top:540px;width:680px;height:1300px;border-radius:84px;background:var(--ink);padding:18px;
-  box-shadow:0 50px 100px rgba(27,26,44,.28)}
-#screen{position:relative;width:100%;height:100%;border-radius:68px;background:var(--cream);overflow:hidden}
-.notch{position:absolute;top:22px;left:50%;width:170px;height:44px;margin-left:-85px;border-radius:22px;background:var(--ink)}
-.scr{position:absolute;inset:0;padding:100px 34px 0}
-.ev{display:flex;gap:24px;align-items:center;background:#fff;border-radius:32px;padding:28px 26px;margin-top:24px;
+/* personas */
+.persona{left:90px;width:900px;background:#232241;border:2px solid rgba(255,255,255,.08);border-radius:44px;padding:44px 48px;color:#fff;
+  box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.persona .top{display:flex;gap:30px;align-items:center}
+.persona .av{flex:0 0 136px;height:136px;font-size:72px}
+.persona .nm{font-family:'Bricolage Grotesque';font-weight:800;font-size:64px;letter-spacing:-.03em;line-height:1}
+.persona .sb{font-size:34px;font-weight:600;color:var(--mist);margin-top:10px}
+.persona .ln{font-size:42px;font-weight:600;line-height:1.25;margin-top:16px;opacity:0}
+.persona .lines{margin-top:18px;padding-left:166px}
+
+/* Toran app screens */
+.light{background:var(--cream)}
+.scr{position:absolute;inset:0;padding:96px 30px 0}
+.ev{display:flex;gap:22px;align-items:center;background:#fff;border-radius:30px;padding:22px 22px;margin-top:18px;
   box-shadow:0 2px 3px rgba(27,26,44,.05),0 12px 26px rgba(27,26,44,.07)}
-.date{flex:0 0 104px;height:112px;border-radius:24px;background:#F1EEE7;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.date b{font-family:'Bricolage Grotesque';font-size:50px;font-weight:800;line-height:1}
-.date i{font-style:normal;font-size:22px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-top:4px}
-.et{font-size:36px;font-weight:700;line-height:1.15}
-.em{font-size:28px;font-weight:500;color:var(--muted);margin-top:6px}
-.ok{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:24px;font-weight:700;color:var(--peacock);
-  background:rgba(11,107,104,.10);padding:6px 14px;border-radius:999px}
-.chip{display:inline-flex;align-items:center;gap:12px;font-size:30px;font-weight:700;color:var(--mink);
-  background:rgba(240,160,10,.18);padding:12px 22px;border-radius:999px}
-.btn{height:110px;border-radius:32px;background:var(--peacock);color:#fff;font-size:38px;font-weight:700;display:grid;place-items:center}
+.date{flex:0 0 96px;height:100px;border-radius:22px;background:#F1EEE7;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.date b{font-family:'Bricolage Grotesque';font-size:46px;font-weight:800;line-height:1}
+.date i{font-style:normal;font-size:20px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-top:4px}
+.et{font-size:34px;font-weight:700;line-height:1.15}
+.em{font-size:26px;font-weight:500;color:var(--muted);margin-top:4px}
+.ok{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:22px;font-weight:700;color:var(--peacock);
+  background:rgba(11,107,104,.10);padding:5px 12px;border-radius:999px}
+.mapc{position:relative;height:250px;border-radius:30px;overflow:hidden;margin-top:20px;background:#E8EEE3;
+  box-shadow:0 2px 3px rgba(27,26,44,.05),0 12px 26px rgba(27,26,44,.07)}
+.mpin{position:absolute;width:36px;height:36px;margin:-36px 0 0 -18px;border-radius:50% 50% 50% 0;transform-origin:50% 100%;
+  background:var(--peacock);border:4px solid #fff;box-shadow:0 4px 8px rgba(0,0,0,.2)}
+.btn{height:104px;border-radius:30px;background:var(--peacock);color:#fff;font-size:36px;font-weight:700;display:grid;place-items:center}
+.btn2{height:96px;border-radius:30px;border:3px solid #2E9E62;color:#1F7A4A;font-size:34px;font-weight:700;display:grid;place-items:center;margin-top:18px}
+.tap{width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;background:rgba(11,107,104,.18);border:5px solid rgba(11,107,104,.85);z-index:9}
+.lightchat .b{background:#fff;color:var(--ink);box-shadow:0 2px 3px rgba(27,26,44,.06),0 10px 22px rgba(27,26,44,.07)}
+.linkc{margin-top:12px;border-radius:18px;background:#F1EEE7;overflow:hidden;width:520px}
+.toast{left:16px;right:16px;top:0;background:rgba(27,26,44,.96);color:#fff;border-radius:34px;padding:24px 28px;z-index:8;
+  box-shadow:0 20px 40px rgba(27,26,44,.3)}
+.poster{width:330px;height:450px;border-radius:14px;background:linear-gradient(160deg,#F7B733,#E8890C);padding:34px 30px;color:#2A1600;
+  box-shadow:0 30px 60px rgba(27,26,44,.3);text-align:center}
 </style>
 </head>
 <body>
 <div id="stage">
   <div id="bg"></div>
+  <div id="glow"></div>
 
-  <!-- 1. Opening -->
-  <div class="layer" id="s1">
-    <svg class="a" id="g1" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:560px"></svg>
-    <div class="a h center" id="s1word" style="top:780px;font-size:230px">Toran</div>
-    <div class="a center" id="s1tag" style="top:1040px;font-size:56px;font-weight:700;color:var(--peacock)">What's on at mandirs near you</div>
+  <!-- HOOK: the two questions -->
+  <div class="layer" id="Q">
+    <div class="a h" id="qA" style="left:80px;top:150px;width:930px;font-size:80px;color:#fff"></div>
+    <div class="a h" id="qB" style="left:80px;top:150px;width:930px;font-size:80px;color:#fff"></div>
   </div>
 
-  <!-- 2. Problem: scattered -->
-  <div class="layer" id="s2">
-    <div class="a h" id="s2h" style="left:90px;top:230px;width:900px;font-size:104px;color:#fff">Mandir events are <span style="color:var(--marigold)">everywhere</span></div>
-    <div class="a card" id="c0" style="left:60px;top:640px">
-      <div class="ic" style="background:#2E7D4F"><svg width="48" height="48" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
-      <div><div class="lbl">Group chat · forwarded</div><div class="txt">Garba this Friday?? 8 or 9pm</div></div>
-    </div>
-    <div class="a card" id="c1" style="left:420px;top:860px">
-      <div class="ic" style="background:#3B5BA9"><svg width="46" height="46" viewBox="0 0 24 24" fill="#fff"><path d="M3 10v4h4l6 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg></div>
-      <div><div class="lbl">Social post · 3 weeks ago</div><div class="txt">Annakut seva sign-up, DM us</div></div>
-    </div>
-    <div class="a card" id="c2" style="left:90px;top:1080px">
-      <div class="ic" style="background:var(--kumkum)"><svg width="44" height="44" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 0 0-6-6zm0 8.5A2.5 2.5 0 1 1 12 5.5a2.5 2.5 0 0 1 0 5z"/></svg></div>
-      <div><div class="lbl">Noticeboard by the shoe rack</div><div class="txt">Bhajan Sandhya, ask the office</div></div>
-    </div>
-    <div class="a card" id="c3" style="left:400px;top:1300px">
-      <div class="ic" style="background:var(--peacock)"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></div>
-      <div><div class="lbl">Website · last updated 2023</div><div class="txt">Events page coming soon</div></div>
-    </div>
-    <div class="a card" id="c4" style="left:120px;top:1520px;width:560px">
-      <div class="ic" style="background:#2E7D4F"><svg width="48" height="48" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
-      <div><div class="lbl">412 unread messages</div><div class="txt">Does anyone know the time?</div></div>
-    </div>
-    <div class="a center h" id="s2b" style="top:1720px;font-size:66px;color:var(--marigold)">…and nowhere at once.</div>
-  </div>
-
-  <!-- 3. Consequences -->
-  <div class="layer" id="s3">
-    <div class="a h" id="s3a" style="left:90px;top:240px;font-size:104px;color:#fff">Families miss out.</div>
-    <div class="a h" id="s3b" style="left:90px;top:370px;width:900px;font-size:104px;color:var(--marigold)">Committees scramble for seva.</div>
-    <div class="a rota" id="rota1" style="left:90px;top:720px;width:900px;padding:60px 56px 64px">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="font-size:34px;font-weight:700;color:var(--muted);letter-spacing:.04em">NAVRATRI SEVA · NIGHT 3</div>
-        <div class="a" id="short" style="position:relative;font-size:32px;font-weight:700;color:#fff;background:var(--kumkum);padding:10px 22px;border-radius:999px">11 short</div>
+  <!-- HOOK: the group chat -->
+  <div class="layer" id="PA">
+    <div class="a phone" id="phoneA" style="left:200px;top:560px">
+      <div class="screen dark">
+        <div class="notch"></div>
+        <div class="chathead">
+          <div style="color:#fff;font-size:44px;margin-right:-4px">‹</div>
+          <div class="av" style="background:#E8890C">🙏</div>
+          <div><div class="gname">Mandir Family 🙏</div><div class="gsub">238 members</div></div>
+        </div>
+        <div class="area" id="areaA">
+          <div class="msgs" id="msgs1"></div>
+          <div class="msgs" id="msgs2"></div>
+        </div>
+        <div class="inputbar"><div class="f">Message</div><div class="mic"></div></div>
+        <div class="a unread" id="unread"><span id="unreadN">47</span> unread ⌄</div>
+        <div class="a banner" id="banner">
+          <div class="av" style="flex-basis:80px;height:80px;background:#C9729B;color:#fff;font-size:36px;font-weight:800">M</div>
+          <div><div style="font-size:24px;color:var(--chatmuted)">Mum · now</div>
+               <div style="font-size:34px;font-weight:700;color:#fff;margin-top:2px">Garba was last night 😔</div></div>
+        </div>
       </div>
-      <div class="rrow"><div class="rname">Kitchen</div><div class="track"><div class="fill" id="f0"></div></div><div class="cnt" id="n0">0/6</div></div>
-      <div class="rrow"><div class="rname">Parking</div><div class="track"><div class="fill" id="f1"></div></div><div class="cnt" id="n1">0/4</div></div>
+    </div>
+  </div>
+
+  <!-- HOOK 2: the rota that won't fill -->
+  <div class="layer" id="R1">
+    <div class="a rota" id="rota1" style="left:90px;top:620px;width:900px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:32px;font-weight:700;color:var(--muted);letter-spacing:.04em">NAVRATRI SEVA · NIGHT 3</div>
+        <div class="a pill" id="short1" style="position:relative">11 short</div>
+      </div>
+      <div class="rrow"><div class="rname">Kitchen</div><div class="track"><div class="fill" id="f0"></div></div><div class="cnt" id="n0">0/7</div></div>
+      <div class="rrow"><div class="rname">Parking</div><div class="track"><div class="fill" id="f1"></div></div><div class="cnt" id="n1">0/6</div></div>
       <div class="rrow"><div class="rname">Aarti</div><div class="track"><div class="fill" id="f2"></div></div><div class="cnt" id="n2">0/3</div></div>
       <div class="rrow"><div class="rname">Shoes</div><div class="track"><div class="fill" id="f3"></div></div><div class="cnt" id="n3">0/4</div></div>
     </div>
-    <div class="a center" id="s3c" style="top:1600px;font-size:52px;font-weight:600;color:var(--mist)">Most find out on the night.</div>
+    <div class="a h center" id="tomorrow" style="top:1440px;font-size:66px;color:var(--kumkum)">Night 3 is tomorrow.</div>
   </div>
 
-  <!-- 4 + 5 headlines (light) -->
-  <div class="layer" id="s4">
-    <div class="a h center" id="s4a" style="top:170px;font-size:100px">Every mandir near you.</div>
-    <div class="a h center" id="s4b" style="top:290px;font-size:100px;color:var(--peacock)">One place.</div>
-  </div>
-  <div class="layer" id="s5">
-    <div class="a h center" id="s5a" style="top:170px;font-size:100px">Seva in one tap.</div>
-    <div class="a center" id="s5b" style="top:300px;font-size:44px;font-weight:600;color:var(--muted);line-height:1.3">One link in your WhatsApp group.<br>Reminders sent for you.</div>
+  <!-- MESS: everywhere and nowhere -->
+  <div class="layer" id="M">
+    <div class="a h" id="mh" style="left:80px;top:190px;width:930px;font-size:96px;color:#fff">Mandir news is <span class="mg">everywhere…</span></div>
+    <div class="a card" id="c0" style="left:60px;top:520px">
+      <div class="ic" style="background:#2E7D4F">💬</div>
+      <div><div class="lbl">Group chat · forwarded</div><div class="txt">Garba this Friday?? 8 or 9pm</div></div>
+    </div>
+    <div class="a card" id="c1" style="left:400px;top:735px">
+      <div class="ic" style="background:#3B5BA9;font-family:'Figtree';font-weight:800;color:#fff">f</div>
+      <div><div class="lbl">Facebook post · 3 weeks ago</div><div class="txt">Annakut seva sign-up, DM us</div></div>
+    </div>
+    <div class="a card paper" id="c2" style="left:80px;top:960px">
+      <div class="pin"></div>
+      <div class="ic" style="background:#E7D9B8">📌</div>
+      <div><div class="lbl">Noticeboard by the shoe rack</div><div class="txt">Bhajan Sandhya, ask the office</div></div>
+    </div>
+    <div class="a card" id="c3" style="left:390px;top:1180px">
+      <div class="ic" style="background:var(--peacock)">🌐</div>
+      <div><div class="lbl">Website · last updated 2023</div><div class="txt">Events page coming soon</div></div>
+    </div>
+    <div class="a card paper" id="c4" style="left:100px;top:1400px">
+      <div class="pin"></div>
+      <div class="ic" style="background:#E7D9B8">📝</div>
+      <div><div class="lbl">Paper rota on the office wall</div><div class="txt">Diwali seva: write your name</div></div>
+    </div>
+    <div class="a h center mg" id="nowhere" style="top:1680px;font-size:76px">…and nowhere at once.</div>
   </div>
 
-  <!-- phone (scenes 4 and 5) -->
-  <div class="layer" id="ph">
-    <div class="a" id="flyers"></div>
-    <div class="a" id="phone">
-      <div id="screen">
+  <!-- LEFT OUT: Riya and Ba -->
+  <div class="layer" id="LO">
+    <div class="a h" id="lh" style="left:90px;top:190px;width:900px;font-size:92px;color:#fff">And it leaves people <span class="mg">out.</span></div>
+    <div class="a persona" id="riya" style="top:450px">
+      <div class="top">
+        <div class="av" style="background:var(--teal)">🎓</div>
+        <div><div class="nm">Riya, 20</div><div class="sb">At university in Leicester</div></div>
+      </div>
+      <div class="lines">
+        <div class="ln" id="rl0">New to the city.</div>
+        <div class="ln" id="rl1">Not in the local groups.</div>
+        <div class="ln mg" id="rl2">“Which mandir is near me?”</div>
+      </div>
+    </div>
+    <div class="a persona" id="ba" style="top:950px">
+      <div class="top">
+        <div class="av" style="background:var(--marigold)">🪔</div>
+        <div><div class="nm">Ba, 79</div><div class="sb">Doesn't use WhatsApp</div></div>
+      </div>
+      <div class="lines">
+        <div class="ln" id="bl0">Hears about Diwali</div>
+        <div class="ln mg" id="bl1">after it's happened.</div>
+      </div>
+    </div>
+    <div class="a center" id="hear1" style="top:1420px;font-size:46px;font-weight:600;color:var(--mist);line-height:1.3">Young people would help. Elders want to come.</div>
+    <div class="a h center" id="hear2" style="top:1510px;font-size:76px;color:#fff">They just don't hear <span class="mg">in time.</span></div>
+  </div>
+
+  <!-- TURN: cream wipe and the name -->
+  <div id="wipe"></div>
+  <div class="layer" id="T">
+    <svg class="a" id="gT" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:560px"></svg>
+    <div class="a h center" id="tw" style="top:760px;font-size:230px">Toran</div>
+    <div class="a h center" id="tt0" style="top:1040px;font-size:76px">Every mandir's events.</div>
+    <div class="a h center pk" id="tt1" style="top:1130px;font-size:76px">One place.</div>
+  </div>
+
+  <!-- SOLUTION: headlines -->
+  <div class="layer" id="H">
+    <div class="a h center" id="fh" style="top:150px;font-size:92px">Find what's on <span class="pk">near you.</span></div>
+    <div class="a center" id="fc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">Big, clear text. In English and ગુજરાતી.</div>
+    <div class="a h center" id="sh" style="top:150px;font-size:92px">Seva in <span class="pk">one link.</span></div>
+    <div class="a center" id="sc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">No app or account needed.</div>
+    <div class="a h center" id="ch" style="top:130px;font-size:84px;line-height:1.08">Committees: just<br><span class="pk">forward your poster.</span></div>
+  </div>
+
+  <!-- SOLUTION: the Toran phone -->
+  <div class="layer" id="PB">
+    <div class="a phone" id="phoneB" style="left:200px;top:420px">
+      <div class="screen light" id="screenB">
         <div class="notch"></div>
+
         <!-- events list -->
         <div class="scr" id="list">
           <div style="display:flex;justify-content:space-between;align-items:baseline">
             <div class="h" style="font-size:52px">Toran</div>
-            <div style="font-size:27px;font-weight:600;color:var(--muted)">Near HA3 · this week</div>
+            <div style="font-size:27px;font-weight:600;color:var(--muted)">Near LE4 · this week</div>
           </div>
-          <div class="a chip" id="chip" style="position:relative;margin-top:22px"><span style="width:16px;height:16px;border-radius:50%;background:var(--marigold);display:inline-block"></span>Navratri starts today</div>
-          <div class="a ev" id="e0" style="position:relative"><div class="date"><b>11</b><i>OCT</i></div><div><div class="et">Navratri Garba, night 1</div><div class="em">8pm · Harrow · 1.2 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
-          <div class="a ev" id="e1" style="position:relative"><div class="date"><b>12</b><i>OCT</i></div><div><div class="et">Navratri Garba, night 2</div><div class="em">8pm · Kenton · 2.0 mi</div></div></div>
-          <div class="a ev" id="e2" style="position:relative"><div class="date"><b>18</b><i>OCT</i></div><div><div class="et">Hanuman Chalisa</div><div class="em">7pm · Wembley · 2.6 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
-          <div class="a ev" id="e3" style="position:relative"><div class="date"><b>8</b><i>NOV</i></div><div><div class="et">Diwali celebrations</div><div class="em">6pm · Neasden · 3.1 mi</div></div></div>
+          <div class="mapc" id="mapc">
+            <svg width="620" height="250" viewBox="0 0 620 250" style="position:absolute;inset:0">
+              <path d="M0 170 C120 150 200 210 320 180 S520 120 620 140" stroke="#BFD9EA" stroke-width="22" fill="none"/>
+              <rect x="380" y="20" width="150" height="90" rx="20" fill="#CFE2C3"/>
+              <path d="M60 0 L140 250 M0 70 L620 40 M260 0 L300 250 M0 230 L620 210 M470 0 L430 250" stroke="#fff" stroke-width="12" fill="none"/>
+            </svg>
+            <div class="a" id="me" style="left:300px;top:125px;width:28px;height:28px;margin:-14px;border-radius:50%;background:#2F6FE0;border:5px solid #fff;box-shadow:0 0 0 10px rgba(47,111,224,.18)"></div>
+            <div class="a mpin" id="p0" style="left:250px;top:95px"></div>
+            <div class="a mpin" id="p1" style="left:400px;top:150px"></div>
+            <div class="a mpin" id="p2" style="left:150px;top:200px"></div>
+            <div class="a mpin" id="p3" style="left:520px;top:80px"></div>
+            <div class="a mpin" id="p4" style="left:90px;top:80px"></div>
+          </div>
+          <div id="newWrap" style="height:0;overflow:visible">
+            <div class="ev" id="eN" style="position:relative;opacity:0"><div class="date" style="background:#FFF1D6"><b>7</b><i>NOV</i></div>
+              <div><div class="et">Diwali Mela</div><div class="em">5pm · Belgrave · 0.8 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
+          </div>
+          <div id="evs">
+            <div class="ev" id="e0" style="position:relative"><div class="date"><b>17</b><i>OCT</i></div><div><div class="et">Navratri Garba, night 7</div><div class="em">8pm · Belgrave · 0.8 mi</div><div class="ok">✓ Confirmed by the mandir</div></div></div>
+            <div class="ev" id="e1" style="position:relative"><div class="date"><b>24</b><i>OCT</i></div><div><div class="et">Sharad Purnima Garba</div><div class="em">7:30pm · Rushey Mead · 1.4 mi</div></div></div>
+            <div class="ev" id="e2" style="position:relative"><div class="date"><b>8</b><i>NOV</i></div><div><div class="et">Diwali celebrations</div><div class="em">6pm · Evington · 2.5 mi</div></div></div>
+            <div class="ev" id="e3" style="position:relative"><div class="date"><b>10</b><i>NOV</i></div><div><div class="et" style="font-family:'Noto Sans Gujarati'">અન્નકૂટ દર્શન</div><div class="em">Annakut darshan · 11am · Oadby</div></div></div>
+          </div>
         </div>
-        <!-- rota -->
-        <div class="scr" id="rotascr" style="opacity:0">
-          <div style="font-size:27px;font-weight:700;color:var(--muted);letter-spacing:.06em">NAVRATRI SEVA · NIGHT 3</div>
-          <div class="h" style="font-size:64px;margin-top:10px">Pick a slot</div>
+
+        <!-- event detail sheet -->
+        <div class="a" id="dim" style="inset:0;background:rgba(27,26,44,.35)"></div>
+        <div class="a" id="sheet" style="left:0;right:0;bottom:0;height:640px;background:#fff;border-radius:44px 44px 0 0;padding:26px 36px;box-shadow:0 -20px 40px rgba(27,26,44,.15)">
+          <div style="width:90px;height:10px;border-radius:5px;background:#E2DFE8;margin:0 auto 30px"></div>
+          <div style="font-size:26px;font-weight:700;color:var(--mink);letter-spacing:.06em">SAT 24 OCT · 7:30PM</div>
+          <div class="h" style="font-size:58px;margin-top:10px">Sharad Purnima Garba</div>
+          <div style="font-size:30px;font-weight:500;color:var(--muted);margin-top:12px">Rushey Mead, Leicester · 1.4 mi</div>
+          <div class="btn" id="calBtn" style="margin-top:40px;position:relative"><span id="calTxt">📅  Add to calendar</span></div>
+          <div class="btn2">Share on WhatsApp</div>
+        </div>
+
+        <!-- the seva link in the group -->
+        <div class="scr lightchat" id="chatB" style="padding:0;opacity:0">
+          <div class="chathead" style="background:#fff;border-bottom:1px solid var(--line)">
+            <div style="color:var(--ink);font-size:44px;margin-right:-4px">‹</div>
+            <div class="av" style="background:#E8890C">🙏</div>
+            <div><div class="gname" style="color:var(--ink)">Mandir Family 🙏</div><div class="gsub" style="color:var(--muted)">238 members</div></div>
+          </div>
+          <div class="a" id="linkMsg" style="left:22px;top:250px">
+            <div class="b" style="max-width:none">
+              <div class="who" style="color:var(--peacock)">Mandir Committee</div>
+              <div class="tx">Navratri seva, night 3 🙏<br>Pick a slot here:</div>
+              <div class="linkc" id="linkc">
+                <div style="height:120px;background:linear-gradient(120deg,#0B6B68,#14918C);display:flex;align-items:center;padding:0 28px;gap:18px">
+                  <svg width="70" height="40" viewBox="0 0 70 40"><path d="M3 6 Q35 26 67 6" stroke="#F0A00A" stroke-width="4" fill="none"/><circle cx="14" cy="18" r="6" fill="#F0A00A"/><circle cx="35" cy="24" r="6" fill="#F0A00A"/><circle cx="56" cy="18" r="6" fill="#F0A00A"/></svg>
+                  <div class="h" style="font-size:44px;color:#fff">Toran</div>
+                </div>
+                <div style="padding:18px 22px">
+                  <div style="font-size:30px;font-weight:700">Navratri seva · Night 3</div>
+                  <div style="font-size:24px;color:var(--muted);margin-top:4px">9 of 20 slots filled · tap to help</div>
+                </div>
+              </div>
+              <div class="tm">18:04</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- the rota -->
+        <div class="scr" id="rotaB" style="opacity:0">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:25px;font-weight:700;color:var(--muted);letter-spacing:.06em">NAVRATRI SEVA · NIGHT 3</div>
+            <div class="pill" id="shortB" style="font-size:24px;padding:8px 16px">11 short</div>
+          </div>
+          <div class="h" style="font-size:62px;margin-top:12px">Pick a slot</div>
           <div id="rrows"></div>
-          <div class="a btn" id="take" style="position:relative;margin-top:64px">Take this slot</div>
-          <div class="a" id="tap" style="width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.18);border:5px solid rgba(255,255,255,.9);left:240px;top:0"></div>
-          <div class="a" id="toast" style="position:relative;margin-top:26px;background:var(--ink);color:#fff;border-radius:28px;padding:28px 30px;font-size:31px;font-weight:600;line-height:1.35">
-            You're on Kitchen, Fri 6–10pm.<br><span style="color:var(--mist);font-weight:500">We'll remind you the day before.</span></div>
+          <div class="btn" id="take" style="position:relative;margin-top:56px">Take this slot</div>
         </div>
+
+        <div class="a toast" id="toast">
+          <div style="font-size:22px;color:var(--mist);font-weight:600">TORAN · now</div>
+          <div style="font-size:32px;font-weight:700;margin-top:6px">You're on Kitchen, Fri 6–10pm.</div>
+          <div style="font-size:28px;color:var(--mist);margin-top:4px">We'll remind you the day before.</div>
+        </div>
+        <div class="a tap" id="tap"></div>
       </div>
+    </div>
+    <div class="a poster" id="poster">
+      <div style="font-size:22px;font-weight:800;letter-spacing:.16em">ALL WELCOME</div>
+      <svg width="200" height="90" viewBox="0 0 200 90" style="margin:18px auto 6px;display:block"><circle cx="100" cy="45" r="38" fill="none" stroke="#7A1E2A" stroke-width="6"/><circle cx="100" cy="45" r="16" fill="#C21E3A"/><circle cx="40" cy="45" r="10" fill="#7A1E2A"/><circle cx="160" cy="45" r="10" fill="#7A1E2A"/></svg>
+      <div class="h" style="font-size:66px;line-height:.95">DIWALI<br>MELA</div>
+      <div style="font-size:30px;font-weight:800;margin-top:18px">Sat 7 Nov · 5pm</div>
+      <div style="font-size:24px;font-weight:600;margin-top:8px">Food stalls · Rangoli · Garba</div>
     </div>
   </div>
 
-  <!-- 6. End card -->
-  <div class="layer" id="s6">
-    <svg class="a" id="g6" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:520px"></svg>
-    <div class="a h center" id="s6w" style="top:720px;font-size:230px;color:#fff">Toran</div>
-    <div class="a h center" id="s6a" style="top:1000px;font-size:84px;color:var(--marigold)">Free for mandirs.</div>
-    <div class="a center" id="s6b" style="top:1120px;font-size:48px;font-weight:600;color:var(--mist)">Built with committees · Launching 2027</div>
+  <!-- END CARD -->
+  <div class="layer" id="E">
+    <svg class="a" id="gE" width="820" height="150" viewBox="0 0 820 150" style="left:130px;top:540px"></svg>
+    <div class="a h center" id="ew" style="top:740px;font-size:230px;color:#fff">Toran</div>
+    <div class="a center" id="et" style="top:1010px;font-size:54px;font-weight:600;color:var(--mist)">What's on at mandirs near you</div>
+    <div class="a h center mg" id="ef" style="top:1130px;font-size:68px">Free for mandirs · Launching 2027</div>
   </div>
+
+  <div id="fade"></div>
 </div>
 
 <script>
+const C = window.CUES, BEAT = 60 / C.bpm;
+const at = (id, i = 0) => C[id].at[i] * BEAT; // cue time in seconds
+const S = Object.fromEntries(Object.entries(C.scenes).map(([k, v]) => [k, v * BEAT]));
+
 const $ = id => document.getElementById(id);
 const clamp = (x,a=0,b=1) => Math.min(b,Math.max(a,x));
 const prog = (t,a,b) => clamp((t-a)/(b-a));
 const eOut = p => 1-Math.pow(1-p,3);
+const eIn = p => p*p*p;
 const eInOut = p => p<.5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2;
 const eBack = p => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2); };
 const lerp = (a,b,p) => a+(b-a)*p;
@@ -171,12 +366,83 @@ function set(el, {o=1,x=0,y=0,s=1,r=0}={}) {
   el.style.opacity = o;
   el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
 }
-// fade window for a layer: in over [a,a+d], out over [b-d,b]
-function win(t,a,b,d=.4){ return Math.min(prog(t,a,a+d), 1-prog(t,b-d,b)); }
+// visible between a and b, fading over d at each end
+function win(t,a,b,d=.3){ return Math.min(prog(t,a,a+d), 1-prog(t,b-d,b)); }
 function hex(c){ return [1,3,5].map(i=>parseInt(c.slice(i,i+2),16)); }
 function mix(c1,c2,p){ const a=hex(c1),b=hex(c2); return `rgb(${a.map((v,i)=>Math.round(lerp(v,b[i],p))).join(',')})`; }
+// pop in at time a: fade and rise, with a little overshoot
+function rise(el,t,a,{dy=40,d=.35,s0=1}={}){
+  const p=prog(t,a,a+d);
+  set(el,{o:clamp(p*2),y:lerp(dy,0,eOut(p)),s:s0===1?1:lerp(s0,1,eBack(p))});
+}
 
-// garland builder
+// ---- words of the questions -------------------------------------------------
+function words(el, text, mark){
+  el.innerHTML = text.split(' ').map((w,i)=>`<span class="w${mark.includes(i)?' mg':''}">${w}</span>`).join(' ');
+  return [...el.querySelectorAll('.w')];
+}
+const QA = words($('qA'),'Ever missed a mandir event because the details were buried in a WhatsApp group?',[3,4,8]);
+const QB = words($('qB'),'Or struggled to find volunteers for an upcoming celebration?',[4]);
+const qaTimes = [...C.q1Words.at, ...C.q2Words.at].map(b=>b*BEAT);
+const qbTimes = C.q3Words.at.map(b=>b*BEAT);
+function typeWords(ws,times,t){
+  ws.forEach((w,i)=>{
+    const p=prog(t,times[i]-0.02,times[i]+0.22);
+    w.style.opacity=clamp(p*1.6);
+    w.style.transform=`translateY(${lerp(26,0,eOut(p))}px)`;
+  });
+}
+
+// ---- group chat messages ------------------------------------------------------
+const NAMES={Kaka:'#F0A00A',Masi:'#E57399',Nilesh:'#5FC3E4',Hema:'#9C8CF0',Raj:'#6CCB7A',Priya:'#F28B6B','Mandir Office':'#3CC6BF','Mandir Committee':'#3CC6BF'};
+function bubble(m){
+  const who = m.who ? `<div class="who" style="color:${NAMES[m.who]}">${m.who}</div>` : '';
+  const fw = m.fw ? `<div class="fw">↪ Forwarded many times</div>` : '';
+  const body = m.img ? `<div class="img" style="background:${m.img}">${m.tx}</div>` : `<div class="tx">${m.tx}</div>`;
+  return `<div class="m"><div class="b">${who}${fw}${body}<div class="tm">${m.tm||'07:12'}</div></div></div>`;
+}
+const POSTER_IMG='linear-gradient(150deg,#F7B733,#E8890C)';
+const chat1=[
+  {who:'Kaka',img:'linear-gradient(160deg,#F9A65A,#E8566C)',tx:'Shubh Prabhat 🌅',at:-9},
+  {who:'Masi',tx:'Jai Shri Krishna 🙏',at:-9},
+  {who:'Nilesh',tx:'🙏🙏🙏'},
+  {fw:1,tx:'Share with 10 groups for blessings 🌸'},
+  {who:'Kaka',img:'linear-gradient(160deg,#F6D365,#FDA085)',tx:'Good morning 🌻'},
+  {who:'Mandir Office',img:POSTER_IMG,tx:'<div style="font-size:30px;line-height:1.1;color:#2A1600;text-shadow:none">SHARAD PURNIMA GARBA<div style="font-size:26px;margin-top:8px">Sat · 7:30pm</div></div>',poster:1},
+  {who:'Hema',tx:'Jai Mataji 🙏🙏'},
+  {fw:1,tx:'Health tip: warm water with haldi every morning…'},
+  {who:'Raj',tx:'👍👍'},
+  {who:'Masi',img:'linear-gradient(160deg,#30336B,#130F40)',tx:'Good night 🌙'},
+  {who:'Priya',tx:'🙏'},
+];
+let k=0; chat1.forEach(m=>{ if(m.at===undefined) m.at=C.chat1.at[k++]*BEAT; });
+const chat2=[
+  {who:'Mandir Committee',tx:'🪔 <b>Navratri seva, night 3</b><br>We need 20 volunteers.<br>Reply with your name 🙏',at:at('post'),tm:'18:02'},
+  ...['👍','Maybe','Is it Friday or Saturday?',"Can't this week sorry","Who's doing parking?"].map((tx,i)=>
+    ({who:['Nilesh','Priya','Raj','Hema','Kaka'][i],tx,at:at('replies',i),tm:'18:0'+(3+i)})),
+];
+$('msgs1').innerHTML=chat1.map(bubble).join('');
+$('msgs2').innerHTML=chat2.map(bubble).join('');
+let H1=null,H2=null,AREA=0;
+function measure(){
+  AREA=$('areaA').clientHeight;
+  H1=[...$('msgs1').children].map(e=>e.offsetHeight);
+  H2=[...$('msgs2').children].map(e=>e.offsetHeight);
+}
+function scrollChat(box,msgs,heights,t){
+  let vis=0;
+  msgs.forEach((m,i)=>{
+    const p=prog(t,m.at-0.02,m.at+0.2);
+    vis+=heights[i]*eOut(p);
+    const q=prog(t,m.at,m.at+0.28);
+    const b=box.children[i].firstChild;
+    b.style.opacity=clamp(q*2.5);
+    b.style.transform=`scale(${lerp(.8,1,eBack(q))})`;
+  });
+  box.style.transform=`translateY(${AREA-vis-16}px)`;
+}
+
+// ---- garlands -----------------------------------------------------------------
 function garland(svg, n=11){
   const ns='http://www.w3.org/2000/svg', W=820;
   const path=document.createElementNS(ns,'path');
@@ -203,139 +469,249 @@ function garland(svg, n=11){
   }
   return {path,len,drops};
 }
-function drawGarland(G,t,start){
-  G.path.style.strokeDashoffset = G.len*(1-eInOut(prog(t,start,start+0.8)));
+// string draws in before the first flower; each flower drops on its own cue
+function drawGarland(G,t,times){
+  const a=times[0]-0.4;
+  G.path.style.strokeDashoffset = G.len*(1-eInOut(prog(t,a,a+0.5)));
   G.drops.forEach((g,i)=>{
-    const p=prog(t,start+0.35+i*0.06,start+0.85+i*0.06);
-    const sway=Math.sin((t-start)*2.2+i*0.7)*3*p;
-    g.style.opacity=p;
+    const p=prog(t,times[i]-0.05,times[i]+0.3);
+    const sway=Math.sin((t-times[i])*2.2+i*0.7)*3*p;
+    g.style.opacity=clamp(p*2);
     g.style.transform=`translateY(${lerp(-40,0,eBack(p))}px) rotate(${sway}deg)`;
   });
 }
-const G1=garland($('g1')), G6=garland($('g6'));
+const GT=garland($('gT')), GE=garland($('gE'));
+const flowerT=C.flowers.at.map(b=>b*BEAT), endFlowerT=C.endFlowers.at.map(b=>b*BEAT);
 
-// rota rows on the phone
-const roles=[['Kitchen',6,2],['Parking',4,1],['Aarti',3,3],['Shoes',4,0]];
-$('rrows').innerHTML = roles.map((r,i)=>`
-  <div style="display:grid;grid-template-columns:170px 1fr 90px;gap:18px;align-items:center;margin-top:${i?44:56}px">
-    <div style="font-size:36px;font-weight:700">${r[0]}</div>
-    <div class="track" style="height:28px"><div class="fill" id="pf${i}"></div></div>
-    <div class="cnt" id="pn${i}" style="font-size:34px">${r[2]}/${r[1]}</div>
+// ---- rotas --------------------------------------------------------------------
+const ROLES=[['Kitchen',7,3],['Parking',6,2],['Aarti',3,3],['Shoes',4,1]];
+const FILL_ORDER=[0,1,3]; // Aarti is already full
+$('rrows').innerHTML = ROLES.map((r,i)=>`
+  <div id="rr${i}" style="display:grid;grid-template-columns:160px 1fr 86px;gap:18px;align-items:center;margin-top:${i?40:50}px;padding:14px 16px;border-radius:24px">
+    <div style="font-size:34px;font-weight:700">${r[0]}</div>
+    <div class="track" style="height:26px"><div class="fill" id="pf${i}"></div></div>
+    <div class="cnt" id="pn${i}" style="font-size:32px">${r[2]}/${r[1]}</div>
   </div>`).join('');
+const RED='#C21E3A', GREEN='#23895A';
 
-// flyers: source icons that gather into the phone
-const flyCols=['#2E7D4F','#3B5BA9','#C21E3A','#0B6B68','#2E7D4F','#F0A00A'];
-const flyFrom=[[-140,520],[1140,640],[-160,1180],[1160,1240],[200,1980],[860,2000]];
-$('flyers').innerHTML = flyCols.map((c,i)=>`<div class="a" id="fl${i}" style="width:110px;height:110px;border-radius:30px;background:${c};left:0;top:0;box-shadow:0 20px 40px rgba(27,26,44,.2)"></div>`).join('');
-
-const T=28;
-function render(t){
-  // background
-  let bg;
-  if(t<3.2) bg='#FAF8F4';
-  else if(t<3.6) bg=mix('#FAF8F4','#15142B',eInOut(prog(t,3.2,3.6)));
-  else if(t<12.9) bg='#15142B';
-  else if(t<13.3) bg=mix('#15142B','#FAF8F4',eInOut(prog(t,12.9,13.3)));
-  else if(t<23.5) bg='#FAF8F4';
-  else bg=mix('#FAF8F4','#15142B',eInOut(prog(t,23.5,23.9)));
-  $('bg').style.background=bg;
-
-  // ---------- 1. opening 0–3.4
-  $('s1').style.opacity = 1-prog(t,3.0,3.35);
-  drawGarland(G1,t,0.1);
-  let p=eOut(prog(t,0.9,1.6));
-  set($('s1word'),{o:p,y:lerp(70,0,p)});
-  p=eOut(prog(t,1.5,2.2));
-  set($('s1tag'),{o:p,y:lerp(40,0,p)});
-  if(t>2.9){ const q=eInOut(prog(t,2.9,3.35)); $('s1').style.transform=`scale(${lerp(1,1.06,q)})`; } else $('s1').style.transform='';
-
-  // ---------- 2. scattered 3.3–8.6
-  $('s2').style.opacity = win(t,3.3,8.6,.35);
-  p=eOut(prog(t,3.5,4.2));
-  set($('s2h'),{o:p,y:lerp(60,0,p)});
-  const rots=[-4,3,-2,4,-3];
-  for(let i=0;i<5;i++){
-    const a=4.2+i*0.38, q=prog(t,a,a+0.55);
-    const fy=Math.sin(t*1.6+i*1.3)*10, fx=Math.cos(t*1.2+i)*6;
-    const out=eInOut(prog(t,7.9,8.6));
-    set($('c'+i),{o:Math.min(q*1.4,1)*(1-out),x:fx,y:fy+lerp(0,40,out),s:lerp(0.6,1,eBack(q)),r:rots[i]+Math.sin(t*1.1+i)*1.2});
+// position of an element's centre inside the phone screen
+function centreIn(el){
+  let x=el.offsetWidth/2, y=el.offsetHeight/2, n=el;
+  while(n && n.id!=='screenB'){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; }
+  return [x,y];
+}
+function tapAt(t){
+  const taps=[['tapEvent','e1'],['tapCal','calBtn'],['tapLink','linkc'],['tapTake','take']];
+  for(const [id,target] of taps){
+    const a=at(id);
+    if(t>a-0.12 && t<a+0.5){
+      const p=prog(t,a-0.12,a+0.5);
+      const [x,y]=centreIn($(target));
+      const o = p<0.2 ? p/0.2 : 1-prog(p,0.45,1);
+      set($('tap'),{o,x,y,s: p<0.2?1.1:lerp(1,1.7,eOut(prog(p,0.2,1)))});
+      return;
+    }
   }
-  p=eOut(prog(t,6.6,7.2));
-  set($('s2b'),{o:p,y:lerp(30,0,p)});
+  set($('tap'),{o:0});
+}
+const press=(t,id)=> (t>at(id)-0.05 && t<at(id)+0.15) ? 0.95 : 1;
 
-  // ---------- 3. consequences 8.5–13.2
-  $('s3').style.opacity = win(t,8.5,13.2,.35);
-  p=eOut(prog(t,8.7,9.3)); set($('s3a'),{o:p,y:lerp(50,0,p)});
-  p=eOut(prog(t,9.6,10.2)); set($('s3b'),{o:p,y:lerp(50,0,p)});
-  p=eOut(prog(t,10.0,10.7)); set($('rota1'),{o:p,y:lerp(120,0,p)});
-  const low=[[2,6],[1,4],[3,3],[0,4]];
-  low.forEach(([v,m],i)=>{
-    const q=eOut(prog(t,10.5+i*0.12,11.4+i*0.12));
+// ---- poster flight -------------------------------------------------------------
+function posterAt(t){
+  const a=at('poster'), b=at('snap');
+  const pin=eOut(prog(t,a,a+0.5));
+  const into=eIn(prog(t,b-0.3,b));
+  // rest spot to the right of the phone, then into the top of the list
+  const x=lerp(lerp(-480,640,pin),330,into), y=lerp(lerp(1150,830,pin),760,into);
+  const s=lerp(1,0.25,into), r=lerp(lerp(-28,7,pin),0,into);
+  $('poster').style.left='0px'; $('poster').style.top='0px';
+  set($('poster'),{o:t<a||t>b?0:1,x,y,s,r});
+}
+
+const DUR=C.beats*BEAT;
+function render(t){
+  if(!H1) measure();
+
+  // background: navy for the problem, cream from the turn, navy for the end card
+  $('bg').style.background = t<S.end-0.3 ? '#15142B' : '#15142B';
+  const wipeR = t<S.turn ? 0 : (t<S.end-0.3 ? 1400*eInOut(prog(t,S.turn,S.turn+0.8)) : 1400*(1-eInOut(prog(t,S.end-0.3,S.end+0.3))));
+  $('wipe').style.background='#FAF8F4';
+  $('wipe').style.clipPath=`circle(${wipeR}px at 540px 960px)`;
+  // soft colour glow behind the action
+  const gl = t<S.turn ? 1 : 0;
+  $('glow').style.opacity = t<S.turn ? 0.9*win(t,0,S.turn,0.6) : (t>S.end ? prog(t,S.end,S.end+0.6) : 0);
+  $('glow').style.background = t<S.mess
+    ? `radial-gradient(600px 600px at ${540+Math.sin(t*.5)*80}px 1150px, rgba(60,198,191,.16), transparent 70%)`
+    : t<S.turn ? `radial-gradient(700px 700px at 540px ${900+Math.sin(t*.4)*80}px, rgba(240,160,10,.12), transparent 70%)`
+    : `radial-gradient(700px 600px at 540px 900px, rgba(240,160,10,.14), transparent 70%)`;
+
+  // ---------------- HOOK 1 + 2: questions
+  $('Q').style.opacity = win(t,0,at('out2')+0.5,.2);
+  typeWords(QA,qaTimes,t); typeWords(QB,qbTimes,t);
+  const swapQ=eInOut(prog(t,at('out1'),at('out1')+0.45));
+  $('qA').style.opacity=1-swapQ; $('qA').style.transform=`translateY(${-60*swapQ}px)`;
+  $('qB').style.opacity=prog(t,S.hook2-0.1,S.hook2);
+
+  // the group chat
+  $('PA').style.opacity = t<at('rotaIn')+1 ? 1 : 0;
+  const up=eOut(prog(t,at('phoneUp'),at('phoneUp')+0.6));
+  const down=eIn(prog(t,at('rotaIn'),at('rotaIn')+0.55));
+  set($('phoneA'),{y:lerp(1500,0,up)+down*1500,r:lerp(6,0,up)});
+  scrollChat($('msgs1'),chat1,H1,t);
+  scrollChat($('msgs2'),chat2,H2,t);
+  const sw=prog(t,at('out1'),at('out1')+0.4);
+  $('msgs1').style.opacity=1-sw; $('msgs2').style.opacity=sw;
+  // the missed poster gets a moment in the spotlight
+  const posterB=$('msgs1').children[5].firstChild;
+  const hl=prog(t,at('chat1',3),at('chat1',3)+0.3)*(1-prog(t,at('chat1',5),at('chat1',5)+0.4));
+  posterB.style.boxShadow=`0 0 0 ${6*hl}px rgba(240,160,10,${hl})`;
+  // unread counter ticks on every sixteenth note
+  const u0=at('unread',0), u1=at('unread',1);
+  const steps=Math.round((u1-u0)/(BEAT/4));
+  const step=clamp(Math.floor((t-u0)/(BEAT/4)+1e-6),0,steps);
+  const up2=step/steps;
+  $('unreadN').textContent=t<u0?47:Math.round(47+(412-47)*Math.pow(up2,1.6));
+  const uIn=prog(t,u0-0.3,u0);
+  const bump = t>u0&&t<u1 ? 1+0.05*Math.max(0,1-((t-u0)%(BEAT/4))/(BEAT/8)) : 1;
+  set($('unread'),{o:uIn*(1-sw),s:lerp(.6,1,eBack(uIn))*bump});
+  // Mum's message
+  const mb=prog(t,at('mum'),at('mum')+0.35), mo=prog(t,at('out1'),at('out1')+0.3);
+  set($('banner'),{o:mb>0?1-mo:0,y:lerp(-220,28,eBack(mb))});
+
+  // ---------------- HOOK 2: the rota
+  $('R1').style.opacity = win(t,at('rotaIn'),S.mess,.3);
+  const ri=eOut(prog(t,at('rotaIn')+0.3,at('rotaIn')+0.9));
+  set($('rota1'),{o:ri,y:lerp(260,0,ri)});
+  ROLES.forEach(([n,m,v],i)=>{
+    const q=eOut(prog(t,at('rotaFill',i),at('rotaFill',i)+0.35));
     const full=v===m;
     $('f'+i).style.width=(q*v/m*100)+'%';
-    $('f'+i).style.background= full ? '#0B6B68' : '#C21E3A';
+    $('f'+i).style.background= full ? GREEN : RED;
     $('n'+i).textContent=Math.round(q*v)+'/'+m;
-    $('n'+i).style.color= full ? '#0B6B68' : '#C21E3A';
+    $('n'+i).style.color= full ? GREEN : RED;
   });
-  const blink = t>11.4 ? 0.75+0.25*Math.sin((t-11.4)*9) : 0;
-  set($('short'),{o:t>11.2?1:0,s:t>11.2?lerp(0.5,1,eBack(prog(t,11.2,11.6)))*(0.97+0.03*blink):0.5});
-  p=eOut(prog(t,11.7,12.3)); set($('s3c'),{o:p,y:lerp(30,0,p)});
+  const sh=prog(t,at('short',0),at('short',0)+0.3);
+  const pulse = t>at('short',1) ? 1+0.06*Math.max(0,1-(t-at('short',1))/0.3) : 1;
+  set($('short1'),{o:sh>0?1:0,s:lerp(.4,1,eBack(sh))*pulse});
+  rise($('tomorrow'),t,at('short',1),{dy:30});
 
-  // ---------- 4. one place 13.1–19.3 (headline)
-  $('s4').style.opacity = win(t,13.1,19.3,.35);
-  p=eOut(prog(t,14.0,14.6)); set($('s4a'),{o:p,y:lerp(50,0,p)});
-  p=eOut(prog(t,14.4,15.0)); set($('s4b'),{o:p,y:lerp(50,0,p),s:lerp(0.9,1,eBack(p))});
-
-  // phone layer 13.1–23.8
-  $('ph').style.opacity = win(t,13.1,23.8,.35);
-  p=eOut(prog(t,13.2,14.1));
-  set($('phone'),{y:lerp(700,0,p)});
-  // flyers gather into the phone (target screen centre ~ 540,900)
-  flyCols.forEach((c,i)=>{
-    const a=13.3+i*0.07, q=eInOut(prog(t,a,a+0.85));
-    const [fx,fy]=flyFrom[i];
-    const x=lerp(fx,485,q), y=lerp(fy,880,q);
-    set($('fl'+i),{o:q<0.98?1:0,x,y,s:lerp(1,0.25,q),r:lerp((i%2?1:-1)*30,0,q)});
-  });
-  p=eOut(prog(t,14.1,14.6)); set($('chip'),{o:p,s:lerp(0.7,1,eBack(p))});
-  for(let i=0;i<4;i++){
-    const q=eOut(prog(t,14.4+i*0.22,15.0+i*0.22));
-    set($('e'+i),{o:q,x:lerp(300,0,q)});
+  // ---------------- MESS
+  $('M').style.opacity = win(t,S.mess-0.1,S.left,.3);
+  rise($('mh'),t,at('messHead'),{dy:60,d:.45});
+  const rots=[-4,3,-2,4,-3];
+  const spread=eInOut(prog(t,at('nowhere'),at('nowhere')+0.8));
+  for(let i=0;i<5;i++){
+    const a=at('messCards',i), q=prog(t,a-0.04,a+0.4);
+    const fy=Math.sin(t*1.6+i*1.3)*10, fx=Math.cos(t*1.2+i)*6;
+    const paper=i===2||i===4;
+    set($('c'+i),{o:clamp(q*3)*lerp(1,.4,spread),x:fx+(i%2?1:-1)*60*spread,y:fy+(paper?lerp(-90,0,eOut(q)):0),
+      s:paper?1:lerp(0.55,1,eBack(q)),r:rots[i]*(1+spread)+(paper?lerp(-14,0,eBack(q)):0)+Math.sin(t*1.1+i)*1.2});
   }
-  // list → rota cross-fade inside the screen at 19.0
-  const sw=eInOut(prog(t,19.0,19.5));
-  set($('list'),{o:1-sw,x:lerp(0,-120,sw)});
-  set($('rotascr'),{o:sw,x:lerp(120,0,sw)});
+  rise($('nowhere'),t,at('nowhere'),{dy:30,s0:.85});
 
-  // ---------- 5. seva 19.1–23.8
-  $('s5').style.opacity = win(t,19.1,23.8,.35);
-  p=eOut(prog(t,19.4,20.0)); set($('s5a'),{o:p,y:lerp(50,0,p)});
-  p=eOut(prog(t,19.8,20.4)); set($('s5b'),{o:p,y:lerp(30,0,p)});
-  // tap at 20.6, then slots fill 20.9–22.4
-  const tapP=prog(t,20.45,21.0);
-  const btnTop = $('take').offsetTop;
-  set($('tap'),{o:tapP>0&&tapP<1?(1-tapP):0,x:0,y:btnTop-12,s:lerp(0.4,1.6,eOut(tapP))});
-  const press = t>20.5&&t<20.75 ? 0.95 : 1;
-  set($('take'),{s:press});
-  roles.forEach(([n,m,v],i)=>{
-    const q=eOut(prog(t,20.9+i*0.18,21.8+i*0.18));
+  // ---------------- LEFT OUT
+  const r0=at('riser',0), r1=at('riser',1);
+  $('LO').style.opacity = win(t,S.left-0.1,S.turn+0.6,.3);
+  $('LO').style.transform = `scale(${1+0.04*eIn(prog(t,r0,r1))+0.1*eInOut(prog(t,S.turn,S.turn+0.6))})`;
+  rise($('lh'),t,at('leftHead'),{dy:60,d:.45});
+  rise($('riya'),t,at('riya'),{dy:120,d:.5,s0:.9});
+  C.riyaLines.at.forEach((b,i)=>rise($('rl'+i),t,b*BEAT,{dy:20}));
+  rise($('ba'),t,at('ba'),{dy:120,d:.5,s0:.9});
+  C.baLines.at.forEach((b,i)=>rise($('bl'+i),t,b*BEAT,{dy:20}));
+  rise($('hear1'),t,at('hear1'),{dy:24});
+  rise($('hear2'),t,at('hear2'),{dy:30,s0:.9});
+
+  // ---------------- TURN
+  $('T').style.opacity = t<S.turn ? 0 : 1-prog(t,at('out4'),at('out4')+0.5);
+  $('T').style.transform = `translateY(${-500*eIn(prog(t,at('out4'),at('out4')+0.6))}px)`;
+  drawGarland(GT,t,flowerT);
+  rise($('tw'),t,at('turnWord'),{dy:70,d:.5,s0:.9});
+  rise($('tt0'),t,at('turnTag',0),{dy:30});
+  rise($('tt1'),t,at('turnTag',1),{dy:30,s0:.8});
+
+  // ---------------- SOLUTION headlines
+  $('H').style.opacity = t<S.find ? 0 : 1-prog(t,S.end-0.3,S.end);
+  const hw=(a,b)=>win(t,a,b,.25);
+  rise($('fh'),t,at('findHead'),{dy:50,d:.45}); $('fh').style.opacity*=hw(S.find,S.seva);
+  rise($('fc'),t,at('findCap'),{dy:20}); $('fc').style.opacity*=hw(S.find,S.seva);
+  rise($('sh'),t,at('sevaHead'),{dy:50,d:.45}); $('sh').style.opacity*=hw(S.seva,S.committee);
+  rise($('sc'),t,at('sevaCap'),{dy:20}); $('sc').style.opacity*=hw(S.seva,S.committee);
+  rise($('ch'),t,at('comHead'),{dy:50,d:.45}); $('ch').style.opacity*=hw(S.committee,S.end);
+
+  // ---------------- SOLUTION phone
+  $('PB').style.opacity = t<S.find-0.5 ? 0 : 1-prog(t,S.end-0.3,S.end);
+  const pu=eOut(prog(t,S.find-0.4,S.find+0.4));
+  set($('phoneB'),{y:lerp(1500,0,pu)+200*eIn(prog(t,S.end-0.3,S.end)),r:lerp(-5,0,pu)});
+  // which screen is showing
+  const toChat=eInOut(prog(t,at('out5'),at('out5')+0.4));
+  const toRota=eInOut(prog(t,at('rotaScreen'),at('rotaScreen')+0.35));
+  const toList=eInOut(prog(t,at('out6'),at('out6')+0.4));
+  const listO = t<S.committee-0.5 ? 1-toChat : toList;
+  set($('list'),{o:listO,x: t<S.committee-0.5 ? -120*toChat : lerp(120,0,toList)});
+  set($('chatB'),{o:toChat*(1-toRota),x:lerp(120,0,toChat)-120*toRota});
+  set($('rotaB'),{o:toRota*(1-toList),x:lerp(120,0,toRota)-120*toList});
+  // map and pins
+  rise($('mapc'),t,at('map'),{dy:30,s0:.92});
+  set($('me'),{o:prog(t,at('map'),at('map')+0.3),s:1+0.12*Math.sin(t*5)});
+  C.pins.at.forEach((b,i)=>{ const p=prog(t,b*BEAT-0.03,b*BEAT+0.3); set($('p'+i),{o:clamp(p*3),s:lerp(0,1,eBack(p)),r:-45}); });
+  for(let i=0;i<4;i++){
+    const q=eOut(prog(t,at('events',i)-0.03,at('events',i)+0.35));
+    set($('e'+i),{o:clamp(q*2),x:lerp(260,0,q),s:i===1?press(t,'tapEvent'):1});
+  }
+  // the detail sheet
+  const sIn=eOut(prog(t,at('sheet'),at('sheet')+0.4)), sOut=prog(t,at('out5'),at('out5')+0.3);
+  set($('dim'),{o:sIn*(1-sOut)});
+  set($('sheet'),{o:sIn>0?1-sOut:0,y:lerp(660,0,sIn)});
+  set($('calBtn'),{s:press(t,'tapCal')});
+  const added=t>=at('added');
+  $('calTxt').textContent = added ? '✓  Added to calendar' : '📅  Add to calendar';
+  $('calBtn').style.background = added ? GREEN : '';
+  // the seva link
+  const lm=prog(t,at('link'),at('link')+0.3);
+  set($('linkMsg'),{o:clamp(lm*2.5),y:lerp(30,0,eOut(lm)),s:lerp(.85,1,eBack(lm))*press(t,'tapLink')});
+  // rota fills one row per beat
+  let filled=0;
+  ROLES.forEach(([n,m,v],i)=>{
+    const k=FILL_ORDER.indexOf(i);
+    const q= k<0 ? 0 : eOut(prog(t,at('fillUp',k),at('fillUp',k)+0.3));
     const cur=v+(m-v)*q;
+    filled+=Math.round(cur);
     $('pf'+i).style.width=(cur/m*100)+'%';
-    $('pf'+i).style.background= q>0.98 ? '#0B6B68' : (q>0 ? '#3CC6BF' : (v===m?'#0B6B68':'#C21E3A'));
+    $('pf'+i).style.background= Math.round(cur)===m ? GREEN : (q>0 ? '#3CC6BF' : RED);
     $('pn'+i).textContent=Math.round(cur)+'/'+m;
-    $('pn'+i).style.color= Math.round(cur)===m ? '#0B6B68' : '#C21E3A';
+    $('pn'+i).style.color= Math.round(cur)===m ? GREEN : RED;
+    const flash= k<0 ? 0 : Math.max(0,1-Math.abs(t-at('fillUp',k)-0.1)/0.3);
+    $('rr'+i).style.background = (i===0 && t>at('tapTake') ? 'rgba(11,107,104,.07)' : 'transparent');
+    $('rr'+i).style.transform=`scale(${1+0.03*flash})`;
   });
-  p=eOut(prog(t,21.0,21.5)); set($('toast'),{o:p,y:lerp(40,0,p)});
+  const short=20-filled, staffed=t>=at('staffed');
+  $('shortB').textContent = staffed ? 'Fully staffed ✓' : short+' short';
+  $('shortB').style.opacity = (short<=0 && !staffed) ? 0 : 1;
+  $('shortB').style.background = staffed ? GREEN : RED;
+  const sp=prog(t,at('staffed'),at('staffed')+0.35);
+  $('shortB').style.transform=`scale(${staffed?lerp(.6,1,eBack(sp))*1:1})`;
+  set($('take'),{s:press(t,'tapTake')});
+  const tIn=prog(t,at('toast'),at('toast')+0.4), tOut=prog(t,at('out6'),at('out6')+0.3);
+  set($('toast'),{o:tIn>0?1-tOut:0,y:lerp(-260,30,eBack(tIn))});
+  tapAt(t);
+  // committee: the poster becomes an event
+  posterAt(t);
+  const nc=prog(t,at('newCard')-0.15,at('newCard')+0.3);
+  $('newWrap').style.height=(eOut(nc)*($('eN').offsetHeight+18))+'px';
+  set($('eN'),{o:clamp(nc*2),s:lerp(.7,1,eBack(nc))});
+  $('eN').style.boxShadow = nc>0 ? `0 0 0 ${5*(1-prog(t,at('newCard')+0.4,at('newCard')+1.2))}px rgba(240,160,10,.9),0 12px 26px rgba(27,26,44,.07)` : '';
 
-  // ---------- 6. end card 23.6–28
-  $('s6').style.opacity = prog(t,23.6,24.0);
-  drawGarland(G6,t,23.8);
-  p=eOut(prog(t,24.4,25.1)); set($('s6w'),{o:p,y:lerp(70,0,p)});
-  p=eOut(prog(t,25.1,25.7)); set($('s6a'),{o:p,y:lerp(40,0,p)});
-  p=eOut(prog(t,25.6,26.2)); set($('s6b'),{o:p,y:lerp(30,0,p)});
+  // ---------------- END CARD
+  $('bg').style.background = '#15142B';
+  $('E').style.opacity = prog(t,S.end-0.1,S.end+0.2);
+  drawGarland(GE,t,endFlowerT);
+  rise($('ew'),t,at('endWord'),{dy:70,d:.5,s0:.9});
+  rise($('et'),t,at('endTag'),{dy:30});
+  rise($('ef'),t,at('endFree'),{dy:30,s0:.85});
+  $('fade').style.opacity = eInOut(prog(t,at('fade',0),at('fade',1)));
 }
-window.render=render; window.DURATION=T;
-render(0);
+window.render=render; window.DURATION=DUR;
+document.fonts.ready.then(()=>{ measure(); render(0); });
 </script>
 </body>
 </html>
