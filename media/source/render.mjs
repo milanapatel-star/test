@@ -13,7 +13,8 @@ if (mode === "keys") {
   }
 } else {
   const D = await p.evaluate(() => window.DURATION), F = Math.round(D * +fps);
-  for (let f = 0; f < F; f++) {
+  const from = +(process.env.FROM || 0), to = +(process.env.TO || F);
+  for (let f = from; f < to; f++) {
     await p.evaluate((t) => window.render(t), f / +fps);
     await p.screenshot({ path: `${dir}/frames/${String(f).padStart(4, "0")}.png` });
   }

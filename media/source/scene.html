@@ -381,7 +381,7 @@ function words(el, text, mark){
   el.innerHTML = text.split(' ').map((w,i)=>`<span class="w${mark.includes(i)?' mg':''}">${w}</span>`).join(' ');
   return [...el.querySelectorAll('.w')];
 }
-const QA = words($('qA'),'Ever missed a mandir event because the details were buried in a WhatsApp group?',[3,4,8]);
+const QA = words($('qA'),'Ever missed a mandir event because the details were buried in a WhatsApp group?',[3,4,9]);
 const QB = words($('qB'),'Or struggled to find volunteers for an upcoming celebration?',[4]);
 const qaTimes = [...C.q1Words.at, ...C.q2Words.at].map(b=>b*BEAT);
 const qbTimes = C.q3Words.at.map(b=>b*BEAT);
