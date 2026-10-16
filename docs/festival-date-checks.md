@@ -14,7 +14,7 @@ Festival dates, entering the source.
 | Dussehra            | Tue 20 Oct 2026         | Same for London; Vijay Muhurat 2:29–3:10pm BST [1]                                                    | Good       |
 | Dhanteras           | Fri 6 Nov 2026          | Same [2][3]                                                                                           | Good       |
 | Diwali (Lakshmi Puja) | Sun 8 Nov 2026        | Same; one source gives a London puja window of 4:35–6:12pm [2][3]                                     | Good       |
-| Annakut / New Year (Gujarati) | Mon 9 Nov 2026 | Govardhan Puja/Annakut 9 Nov in UK sources [2][3]; one Indian site says 10 Nov                       | Check      |
+| Annakut / New Year (Gujarati) | **Tue 10 Nov 2026** | Govardhan Puja/Annakut 9 Nov in UK sources [2][3]; Drik Panchang (London) and Bestu Varas sources say 10 Nov | **Decided** (16 Oct) |
 | Bhai Dooj           | Tue 10 Nov 2026         | UK sources say 10 Nov [2][3]; Wikipedia and one Indian site say 11 Nov (Indian time)                  | **Check**  |
 | Maha Shivaratri     | Sat 6 Mar 2027          | Most say 6 Mar, one London-specific [4]; two outliers (5 Mar, 5 Apr)                                  | Good       |
 | Holi                | Mon 22 Mar 2027         | Same; Holika Dahan Sun 21 Mar [5]                                                                     | Good       |
@@ -50,8 +50,16 @@ time: [HinduTone's UK guide](https://hindutone.com/festivals/bhai-dooj-2026-uk-d
 [Universal Time Date (London)](https://www.universaltimedate.com/holidays/bhai-dooj).
 It can be marked as checked once a panditji agrees.
 
-**Annakut / Gujarati New Year: still unsettled, so leave it as "not yet
-checked".** The sources disagree:
+**Annakut / Gujarati New Year: decided on Tue 10 November (16 October).**
+Toran-Main-Code PR #49 moves the site's date. It stays "not yet checked" until
+someone ticks it off against a Gujarati panchang in `/ops/festivals`.
+
+**Knock-on for Bhai Dooj:** Bhai Dooj (Bhai Bij) is the day after the new
+year (Dwitiya). If the new year's Pratipada is on 10 November at London
+sunrise, Bhai Dooj would fall on **Wed 11 November**, not the 10th the UK
+guides give. Worth asking the same panditji.
+
+Before the decision, the sources disagreed:
 
 - [HinduTone's UK guide](https://hindutone.com/festivals/govardhan-puja-2026-uk-date-annakut/)
   says Govardhan Puja and Annakut are on **Mon 9 November** in the UK, and a
