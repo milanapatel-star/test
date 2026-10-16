@@ -56,11 +56,11 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
   box-shadow:0 20px 40px rgba(0,0,0,.45);z-index:8}
 
 /* source cards */
-.card{width:620px;padding:30px 34px;border-radius:30px;background:#232241;border:2px solid rgba(255,255,255,.08);
+.card{width:auto;padding:30px 34px;border-radius:30px;background:#232241;border:2px solid rgba(255,255,255,.08);
   color:#fff;display:flex;gap:26px;align-items:center;box-shadow:0 30px 60px rgba(0,0,0,.35)}
 .card .ic{flex:0 0 84px;height:84px;border-radius:24px;display:grid;place-items:center;font-size:44px}
 .card .lbl{font-size:26px;font-weight:600;color:var(--mist);letter-spacing:.01em}
-.card .txt{font-size:36px;font-weight:700;margin-top:6px;line-height:1.15}
+.card .txt{font-size:44px;font-weight:700;line-height:1.15}
 .card.paper{background:#F4ECD8;color:var(--ink);border:0;border-radius:6px}
 .card.paper .lbl{color:#7A6A4F}
 .pin{position:absolute;top:-14px;left:50%;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:var(--kumkum);box-shadow:0 4px 8px rgba(0,0,0,.3)}
@@ -151,7 +151,7 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
   <div class="layer" id="R1">
     <div class="a rota" id="rota1" style="left:90px;top:620px;width:900px">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="font-size:32px;font-weight:700;color:var(--muted);letter-spacing:.04em">NAVRATRI SEVA · NIGHT 3</div>
+        <div style="font-size:32px;font-weight:700;color:var(--muted);letter-spacing:.04em">NAVRATRI SEVA</div>
         <div class="a pill" id="short1" style="position:relative">11 short</div>
       </div>
       <div class="rrow"><div class="rname">Kitchen</div><div class="track"><div class="fill" id="f0"></div></div><div class="cnt" id="n0">0/7</div></div>
@@ -159,7 +159,6 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
       <div class="rrow"><div class="rname">Aarti</div><div class="track"><div class="fill" id="f2"></div></div><div class="cnt" id="n2">0/3</div></div>
       <div class="rrow"><div class="rname">Shoes</div><div class="track"><div class="fill" id="f3"></div></div><div class="cnt" id="n3">0/4</div></div>
     </div>
-    <div class="a h center" id="tomorrow" style="top:1440px;font-size:66px;color:var(--kumkum)">Night 3 is tomorrow.</div>
   </div>
 
   <!-- MESS: everywhere and nowhere -->
@@ -167,25 +166,25 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
     <div class="a h" id="mh" style="left:80px;top:190px;width:930px;font-size:96px;color:#fff">Mandir news is <span class="mg">everywhere…</span></div>
     <div class="a card" id="c0" style="left:60px;top:520px">
       <div class="ic" style="background:#2E7D4F">💬</div>
-      <div><div class="lbl">Group chat · forwarded</div><div class="txt">Garba this Friday?? 8 or 9pm</div></div>
+      <div class="txt">Group chat forward</div>
     </div>
     <div class="a card" id="c1" style="left:400px;top:735px">
       <div class="ic" style="background:#3B5BA9;font-family:'Figtree';font-weight:800;color:#fff">f</div>
-      <div><div class="lbl">Facebook post · 3 weeks ago</div><div class="txt">Annakut seva sign-up, DM us</div></div>
+      <div class="txt">Facebook, 3 weeks old</div>
     </div>
     <div class="a card paper" id="c2" style="left:80px;top:960px">
       <div class="pin"></div>
       <div class="ic" style="background:#E7D9B8">📌</div>
-      <div><div class="lbl">Noticeboard by the shoe rack</div><div class="txt">Bhajan Sandhya, ask the office</div></div>
+      <div class="txt">Noticeboard</div>
     </div>
     <div class="a card" id="c3" style="left:390px;top:1180px">
       <div class="ic" style="background:var(--peacock)">🌐</div>
-      <div><div class="lbl">Website · last updated 2023</div><div class="txt">Events page coming soon</div></div>
+      <div class="txt">Website from 2023</div>
     </div>
     <div class="a card paper" id="c4" style="left:100px;top:1400px">
       <div class="pin"></div>
       <div class="ic" style="background:#E7D9B8">📝</div>
-      <div><div class="lbl">Paper rota on the office wall</div><div class="txt">Diwali seva: write your name</div></div>
+      <div class="txt">Paper rota</div>
     </div>
     <div class="a h center mg" id="nowhere" style="top:1680px;font-size:76px">…and nowhere at once.</div>
   </div>
@@ -196,26 +195,22 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
     <div class="a persona" id="riya" style="top:450px">
       <div class="top">
         <div class="av" style="background:var(--teal)">🎓</div>
-        <div><div class="nm">Riya, 20</div><div class="sb">At university in Leicester</div></div>
+        <div><div class="nm">Riya, 20</div><div class="sb">At uni in Leicester</div></div>
       </div>
       <div class="lines">
-        <div class="ln" id="rl0">New to the city.</div>
-        <div class="ln" id="rl1">Not in the local groups.</div>
-        <div class="ln mg" id="rl2">“Which mandir is near me?”</div>
+        <div class="ln mg" id="rl0">“Which mandir is near me?”</div>
       </div>
     </div>
-    <div class="a persona" id="ba" style="top:950px">
+    <div class="a persona" id="ba" style="top:860px">
       <div class="top">
         <div class="av" style="background:var(--marigold)">🪔</div>
-        <div><div class="nm">Ba, 79</div><div class="sb">Doesn't use WhatsApp</div></div>
+        <div><div class="nm">Ba, 79</div><div class="sb">No WhatsApp</div></div>
       </div>
       <div class="lines">
-        <div class="ln" id="bl0">Hears about Diwali</div>
-        <div class="ln mg" id="bl1">after it's happened.</div>
+        <div class="ln mg" id="bl0">Hears about Diwali too late.</div>
       </div>
     </div>
-    <div class="a center" id="hear1" style="top:1420px;font-size:46px;font-weight:600;color:var(--mist);line-height:1.3">Young people would help. Elders want to come.</div>
-    <div class="a h center" id="hear2" style="top:1510px;font-size:76px;color:#fff">They just don't hear <span class="mg">in time.</span></div>
+    <div class="a h center" id="hear2" style="top:1330px;font-size:76px;color:#fff">They just don't hear <span class="mg">in time.</span></div>
   </div>
 
   <!-- TURN: cream wipe and the name -->
@@ -230,9 +225,9 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
   <!-- SOLUTION: headlines -->
   <div class="layer" id="H">
     <div class="a h center" id="fh" style="top:150px;font-size:92px">Find what's on <span class="pk">near you.</span></div>
-    <div class="a center" id="fc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">Big, clear text. In English and ગુજરાતી.</div>
+    <div class="a center" id="fc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">In English and ગુજરાતી</div>
     <div class="a h center" id="sh" style="top:150px;font-size:92px">Seva in <span class="pk">one link.</span></div>
-    <div class="a center" id="sc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">No app or account needed.</div>
+    <div class="a center" id="sc" style="top:290px;font-size:42px;font-weight:600;color:var(--muted)">No app needed</div>
     <div class="a h center" id="ch" style="top:130px;font-size:84px;line-height:1.08">Committees: just<br><span class="pk">forward your poster.</span></div>
   </div>
 
@@ -294,7 +289,7 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
           <div class="a" id="linkMsg" style="left:22px;top:250px">
             <div class="b" style="max-width:none">
               <div class="who" style="color:var(--peacock)">Mandir Committee</div>
-              <div class="tx">Navratri seva, night 3 🙏<br>Pick a slot here:</div>
+              <div class="tx">Navratri seva 🙏</div>
               <div class="linkc" id="linkc">
                 <div style="height:120px;background:linear-gradient(120deg,#0B6B68,#14918C);display:flex;align-items:center;padding:0 28px;gap:18px">
                   <svg width="70" height="40" viewBox="0 0 70 40"><path d="M3 6 Q35 26 67 6" stroke="#F0A00A" stroke-width="4" fill="none"/><circle cx="14" cy="18" r="6" fill="#F0A00A"/><circle cx="35" cy="24" r="6" fill="#F0A00A"/><circle cx="56" cy="18" r="6" fill="#F0A00A"/></svg>
@@ -302,7 +297,7 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
                 </div>
                 <div style="padding:18px 22px">
                   <div style="font-size:30px;font-weight:700">Navratri seva · Night 3</div>
-                  <div style="font-size:24px;color:var(--muted);margin-top:4px">9 of 20 slots filled · tap to help</div>
+                  <div style="font-size:24px;color:var(--muted);margin-top:4px">9 of 20 filled</div>
                 </div>
               </div>
               <div class="tm">18:04</div>
@@ -323,8 +318,7 @@ body{font-family:'Figtree','Noto Sans Gujarati','Noto Color Emoji',sans-serif;co
 
         <div class="a toast" id="toast">
           <div style="font-size:22px;color:var(--mist);font-weight:600">TORAN · now</div>
-          <div style="font-size:32px;font-weight:700;margin-top:6px">You're on Kitchen, Fri 6–10pm.</div>
-          <div style="font-size:28px;color:var(--mist);margin-top:4px">We'll remind you the day before.</div>
+          <div style="font-size:34px;font-weight:700;margin-top:6px">You're on Kitchen, Fri ✓</div>
         </div>
         <div class="a tap" id="tap"></div>
       </div>
@@ -406,19 +400,19 @@ const chat1=[
   {who:'Kaka',img:'linear-gradient(160deg,#F9A65A,#E8566C)',tx:'Shubh Prabhat 🌅',at:-9},
   {who:'Masi',tx:'Jai Shri Krishna 🙏',at:-9},
   {who:'Nilesh',tx:'🙏🙏🙏'},
-  {fw:1,tx:'Share with 10 groups for blessings 🌸'},
+  {fw:1,tx:'🌸🙏🌸'},
   {who:'Kaka',img:'linear-gradient(160deg,#F6D365,#FDA085)',tx:'Good morning 🌻'},
   {who:'Mandir Office',img:POSTER_IMG,tx:'<div style="font-size:30px;line-height:1.1;color:#2A1600;text-shadow:none">SHARAD PURNIMA GARBA<div style="font-size:26px;margin-top:8px">Sat · 7:30pm</div></div>',poster:1},
   {who:'Hema',tx:'Jai Mataji 🙏🙏'},
-  {fw:1,tx:'Health tip: warm water with haldi every morning…'},
+  {who:'Kaka',img:'linear-gradient(160deg,#A8E063,#56AB2F)',tx:'🌼🌼🌼'},
   {who:'Raj',tx:'👍👍'},
   {who:'Masi',img:'linear-gradient(160deg,#30336B,#130F40)',tx:'Good night 🌙'},
   {who:'Priya',tx:'🙏'},
 ];
 let k=0; chat1.forEach(m=>{ if(m.at===undefined) m.at=C.chat1.at[k++]*BEAT; });
 const chat2=[
-  {who:'Mandir Committee',tx:'🪔 <b>Navratri seva, night 3</b><br>We need 20 volunteers.<br>Reply with your name 🙏',at:at('post'),tm:'18:02'},
-  ...['👍','Maybe','Is it Friday or Saturday?',"Can't this week sorry","Who's doing parking?"].map((tx,i)=>
+  {who:'Mandir Committee',tx:'🪔 <b>Navratri seva</b><br>Need 20 volunteers 🙏',at:at('post'),tm:'18:02'},
+  ...['👍','Maybe','Which day?',"Can't, sorry",'🤷'].map((tx,i)=>
     ({who:['Nilesh','Priya','Raj','Hema','Kaka'][i],tx,at:at('replies',i),tm:'18:0'+(3+i)})),
 ];
 $('msgs1').innerHTML=chat1.map(bubble).join('');
@@ -593,7 +587,6 @@ function render(t){
   const sh=prog(t,at('short',0),at('short',0)+0.3);
   const pulse = t>at('short',1) ? 1+0.06*Math.max(0,1-(t-at('short',1))/0.3) : 1;
   set($('short1'),{o:sh>0?1:0,s:lerp(.4,1,eBack(sh))*pulse});
-  rise($('tomorrow'),t,at('short',1),{dy:30});
 
   // ---------------- MESS
   $('M').style.opacity = win(t,S.mess-0.1,S.left,.3);
@@ -618,7 +611,6 @@ function render(t){
   C.riyaLines.at.forEach((b,i)=>rise($('rl'+i),t,b*BEAT,{dy:20}));
   rise($('ba'),t,at('ba'),{dy:120,d:.5,s0:.9});
   C.baLines.at.forEach((b,i)=>rise($('bl'+i),t,b*BEAT,{dy:20}));
-  rise($('hear1'),t,at('hear1'),{dy:24});
   rise($('hear2'),t,at('hear2'),{dy:30,s0:.9});
 
   // ---------------- TURN

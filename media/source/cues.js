@@ -30,10 +30,9 @@ window.CUES = {
 
   "leftHead":    { "at": [44.5], "sfx": "low" },
   "riya":        { "at": [46], "sfx": "chime" },
-  "riyaLines":   { "at": [46.5, 47, 47.5], "sfx": null },
+  "riyaLines":   { "at": [47], "sfx": null },
   "ba":          { "at": [49], "sfx": "chime" },
-  "baLines":     { "at": [49.5, 50], "sfx": null },
-  "hear1":       { "at": [52], "sfx": null },
+  "baLines":     { "at": [50], "sfx": null },
   "hear2":       { "at": [53.5], "sfx": null },
   "riser":       { "at": [52, 56], "sfx": "riser" },
 
