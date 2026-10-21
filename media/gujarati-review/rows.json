@@ -1,0 +1,2330 @@
+[
+ {
+  "key": "day.today",
+  "en": "Today",
+  "gu": "આજે",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "day.tomorrow",
+  "en": "Tomorrow",
+  "gu": "આવતીકાલે",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.label",
+  "en": "Share: {text}",
+  "gu": "શેર કરો: {text}",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.otherApps",
+  "en": "Other apps",
+  "gu": "અન્ય એપ્સ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.copyLink",
+  "en": "Copy link",
+  "gu": "લિંક કૉપિ કરો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.copied",
+  "en": "Link copied",
+  "gu": "લિંક કૉપિ થઈ ગઈ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.copyPrompt",
+  "en": "Copy this link:",
+  "gu": "આ લિંક કૉપિ કરો:",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "subscribe.apple",
+  "en": "Apple or Outlook calendar",
+  "gu": "Apple કે Outlook કેલેન્ડર",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "subscribe.google",
+  "en": "Google Calendar",
+  "gu": "Google કેલેન્ડર",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "subscribe.note",
+  "en": "No account needed. You can remove it from your calendar at any time.",
+  "gu": "કોઈ એકાઉન્ટની જરૂર નથી. તમે ગમે ત્યારે તેને તમારા કેલેન્ડરમાંથી કાઢી શકો છો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "countdown.days",
+  "en": "In {days} days",
+  "gu": "{days} દિવસ બાકી",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "whatsOn.nearMe",
+  "en": "Near me",
+  "gu": "મારી નજીક",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "whatsOn.finding",
+  "en": "Finding you…",
+  "gu": "તમને શોધી રહ્યા છીએ…",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.find",
+  "en": "Find a mandir or town",
+  "gu": "મંદિર કે શહેર શોધો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.findExample",
+  "en": "e.g. Leicester, BAPS, Harrow",
+  "gu": "દા.ત. Leicester, BAPS, Harrow",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.countOf",
+  "en": "{shown} of {total} mandirs",
+  "gu": "{total}માંથી {shown} મંદિરો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.count",
+  "en": "{total} mandirs",
+  "gu": "{total} મંદિરો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.showAs",
+  "en": "Show mandirs as",
+  "gu": "મંદિરો આ રીતે બતાવો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.map",
+  "en": "Map",
+  "gu": "નકશો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.list",
+  "en": "List",
+  "gu": "યાદી",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.noMatch",
+  "en": "No mandirs match “{query}”. Try a nearby town, or check the spelling.",
+  "gu": "“{query}” સાથે કોઈ મંદિર મળ્યું નહીં. નજીકનું શહેર લખી જુઓ, અથવા જોડણી તપાસો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "mandirs.regions",
+  "en": "Regions",
+  "gu": "પ્રદેશો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.East Midlands",
+  "en": "East Midlands",
+  "gu": "ઈસ્ટ મિડલેન્ડ્સ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.East of England",
+  "en": "East of England",
+  "gu": "ઈસ્ટ ઓફ ઇંગ્લેન્ડ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.London",
+  "en": "London",
+  "gu": "લંડન",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.North East",
+  "en": "North East",
+  "gu": "નોર્થ ઈસ્ટ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.North West",
+  "en": "North West",
+  "gu": "નોર્થ વેસ્ટ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.Northern Ireland",
+  "en": "Northern Ireland",
+  "gu": "નોર્ધર્ન આયર્લેન્ડ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.Scotland",
+  "en": "Scotland",
+  "gu": "સ્કોટલેન્ડ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.South East",
+  "en": "South East",
+  "gu": "સાઉથ ઈસ્ટ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.South West",
+  "en": "South West",
+  "gu": "સાઉથ વેસ્ટ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.Wales",
+  "en": "Wales",
+  "gu": "વેલ્સ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.West Midlands",
+  "en": "West Midlands",
+  "gu": "વેસ્ટ મિડલેન્ડ્સ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "region.Yorkshire",
+  "en": "Yorkshire",
+  "gu": "યોર્કશાયર",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.seeWhatsOn",
+  "en": "See what's on →",
+  "gu": "કાર્યક્રમો જુઓ →",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.cluster",
+  "en": "{count} mandirs near here",
+  "gu": "અહીં નજીક {count} મંદિરો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.clusterTitle",
+  "en": "{label}: zoom in",
+  "gu": "{label}: મોટું કરીને જુઓ",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.clusterLabel",
+  "en": "{label}. Zoom in to see them.",
+  "gu": "{label}. જોવા માટે નકશો મોટો કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.youAreHere",
+  "en": "You are here",
+  "gu": "તમે અહીં છો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.denied",
+  "en": "Your browser didn't share your location. You can zoom in on the map instead.",
+  "gu": "તમારા બ્રાઉઝરે તમારું સ્થાન આપ્યું નહીં. તેના બદલે તમે નકશો મોટો કરીને જોઈ શકો છો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.failed",
+  "en": "We couldn't find your location just now. You can zoom in on the map instead.",
+  "gu": "અત્યારે તમારું સ્થાન મળ્યું નહીં. તેના બદલે તમે નકશો મોટો કરીને જોઈ શકો છો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.label",
+  "en": "Map of mandirs. The list view has every mandir too.",
+  "gu": "મંદિરોનો નકશો. યાદીમાં પણ બધા મંદિરો છે.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.noneOnMap",
+  "en": "None of these mandirs is on the map yet. They're all in the list.",
+  "gu": "આમાંનું કોઈ મંદિર હજી નકશા પર નથી. બધા યાદીમાં છે.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.missing.one",
+  "en": "{count} mandir isn't on the map yet (no map position). It's in the list.",
+  "gu": "{count} મંદિર હજી નકશા પર નથી (સ્થાન નથી). તે યાદીમાં છે.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "map.missing.other",
+  "en": "{count} mandirs aren't on the map yet (no map position). They're in the list.",
+  "gu": "{count} મંદિરો હજી નકશા પર નથી (સ્થાન નથી). તે યાદીમાં છે.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.full",
+  "en": "Someone just took the last place.",
+  "gu": "હમણાં જ કોઈએ છેલ્લી જગ્યા લઈ લીધી.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.closed",
+  "en": "This slot can't be taken on Toran any more.",
+  "gu": "આ જગ્યા હવે Toran પર લઈ શકાતી નથી.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.failed",
+  "en": "Something went wrong. Please try again.",
+  "gu": "કંઈક ખોટું થયું. કૃપા કરીને ફરી પ્રયત્ન કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.youreOn",
+  "en": "✓ You're on this",
+  "gu": "✓ તમે આ સેવામાં છો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.isFull",
+  "en": "Full",
+  "gu": "ભરાઈ ગયું",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.takeLabel",
+  "en": "Take this slot: {role}, {label}",
+  "gu": "આ જગ્યા લો: {role}, {label}",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.taking",
+  "en": "Taking…",
+  "gu": "લઈ રહ્યા છીએ…",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.take",
+  "en": "Take this slot",
+  "gu": "આ જગ્યા લો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.yours",
+  "en": "Your seva",
+  "gu": "તમારી સેવા",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.onlyYourPhone",
+  "en": "Only your phone knows these are yours: Toran doesn't keep your name. Add them to your calendar for a reminder.",
+  "gu": "આ તમારી છે એ ફક્ત તમારો ફોન જાણે છે: Toran તમારું નામ રાખતું નથી. યાદ રાખવા માટે તેને તમારા કેલેન્ડરમાં ઉમેરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.youreOnRole",
+  "en": "✓ You're on {role}, {label}",
+  "gu": "✓ તમે {role}માં છો, {label}",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.givingBack",
+  "en": "Giving it back…",
+  "gu": "પાછી આપી રહ્યા છીએ…",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.cantMakeIt",
+  "en": "I can't make it",
+  "gu": "હું નહીં આવી શકું",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.google",
+  "en": "Google Calendar",
+  "gu": "Google કેલેન્ડર",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "slot.apple",
+  "en": "Apple or Outlook calendar",
+  "gu": "Apple કે Outlook કેલેન્ડર",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.thanks",
+  "en": "Thank you. We'll check it with the mandir before it goes on the page.",
+  "gu": "આભાર. પાના પર મૂકતા પહેલાં અમે મંદિર સાથે ખાતરી કરીશું.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.another",
+  "en": "Tell us about another",
+  "gu": "બીજા વિશે જણાવો",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.title",
+  "en": "Please give the event a name (2 to 120 characters).",
+  "gu": "કૃપા કરીને કાર્યક્રમનું નામ લખો (2 થી 120 અક્ષર).",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.summary",
+  "en": "Please keep the description under 280 characters.",
+  "gu": "કૃપા કરીને વર્ણન 280 અક્ષરથી ઓછું રાખો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.titleGu",
+  "en": "Please keep the Gujarati name between 2 and 120 characters.",
+  "gu": "કૃપા કરીને ગુજરાતી નામ 2 થી 120 અક્ષર વચ્ચે રાખો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.summaryGu",
+  "en": "Please keep the Gujarati description under 280 characters.",
+  "gu": "કૃપા કરીને ગુજરાતી વર્ણન 280 અક્ષરથી ઓછું રાખો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.kind",
+  "en": "Please choose what kind of event it is.",
+  "gu": "કૃપા કરીને કાર્યક્રમનો પ્રકાર પસંદ કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.date",
+  "en": "Please choose a date from today onwards, within the next two years.",
+  "gu": "કૃપા કરીને આજથી આવતા બે વર્ષની અંદરની તારીખ પસંદ કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.time",
+  "en": "Please choose a valid start time, or leave it empty for all day.",
+  "gu": "કૃપા કરીને સાચો સમય પસંદ કરો, અથવા આખા દિવસ માટે ખાલી રાખો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.repeat",
+  "en": "Please choose how often it repeats.",
+  "gu": "કૃપા કરીને તે કેટલી વાર થાય છે તે પસંદ કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.until",
+  "en": "Please choose an end date after the first date, and within a year of it.",
+  "gu": "કૃપા કરીને પહેલી તારીખ પછીની અને એક વર્ષની અંદરની છેલ્લી તારીખ પસંદ કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.link",
+  "en": "Please give a web address starting with http:// or https://, or leave it empty.",
+  "gu": "કૃપા કરીને http:// કે https://થી શરૂ થતું વેબ સરનામું લખો, અથવા ખાલી રાખો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.busy",
+  "en": "Thank you, but there are a lot of events waiting to be checked just now. Please try again in a few days.",
+  "gu": "આભાર, પણ અત્યારે ઘણા કાર્યક્રમો તપાસવાના બાકી છે. કૃપા કરીને થોડા દિવસ પછી ફરી પ્રયત્ન કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "report.error.failed",
+  "en": "Something went wrong. Please try again.",
+  "gu": "કંઈક ખોટું થયું. કૃપા કરીને ફરી પ્રયત્ન કરો.",
+  "file": "client-messages-gu.ts"
+ },
+ {
+  "key": "share.event",
+  "en": "{title} at {name}, {town}: {when}",
+  "gu": "{name}, {town}માં {title}: {when}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.festival",
+  "en": "Festival",
+  "gu": "તહેવાર",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.aarti",
+  "en": "Aarti or darshan",
+  "gu": "આરતી કે દર્શન",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.bhajan",
+  "en": "Bhajans or kirtan",
+  "gu": "ભજન કે કીર્તન",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.katha",
+  "en": "Katha or talk",
+  "gu": "કથા કે પ્રવચન",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.class",
+  "en": "Class",
+  "gu": "વર્ગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.youth",
+  "en": "Youth",
+  "gu": "યુવાનો",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.seva",
+  "en": "Seva day",
+  "gu": "સેવા દિવસ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.community",
+  "en": "Community (meals, health, sport)",
+  "gu": "સમુદાય (ભોજન, આરોગ્ય, રમતગમત)",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "kind.other",
+  "en": "Other",
+  "gu": "અન્ય",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "source.confirmed",
+  "en": "Confirmed by the mandir",
+  "gu": "મંદિરે પુષ્ટિ કરી છે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "source.website",
+  "en": "From the mandir's website",
+  "gu": "મંદિરની વેબસાઇટ પરથી",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "source.visitor",
+  "en": "Sent in by a visitor",
+  "gu": "એક મુલાકાતીએ મોકલ્યું",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "source.poster",
+  "en": "From a poster or message",
+  "gu": "પોસ્ટર કે સંદેશમાંથી",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "distance.mile",
+  "en": "{miles} mile",
+  "gu": "{miles} માઇલ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "distance.miles",
+  "en": "{miles} miles",
+  "gu": "{miles} માઇલ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "time.allDay",
+  "en": "All day",
+  "gu": "આખો દિવસ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "time.morning",
+  "en": "{time}am",
+  "gu": "સવારે {time}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "time.afternoon",
+  "en": "{time}pm",
+  "gu": "બપોરે {time}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "time.evening",
+  "en": "{time}pm",
+  "gu": "સાંજે {time}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "time.night",
+  "en": "{time}",
+  "gu": "રાત્રે {time}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "calendar.gujarati",
+  "en": "Gujarati calendar",
+  "gu": "ગુજરાતી પંચાંગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "calendar.north_indian",
+  "en": "North Indian calendar",
+  "gu": "ઉત્તર ભારતીય પંચાંગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "calendar.tamil",
+  "en": "Tamil calendar",
+  "gu": "તમિલ પંચાંગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "calendar.bengali",
+  "en": "Bengali calendar",
+  "gu": "બંગાળી પંચાંગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "calendar.other",
+  "en": "Other calendars",
+  "gu": "અન્ય પંચાંગ",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.weekly",
+  "en": "Every {day}",
+  "gu": "દર {day}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.fortnightly",
+  "en": "Every other {day}",
+  "gu": "દર બીજા {day}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.monthly",
+  "en": "{ordinal} {day} of the month",
+  "gu": "દર મહિનાના {ordinal} {day}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.0",
+  "en": "Sunday",
+  "gu": "રવિવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.1",
+  "en": "Monday",
+  "gu": "સોમવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.2",
+  "en": "Tuesday",
+  "gu": "મંગળવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.3",
+  "en": "Wednesday",
+  "gu": "બુધવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.4",
+  "en": "Thursday",
+  "gu": "ગુરુવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.5",
+  "en": "Friday",
+  "gu": "શુક્રવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.day.6",
+  "en": "Saturday",
+  "gu": "શનિવારે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.ordinal.1",
+  "en": "First",
+  "gu": "પહેલા",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.ordinal.2",
+  "en": "Second",
+  "gu": "બીજા",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.ordinal.3",
+  "en": "Third",
+  "gu": "ત્રીજા",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.ordinal.4",
+  "en": "Fourth",
+  "gu": "ચોથા",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "repeat.ordinal.-1",
+  "en": "Last",
+  "gu": "છેલ્લા",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "event.repeatsNext",
+  "en": "{rule}, next {when}",
+  "gu": "{rule}, હવે પછી {when}",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "heading.today",
+  "en": "Today",
+  "gu": "આજે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "heading.tomorrow",
+  "en": "Tomorrow",
+  "gu": "આવતીકાલે",
+  "file": "shared-messages.ts"
+ },
+ {
+  "key": "shell.home",
+  "en": "Toran home",
+  "gu": "Toran મુખ્ય પાનું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.whatsOn",
+  "en": "What's on",
+  "gu": "કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.mandirs",
+  "en": "Mandirs",
+  "gu": "મંદિરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.festivals",
+  "en": "Festivals",
+  "gu": "તહેવારો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.forMandirs",
+  "en": "For mandir committees",
+  "gu": "મંદિર સમિતિઓ માટે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.find",
+  "en": "Find",
+  "gu": "શોધો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.toran",
+  "en": "Toran",
+  "gu": "Toran",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.yourData",
+  "en": "Your data",
+  "gu": "તમારી માહિતી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.footerLinks",
+  "en": "Pages about Toran",
+  "gu": "Toran વિશેનાં પાનાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.about",
+  "en": "About",
+  "gu": "અમારા વિશે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.contact",
+  "en": "Contact",
+  "gu": "સંપર્ક",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.corrections",
+  "en": "Correct or remove something",
+  "gu": "સુધારો કે દૂર કરાવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.privacy",
+  "en": "Privacy",
+  "gu": "ગોપનીયતા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.terms",
+  "en": "Terms",
+  "gu": "શરતો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.accessibility",
+  "en": "Accessibility",
+  "gu": "સુલભતા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "page.somethingWrong",
+  "en": "Something wrong here? Tell us",
+  "gu": "અહીં કંઈ ખોટું છે? અમને જણાવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "page.privacyNotice",
+  "en": "Privacy notice",
+  "gu": "ગોપનીયતા નોંધ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "shell.footer",
+  "en": "Toran is being tested with mandir committees and opens in 2027. Details come from mandirs' own websites and our research; if something is wrong, the mandir's committee can correct it.",
+  "gu": "Toranનું મંદિર સમિતિઓ સાથે પરીક્ષણ ચાલી રહ્યું છે અને તે 2027માં શરૂ થશે. વિગતો મંદિરોની પોતાની વેબસાઇટ્સ અને અમારા સંશોધનમાંથી આવે છે; જો કંઈ ખોટું હોય, તો મંદિરની સમિતિ તેને સુધારી શકે છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.tagline",
+  "en": "What's on at mandirs near you",
+  "gu": "તમારી નજીકના મંદિરોમાં શું થઈ રહ્યું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.intro",
+  "en": "Events from mandirs across the UK in one place, and a simple way for committees to organise seva. We are talking to mandir committees now and will open in 2027.",
+  "gu": "યુકેભરના મંદિરોના કાર્યક્રમો એક જ જગ્યાએ, અને સમિતિઓ માટે સેવાનું આયોજન કરવાની સરળ રીત. અમે હાલમાં મંદિર સમિતિઓ સાથે વાત કરી રહ્યા છીએ અને 2027માં શરૂ કરીશું.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.mandirs",
+  "en": "Browse mandirs",
+  "gu": "મંદિરો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.searchTitle",
+  "en": "Find what's on near you",
+  "gu": "તમારી નજીક શું છે તે શોધો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.comingUp",
+  "en": "Coming up",
+  "gu": "આવનારા કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.seeAll",
+  "en": "See everything that's on",
+  "gu": "બધા કાર્યક્રમો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.festivalsSoon",
+  "en": "Festivals coming up",
+  "gu": "આવનારા તહેવારો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.allFestivals",
+  "en": "All festival dates",
+  "gu": "તહેવારોની બધી તારીખો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.committeesCta",
+  "en": "Run a mandir? Put your events on Toran",
+  "gu": "મંદિર ચલાવો છો? તમારા કાર્યક્રમો Toran પર મૂકો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.comingSoon",
+  "en": "Coming soon",
+  "gu": "ટૂંક સમયમાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.committeesTitle",
+  "en": "How it works for committees",
+  "gu": "સમિતિઓ માટે તે કેવી રીતે કામ કરે છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.committeesHeading",
+  "en": "Your events, where families already look.",
+  "gu": "તમારા કાર્યક્રમો, જ્યાં પરિવારો પહેલેથી જુએ છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.mandirCount",
+  "en": "{count} mandirs across the UK",
+  "gu": "યુકેમાં {count} મંદિરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.mandirsIntro",
+  "en": "Find yours to see what's on, how to get there and how to get its events in your calendar.",
+  "gu": "તમારું મંદિર શોધો: ત્યાં શું થઈ રહ્યું છે, ત્યાં કેવી રીતે પહોંચવું અને તેના કાર્યક્રમો તમારા કેલેન્ડરમાં કેવી રીતે ઉમેરવા.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.regionCount.one",
+  "en": "{count} mandir",
+  "gu": "{count} મંદિર",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.regionCount.other",
+  "en": "{count} mandirs",
+  "gu": "{count} મંદિરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step1Title",
+  "en": "Send what you already have",
+  "gu": "તમારી પાસે જે છે તે મોકલો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step1",
+  "en": "A poster, patrika or WhatsApp message.",
+  "gu": "પોસ્ટર, પત્રિકા કે વોટ્સએપ સંદેશ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step2Title",
+  "en": "Check it in a minute",
+  "gu": "એક મિનિટમાં તપાસો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step2",
+  "en": "Nothing goes live until your committee says so.",
+  "gu": "તમારી સમિતિ હા પાડે ત્યાં સુધી કંઈ પ્રકાશિત થતું નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step3Title",
+  "en": "Families find it",
+  "gu": "પરિવારો તેને શોધે છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.step3",
+  "en": "On Toran, in their calendar and on WhatsApp.",
+  "gu": "Toran પર, તેમના કેલેન્ડરમાં અને વોટ્સએપ પર.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "home.committeesBody",
+  "en": "Committees send the patrika or poster they already share, and check it before it goes live. It's free for mandirs.",
+  "gu": "સમિતિઓ જે પત્રિકા કે પોસ્ટર પહેલેથી શેર કરે છે તે મોકલે છે, અને પ્રકાશિત થાય તે પહેલાં તપાસે છે. મંદિરો માટે તે મફત છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.title",
+  "en": "What's on",
+  "gu": "કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.intro",
+  "en": "Events at mandirs across the UK in the next eight weeks. Type your postcode, or press “Near me”, to see what's near you.",
+  "gu": "આગામી આઠ અઠવાડિયામાં યુકેભરના મંદિરોના કાર્યક્રમો. તમારી નજીક શું છે તે જોવા તમારો પોસ્ટકોડ લખો, અથવા “મારી નજીક” દબાવો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.near",
+  "en": "Your postcode or area",
+  "gu": "તમારો પોસ્ટકોડ અથવા વિસ્તાર",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.nearExample",
+  "en": "e.g. HA9 or LE4 6AR",
+  "gu": "દા.ત. HA9 અથવા LE4 6AR",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.within",
+  "en": "Within",
+  "gu": "કેટલા અંતરમાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.miles",
+  "en": "{miles} miles",
+  "gu": "{miles} માઇલ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.region",
+  "en": "Region",
+  "gu": "પ્રદેશ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.anywhere",
+  "en": "Anywhere",
+  "gu": "ગમે ત્યાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.type",
+  "en": "Type of event",
+  "gu": "કાર્યક્રમનો પ્રકાર",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.anyType",
+  "en": "Everything",
+  "gu": "બધું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.moreOptions",
+  "en": "Choose a region",
+  "gu": "પ્રદેશ પસંદ કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.show",
+  "en": "Show",
+  "gu": "બતાવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.count.one",
+  "en": "{count} event",
+  "gu": "{count} કાર્યક્રમ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.count.other",
+  "en": "{count} events",
+  "gu": "{count} કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.countNear",
+  "en": " within {miles} miles of {place}",
+  "gu": ", {place} થી {miles} માઇલની અંદર",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.countRegion",
+  "en": " in {region}",
+  "gu": ", {region}માં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.countType",
+  "en": " ({type})",
+  "gu": " ({type})",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.nearestFirst",
+  "en": ", nearest first each day",
+  "gu": ", દરરોજ સૌથી નજીકના પહેલા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.locationDenied",
+  "en": "Your browser didn't share your location. Type your postcode instead.",
+  "gu": "તમારા બ્રાઉઝરે તમારું સ્થાન શેર કર્યું નથી. તેના બદલે તમારો પોસ્ટકોડ લખો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.locationFailed",
+  "en": "We couldn't find your area just now. Type your postcode instead.",
+  "gu": "અમે અત્યારે તમારો વિસ્તાર શોધી શક્યા નથી. તેના બદલે તમારો પોસ્ટકોડ લખો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.lookupFailed",
+  "en": "We couldn't look up that postcode just now, so all events are shown.",
+  "gu": "અમે અત્યારે એ પોસ્ટકોડ શોધી શક્યા નથી, તેથી બધા કાર્યક્રમો બતાવ્યા છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.notFound",
+  "en": "We couldn't find \"{place}\". Try a full postcode like LE4 6AR, or just the first part like LE4.",
+  "gu": "\"{place}\" મળ્યું નથી. LE4 6AR જેવો પૂરો પોસ્ટકોડ, અથવા LE4 જેવો ફક્ત પહેલો ભાગ લખી જુઓ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.noneThere",
+  "en": "No events listed there in the next eight weeks.",
+  "gu": "આગામી આઠ અઠવાડિયામાં ત્યાં કોઈ કાર્યક્રમ નોંધાયેલ નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.noneYet",
+  "en": "No events listed yet.",
+  "gu": "હજી સુધી કોઈ કાર્યક્રમ નોંધાયેલ નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.emptyBefore",
+  "en": "Mandirs are adding their events as they join Toran. In the meantime, find your nearest mandir on the ",
+  "gu": "મંદિરો Toranમાં જોડાય તેમ પોતાના કાર્યક્રમો ઉમેરી રહ્યા છે. ત્યાં સુધી, ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.emptyLink",
+  "en": "mandir list",
+  "gu": "મંદિરોની યાદી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.emptyAfter",
+  "en": ".",
+  "gu": "માં તમારું નજીકનું મંદિર શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.cancelled",
+  "en": "Cancelled",
+  "gu": "રદ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.all",
+  "en": "← All festivals",
+  "gu": "← બધા તહેવારો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.dateNotChecked",
+  "en": "Date not yet checked",
+  "gu": "તારીખ હજી ચકાસાઈ નથી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.noDate",
+  "en": "No upcoming date is listed yet.",
+  "gu": "હજી કોઈ આગામી તારીખ નોંધાયેલ નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.atMandirs",
+  "en": "{name} at mandirs",
+  "gu": "મંદિરોમાં {name}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.noEvents",
+  "en": "No mandir has listed {name} events yet.",
+  "gu": "હજી સુધી કોઈ મંદિરે {name}ના કાર્યક્રમો નોંધાવ્યા નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.notConnected",
+  "en": "The {what} isn't connected yet. Please check back soon.",
+  "gu": "{what} હજી જોડાયેલ નથી. કૃપા કરીને થોડા સમય પછી ફરી જુઓ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.failed",
+  "en": "We couldn't load the {what} just now. Please try again in a minute.",
+  "gu": "અત્યારે {what} લાવી શકાયું નહીં. કૃપા કરીને એક મિનિટ પછી ફરી પ્રયત્ન કરો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "calendar.add",
+  "en": "Add to calendar",
+  "gu": "કેલેન્ડરમાં ઉમેરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "calendar.addLabel",
+  "en": "Add to calendar: {title}",
+  "gu": "કેલેન્ડરમાં ઉમેરો: {title}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "calendar.file",
+  "en": "Apple, Outlook or another calendar",
+  "gu": "Apple, Outlook કે બીજું કેલેન્ડર",
+  "file": "gu.ts"
+ },
+ {
+  "key": "whatsOn.description",
+  "en": "Events at Hindu mandirs across the UK in the next eight weeks: festivals, aarti, bhajans, classes and more.",
+  "gu": "યુકેભરના હિન્દુ મંદિરોમાં આવનારા આઠ અઠવાડિયાના કાર્યક્રમો: તહેવારો, આરતી, ભજન, વર્ગો અને વધુ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.eventList",
+  "en": "event list",
+  "gu": "કાર્યક્રમોની યાદી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandirs.description",
+  "en": "Hindu mandirs across the UK, by region and town.",
+  "gu": "યુકેભરના હિન્દુ મંદિરો, પ્રદેશ અને શહેર પ્રમાણે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandirs.intro",
+  "en": "Hindu mandirs across the UK. Find yours to see what's on.",
+  "gu": "યુકેભરના હિન્દુ મંદિરો. તમારું મંદિર શોધો અને જુઓ કે ત્યાં શું થઈ રહ્યું છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandirs.none",
+  "en": "No mandirs are listed yet.",
+  "gu": "હજી કોઈ મંદિર નોંધાયેલું નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.mandirList",
+  "en": "mandir list",
+  "gu": "મંદિરોની યાદી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.description",
+  "en": "What's on at {name} in {town}: events, festivals and how to find it.",
+  "gu": "{town}માં {name}ના કાર્યક્રમો: પ્રસંગો, તહેવારો અને ત્યાં કેવી રીતે પહોંચવું.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.mandirPage",
+  "en": "mandir's page",
+  "gu": "મંદિરનું પાનું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.all",
+  "en": "← All mandirs",
+  "gu": "← બધા મંદિરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.runByCommittee",
+  "en": "Run by the mandir's committee",
+  "gu": "મંદિરની સમિતિ સંભાળે છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.tellUs",
+  "en": "Know about an event here? Tell us →",
+  "gu": "અહીંના કોઈ કાર્યક્રમ વિશે જાણો છો? અમને જણાવો →",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.festivalDates",
+  "en": "Festival dates for the UK →",
+  "gu": "યુકે માટે તહેવારોની તારીખો →",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.print",
+  "en": "Print for a noticeboard →",
+  "gu": "નોટિસ બોર્ડ માટે છાપો →",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.calendarTitle",
+  "en": "Get these events in your calendar",
+  "gu": "આ કાર્યક્રમો તમારા કેલેન્ડરમાં મેળવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.calendarBody",
+  "en": "Add {name}'s events to the calendar on your phone. New events and changes appear there automatically.",
+  "gu": "{name}ના કાર્યક્રમો તમારા ફોનના કેલેન્ડરમાં ઉમેરો. નવા કાર્યક્રમો અને ફેરફારો આપમેળે દેખાશે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.committeeTitle",
+  "en": "Are you on this mandir's committee?",
+  "gu": "શું તમે આ મંદિરની સમિતિમાં છો?",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.claimedBefore",
+  "en": "This page is looked after by the committee.",
+  "gu": "આ પાનું સમિતિ સંભાળે છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.logIn",
+  "en": "Log in",
+  "gu": "લૉગ ઇન કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.claimedAfter",
+  "en": "to update it, or ask to join them.",
+  "gu": "અને તેમાં ફેરફાર કરો, અથવા તેમની સાથે જોડાવા માટે કહો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.lookAfterBody",
+  "en": "Look after this page: add events in a minute and correct any details.",
+  "gu": "આ પાનું સંભાળો: એક મિનિટમાં કાર્યક્રમો ઉમેરો અને કોઈપણ વિગત સુધારો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.lookAfter",
+  "en": "Look after this page",
+  "gu": "આ પાનું સંભાળો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.tradition",
+  "en": "Tradition",
+  "gu": "સંપ્રદાય",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.postcode",
+  "en": "Postcode",
+  "gu": "પોસ્ટકોડ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.directions",
+  "en": "Directions",
+  "gu": "રસ્તો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.website",
+  "en": "Website",
+  "gu": "વેબસાઇટ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.phone",
+  "en": "Phone",
+  "gu": "ફોન",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.call",
+  "en": "Call",
+  "gu": "ફોન કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.charity",
+  "en": "Registered charity",
+  "gu": "નોંધાયેલ ચેરિટી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.about",
+  "en": "About the mandir",
+  "gu": "મંદિર વિશે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.share",
+  "en": "Share this mandir",
+  "gu": "આ મંદિર શેર કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.shareText",
+  "en": "{name}, {town}: what's on",
+  "gu": "{name}, {town}: કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.confirmedOn",
+  "en": "Confirmed by the mandir, {date}",
+  "gu": "મંદિરે પુષ્ટિ કરી, {date}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.repeatNext",
+  "en": "{rule} · next ",
+  "gu": "{rule} · હવે પછી ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.moreDetails",
+  "en": "More details",
+  "gu": "વધુ વિગતો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.asking",
+  "en": "We're asking mandirs to add their events.",
+  "gu": "અમે મંદિરોને તેમના કાર્યક્રમો ઉમેરવા કહી રહ્યા છીએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.untilThenCheck",
+  "en": "Until then, check",
+  "gu": "ત્યાં સુધી,",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.orNoticeboard",
+  "en": "or the mandir's noticeboard.",
+  "gu": "અથવા મંદિરનું નોટિસ બોર્ડ જુઓ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "mandir.untilThenNoticeboard",
+  "en": "Until then, check the mandir's noticeboard.",
+  "gu": "ત્યાં સુધી, મંદિરનું નોટિસ બોર્ડ જુઓ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.repeats",
+  "en": "Repeats",
+  "gu": "દર વખતે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.whenAt",
+  "en": "{when} at {name}, {town}.",
+  "gu": "{when}, {name}, {town}માં.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.event",
+  "en": "event",
+  "gu": "કાર્યક્રમ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.finished",
+  "en": "Finished",
+  "gu": "પૂરો થયો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.finishedNote",
+  "en": "This event has finished.",
+  "gu": "આ કાર્યક્રમ પૂરો થઈ ગયો છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.seeWhatsOnAt",
+  "en": "See what's on at {name}",
+  "gu": "{name}ના કાર્યક્રમો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.cancelledNote",
+  "en": "The mandir has cancelled this event.",
+  "gu": "મંદિરે આ કાર્યક્રમ રદ કર્યો છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.seeElseAt",
+  "en": "See what else is on at {name}",
+  "gu": "{name}ના બીજા કાર્યક્રમો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.about",
+  "en": "About this event",
+  "gu": "આ કાર્યક્રમ વિશે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.alsoAt",
+  "en": "Also at {name}",
+  "gu": "{name}માં બીજા કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.everythingAt",
+  "en": "Everything at {name} →",
+  "gu": "{name}ના બધા કાર્યક્રમો →",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.whatsOnNear",
+  "en": "What's on near you →",
+  "gu": "તમારી નજીકના કાર્યક્રમો →",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.when",
+  "en": "When",
+  "gu": "ક્યારે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.next",
+  "en": "Next: {when}",
+  "gu": "હવે પછી: {when}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.where",
+  "en": "Where",
+  "gu": "ક્યાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.cost",
+  "en": "Cost",
+  "gu": "ખર્ચ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "event.fromMandir",
+  "en": "From the mandir",
+  "gu": "મંદિર તરફથી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.help",
+  "en": "Help with seva",
+  "gu": "સેવામાં મદદ કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.takenOf",
+  "en": "{taken} of {needed}",
+  "gu": "{needed}માંથી {taken}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.placesTaken",
+  "en": "places taken. Take a slot in a tap: no sign-up, and no name needed.",
+  "gu": "જગ્યાઓ ભરાઈ ગઈ છે. એક ટૅપમાં જગ્યા લો: નોંધણી નહીં, નામ પણ નહીં.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.take",
+  "en": "Take a seva slot",
+  "gu": "સેવાની જગ્યા લો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.seeRota",
+  "en": "See the seva rota",
+  "gu": "સેવાનું સમયપત્રક જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.description",
+  "en": "Dates of Navratri, Diwali, Holi and other Hindu festivals in the UK.",
+  "gu": "યુકેમાં નવરાત્રિ, દિવાળી, હોળી અને બીજા હિન્દુ તહેવારોની તારીખો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.intro",
+  "en": "Dates for the UK. A few festivals fall on different days depending on the calendar a mandir follows, so check with your mandir too.",
+  "gu": "યુકે માટેની તારીખો. મંદિર કયું પંચાંગ અનુસરે છે તેના આધારે કેટલાક તહેવારો જુદા દિવસે આવે છે, તેથી તમારા મંદિરમાં પણ પૂછી લો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.seasons",
+  "en": "Festival seasons at mandirs",
+  "gu": "મંદિરોમાં તહેવારોની મોસમ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.seasonsIntro",
+  "en": "Every mandir's events for the big festivals, in one place.",
+  "gu": "મોટા તહેવારો માટે દરેક મંદિરના કાર્યક્રમો, એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.calendarTitle",
+  "en": "Festival dates in your calendar",
+  "gu": "તહેવારોની તારીખો તમારા કેલેન્ડરમાં",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.calendarBody",
+  "en": "Add the festival dates to the calendar on your phone. Dates we check or add later appear there automatically.",
+  "gu": "તહેવારોની તારીખો તમારા ફોનના કેલેન્ડરમાં ઉમેરો. અમે પછીથી તપાસેલી કે ઉમેરેલી તારીખો ત્યાં આપમેળે દેખાશે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festivals.none",
+  "en": "No festival dates are listed yet.",
+  "gu": "હજી તહેવારોની કોઈ તારીખ નોંધાયેલી નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.festivalDates",
+  "en": "festival dates",
+  "gu": "તહેવારોની તારીખો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.festivalPage",
+  "en": "festival page",
+  "gu": "તહેવારનું પાનું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.title",
+  "en": "{name} in the UK",
+  "gu": "યુકેમાં {name}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.titleYear",
+  "en": "{name} {year} in the UK",
+  "gu": "યુકેમાં {name} {year}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.description",
+  "en": "{name} dates for the UK and events at mandirs near you.",
+  "gu": "યુકે માટે {name}ની તારીખો અને તમારી નજીકના મંદિરોના કાર્યક્રમો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.share",
+  "en": "Share this festival",
+  "gu": "આ તહેવાર શેર કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.shareText",
+  "en": "{name} in the UK: dates and events at mandirs",
+  "gu": "યુકેમાં {name}: તારીખો અને મંદિરોના કાર્યક્રમો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.appearBefore",
+  "en": "They appear here as mandirs add them. Check",
+  "gu": "મંદિરો ઉમેરશે તેમ તે અહીં દેખાશે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.whatsOnLink",
+  "en": "what's on",
+  "gu": "કાર્યક્રમો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.orFind",
+  "en": "or find your",
+  "gu": "અથવા તમારું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.nearestMandir",
+  "en": "nearest mandir",
+  "gu": "નજીકનું મંદિર શોધો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.appearAfter",
+  "en": ".",
+  "gu": ".",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.navratri",
+  "en": "Navratri",
+  "gu": "નવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.navratri",
+  "en": "Nine nights of Garba and Raas, worshipping the Goddess in her nine forms.",
+  "gu": "માતાજીના નવ સ્વરૂપોની આરાધના સાથે ગરબા અને રાસની નવ રાત.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.dussehra",
+  "en": "Dussehra",
+  "gu": "દશેરા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.dussehra",
+  "en": "Vijayadashami: the victory of good over evil, the day after Navratri ends.",
+  "gu": "વિજયાદશમી: અસત્ય પર સત્યનો વિજય, નવરાત્રિ પૂરી થયા પછીનો દિવસ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.dhanteras",
+  "en": "Dhanteras",
+  "gu": "ધનતેરસ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.dhanteras",
+  "en": "The first day of Diwali, for Lakshmi puja and new beginnings.",
+  "gu": "દિવાળીનો પહેલો દિવસ, લક્ષ્મી પૂજન અને શુભ શરૂઆત માટે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.diwali",
+  "en": "Diwali",
+  "gu": "દિવાળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.diwali",
+  "en": "The festival of lights.",
+  "gu": "દીવાઓનો તહેવાર.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.annakut",
+  "en": "Annakut and New Year",
+  "gu": "અન્નકૂટ અને નૂતન વર્ષ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.annakut",
+  "en": "The Gujarati New Year (Bestu Varas), with a mountain of food offered at the mandir.",
+  "gu": "ગુજરાતી નવું વર્ષ (બેસતું વર્ષ), મંદિરમાં ધરાવાતા અન્નકૂટ સાથે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.bhai-dooj",
+  "en": "Bhai Dooj",
+  "gu": "ભાઈબીજ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.bhai-dooj",
+  "en": "Brothers and sisters, two days after Diwali.",
+  "gu": "ભાઈ-બહેનનો તહેવાર, દિવાળી પછી બે દિવસે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.maha-shivaratri",
+  "en": "Maha Shivaratri",
+  "gu": "મહાશિવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.maha-shivaratri",
+  "en": "The great night of Shiva, with all-night worship.",
+  "gu": "શિવજીની મહાન રાત્રિ, આખી રાતની પૂજા સાથે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.holi",
+  "en": "Holi",
+  "gu": "હોળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.holi",
+  "en": "The festival of colours, after Holika Dahan the night before.",
+  "gu": "રંગોનો તહેવાર, આગલી રાતના હોલિકા દહન પછી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.sharad-purnima",
+  "en": "Sharad Purnima",
+  "gu": "શરદ પૂર્ણિમા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.sharad-purnima",
+  "en": "The full moon after Navratri: Raas Garba under the moon, and doodh pauva.",
+  "gu": "નવરાત્રિ પછીની પૂનમ: ચાંદની નીચે રાસ-ગરબા અને દૂધ-પૌંઆ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.labh-pancham",
+  "en": "Labh Pancham",
+  "gu": "લાભ પાંચમ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.labh-pancham",
+  "en": "The fifth day of the Gujarati New Year, for new beginnings in work and business.",
+  "gu": "ગુજરાતી નવા વર્ષનો પાંચમો દિવસ, કામકાજ અને વેપારની શુભ શરૂઆત માટે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.dev-diwali",
+  "en": "Dev Diwali",
+  "gu": "દેવ દિવાળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.dev-diwali",
+  "en": "Kartik Purnima, the full moon after Diwali, when lamps are lit for the gods.",
+  "gu": "કારતકી પૂનમ, દિવાળી પછીની પૂનમ, જ્યારે દેવો માટે દીવા પ્રગટાવાય છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.uttarayan",
+  "en": "Uttarayan (Makar Sankranti)",
+  "gu": "ઉત્તરાયણ (મકરસંક્રાંતિ)",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.uttarayan",
+  "en": "The sun turns north: kites, til and gol, and khichdi.",
+  "gu": "સૂર્ય ઉત્તર તરફ વળે છે: પતંગ, તલ-ગોળ અને ખીચડો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.vasant-panchami",
+  "en": "Vasant Panchami",
+  "gu": "વસંત પંચમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.vasant-panchami",
+  "en": "The first day of spring, with Saraswati puja.",
+  "gu": "વસંતનો પહેલો દિવસ, સરસ્વતી પૂજન સાથે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.holika-dahan",
+  "en": "Holika Dahan",
+  "gu": "હોલિકા દહન",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.holika-dahan",
+  "en": "The bonfire on the night before Holi.",
+  "gu": "હોળીની આગલી રાતે પ્રગટાવાતી હોળી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.ram-navami",
+  "en": "Ram Navami",
+  "gu": "રામ નવમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.ram-navami",
+  "en": "The birth of Shri Ram.",
+  "gu": "શ્રી રામનો જન્મોત્સવ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.hanuman-jayanti",
+  "en": "Hanuman Jayanti",
+  "gu": "હનુમાન જયંતી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.hanuman-jayanti",
+  "en": "The birth of Hanumanji.",
+  "gu": "હનુમાનજીનો જન્મોત્સવ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.guru-purnima",
+  "en": "Guru Purnima",
+  "gu": "ગુરુ પૂર્ણિમા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.guru-purnima",
+  "en": "The full moon for honouring your guru.",
+  "gu": "ગુરુને વંદન કરવાની પૂનમ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.raksha-bandhan",
+  "en": "Raksha Bandhan",
+  "gu": "રક્ષાબંધન",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.raksha-bandhan",
+  "en": "Sisters tie a rakhi on their brothers' wrists.",
+  "gu": "બહેનો ભાઈના કાંડે રાખડી બાંધે છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.janmashtami",
+  "en": "Janmashtami",
+  "gu": "જન્માષ્ટમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.janmashtami",
+  "en": "The birth of Shri Krishna, celebrated at midnight.",
+  "gu": "શ્રી કૃષ્ણનો જન્મોત્સવ, મધરાતે ઉજવાય છે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.name.ganesh-chaturthi",
+  "en": "Ganesh Chaturthi",
+  "gu": "ગણેશ ચતુર્થી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "festival.summary.ganesh-chaturthi",
+  "en": "The birth of Ganeshji, with puja and visarjan.",
+  "gu": "ગણેશજીનો જન્મોત્સવ, પૂજા અને વિસર્જન સાથે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.isOn",
+  "en": "{name} is on {dates}",
+  "gu": "{name}ની તારીખ: {dates}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.otherCalendars",
+  "en": "Some mandirs follow a different calendar, so check with yours.",
+  "gu": "કેટલાંક મંદિરો જુદું પંચાંગ અનુસરે છે, તેથી તમારા મંદિરમાં પૂછી લો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.notListed",
+  "en": "Next year's {name} dates aren't listed yet. See all the",
+  "gu": "આવતા વર્ષની {name}ની તારીખો હજી મુકાઈ નથી. બધા",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.festivalDates",
+  "en": "festival dates",
+  "gu": "તહેવારોની તારીખો જુઓ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.loadDates",
+  "en": "{name} dates",
+  "gu": "{name}ની તારીખો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.none",
+  "en": "No {name} events listed yet.",
+  "gu": "હજી {name}ના કોઈ કાર્યક્રમો મુકાયા નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.noneNear",
+  "en": "No {name} events listed near there yet.",
+  "gu": "ત્યાં નજીક હજી {name}ના કોઈ કાર્યક્રમો મુકાયા નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.adding",
+  "en": "Mandirs are adding their {name} programmes. Check back soon, or find your",
+  "gu": "મંદિરો તેમના {name}ના કાર્યક્રમો ઉમેરી રહ્યાં છે. થોડા દિવસમાં ફરી જુઓ, અથવા તમારું",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.committee",
+  "en": "On a mandir committee?",
+  "gu": "મંદિર સમિતિમાં છો?",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.addProgramme",
+  "en": "Add your programme in a few minutes",
+  "gu": "થોડી મિનિટોમાં તમારો કાર્યક્રમ ઉમેરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.calendarTitle",
+  "en": "Put {name} events in your calendar",
+  "gu": "{name}ના કાર્યક્રમો તમારા કૅલેન્ડરમાં મૂકો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.calendarBody",
+  "en": "Every mandir's {name} events in the calendar on your phone. New events and changes appear there automatically.",
+  "gu": "દરેક મંદિરના {name}ના કાર્યક્રમો તમારા ફોનના કૅલેન્ડરમાં. નવા કાર્યક્રમો અને ફેરફારો આપોઆપ દેખાશે.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.tellFamily",
+  "en": "Tell family and friends",
+  "gu": "કુટુંબ અને મિત્રોને જણાવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.share",
+  "en": "Share the {name} page",
+  "gu": "{name}નું પાનું શેર કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.allOf",
+  "en": "All of {period} at mandirs, in one place",
+  "gu": "મંદિરોમાં {period}ના બધા કાર્યક્રમો, એક જ જગ્યાએ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.diwali.period",
+  "en": "Diwali week",
+  "gu": "દિવાળી સપ્તાહ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.diwali.title",
+  "en": "Diwali at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં દિવાળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.diwali.description",
+  "en": "Diwali week at Hindu mandirs across the UK: Dhanteras, Lakshmi puja, Annakut and New Year, and Bhai Dooj. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં દિવાળી સપ્તાહ: ધનતેરસ, લક્ષ્મી પૂજન, અન્નકૂટ અને નૂતન વર્ષ, અને ભાઈબીજ. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.diwali.intro",
+  "en": "Lakshmi puja, fireworks, Annakut and the New Year: what mandirs across the UK are doing for Diwali week, all in one place.",
+  "gu": "લક્ષ્મી પૂજન, ફટાકડા, અન્નકૂટ અને નૂતન વર્ષ: યુકેભરનાં મંદિરો દિવાળી સપ્તાહમાં શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.diwali.shareText",
+  "en": "Diwali at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં દિવાળી: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.navratri.period",
+  "en": "Navratri",
+  "gu": "નવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.navratri.title",
+  "en": "Navratri at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં નવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.navratri.description",
+  "en": "Navratri at Hindu mandirs across the UK: nine nights of Garba and Raas, Dussehra and Sharad Purnima. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં નવરાત્રિ: ગરબા અને રાસની નવ રાત, દશેરા અને શરદ પૂર્ણિમા. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.navratri.intro",
+  "en": "Nine nights of Garba and Raas, then Dussehra and Sharad Purnima: what mandirs across the UK are doing for Navratri, all in one place.",
+  "gu": "ગરબા અને રાસની નવ રાત, પછી દશેરા અને શરદ પૂર્ણિમા: યુકેભરનાં મંદિરો નવરાત્રિમાં શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.navratri.shareText",
+  "en": "Navratri Garba at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં નવરાત્રિના ગરબા: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.maha-shivaratri.period",
+  "en": "Maha Shivaratri",
+  "gu": "મહાશિવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.maha-shivaratri.title",
+  "en": "Maha Shivaratri at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં મહાશિવરાત્રિ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.maha-shivaratri.description",
+  "en": "Maha Shivaratri at Hindu mandirs across the UK: abhishek, bhajans and all-night worship of Shiva. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં મહાશિવરાત્રિ: અભિષેક, ભજન અને શિવજીની આખી રાતની ઉપાસના. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.maha-shivaratri.intro",
+  "en": "Abhishek, bhajans and the all-night jagran: what mandirs across the UK are doing for Maha Shivaratri, all in one place.",
+  "gu": "અભિષેક, ભજન અને આખી રાતનું જાગરણ: યુકેભરનાં મંદિરો મહાશિવરાત્રિએ શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.maha-shivaratri.shareText",
+  "en": "Maha Shivaratri at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં મહાશિવરાત્રિ: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.holi.period",
+  "en": "Holi",
+  "gu": "હોળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.holi.title",
+  "en": "Holi at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં હોળી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.holi.description",
+  "en": "Holi at Hindu mandirs across the UK: the Holika Dahan bonfire and the festival of colours. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં હોળી: હોલિકા દહન અને રંગોનો તહેવાર. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.holi.intro",
+  "en": "The Holika Dahan bonfire, then a day of colours: what mandirs across the UK are doing for Holi, all in one place.",
+  "gu": "હોલિકા દહન, પછી રંગોનો દિવસ: યુકેભરનાં મંદિરો હોળીમાં શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.holi.shareText",
+  "en": "Holi at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં હોળી: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ram-navami.period",
+  "en": "Ram Navami",
+  "gu": "રામ નવમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ram-navami.title",
+  "en": "Ram Navami at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં રામ નવમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ram-navami.description",
+  "en": "Ram Navami and Hanuman Jayanti at Hindu mandirs across the UK: the birth of Shri Ram, with puja, katha and bhajans. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં રામ નવમી અને હનુમાન જયંતી: શ્રી રામનો જન્મોત્સવ, પૂજા, કથા અને ભજન સાથે. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ram-navami.intro",
+  "en": "The birth of Shri Ram, and Hanuman Jayanti a few days later: what mandirs across the UK are doing, all in one place.",
+  "gu": "શ્રી રામનો જન્મોત્સવ, અને થોડા દિવસ પછી હનુમાન જયંતી: યુકેભરનાં મંદિરો શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ram-navami.shareText",
+  "en": "Ram Navami at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં રામ નવમી: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.janmashtami.period",
+  "en": "Janmashtami",
+  "gu": "જન્માષ્ટમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.janmashtami.title",
+  "en": "Janmashtami at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં જન્માષ્ટમી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.janmashtami.description",
+  "en": "Janmashtami at Hindu mandirs across the UK: the birth of Shri Krishna, with bhajans, the midnight aarti and the cradle. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં જન્માષ્ટમી: શ્રી કૃષ્ણનો જન્મોત્સવ, ભજન, મધરાતની આરતી અને પારણું. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.janmashtami.intro",
+  "en": "Bhajans, the cradle and the midnight aarti for the birth of Shri Krishna: what mandirs across the UK are doing, all in one place.",
+  "gu": "શ્રી કૃષ્ણના જન્મોત્સવ માટે ભજન, પારણું અને મધરાતની આરતી: યુકેભરનાં મંદિરો શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.janmashtami.shareText",
+  "en": "Janmashtami at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં જન્માષ્ટમી: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ganesh-chaturthi.period",
+  "en": "Ganesh Chaturthi",
+  "gu": "ગણેશ ચતુર્થી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ganesh-chaturthi.title",
+  "en": "Ganesh Chaturthi at UK mandirs",
+  "gu": "યુકેનાં મંદિરોમાં ગણેશ ચતુર્થી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ganesh-chaturthi.description",
+  "en": "Ganesh Chaturthi at Hindu mandirs across the UK: Ganesh puja, aarti and visarjan. Find what's on near you.",
+  "gu": "યુકેભરનાં હિંદુ મંદિરોમાં ગણેશ ચતુર્થી: ગણેશ પૂજા, આરતી અને વિસર્જન. તમારી નજીક શું છે તે શોધો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ganesh-chaturthi.intro",
+  "en": "Ganesh puja, modak and visarjan: what mandirs across the UK are doing for Ganesh Chaturthi, all in one place.",
+  "gu": "ગણેશ પૂજા, મોદક અને વિસર્જન: યુકેભરનાં મંદિરો ગણેશ ચતુર્થીમાં શું કરી રહ્યાં છે, બધું એક જ જગ્યાએ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "season.ganesh-chaturthi.shareText",
+  "en": "Ganesh Chaturthi at mandirs across the UK: what's on near you",
+  "gu": "યુકેભરનાં મંદિરોમાં ગણેશ ચતુર્થી: તમારી નજીક શું છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.pageTitle",
+  "en": "Seva for {title}, {name}",
+  "gu": "{title} માટે સેવા, {name}",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.pageDescription",
+  "en": "Help with seva for {title} at {name}, {town}. Take a slot, no sign-up needed.",
+  "gu": "{name}, {town}માં {title} માટે સેવામાં મદદ કરો. જગ્યા લો, નોંધણીની જરૂર નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "load.sevaRota",
+  "en": "seva rota",
+  "gu": "સેવાનું સમયપત્રક",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.pickBelow",
+  "en": "places taken. Pick a slot below: no sign-up, and Toran doesn't ask your name.",
+  "gu": "જગ્યાઓ ભરાઈ ગઈ છે. નીચેથી જગ્યા પસંદ કરો: નોંધણી નહીં, અને Toran તમારું નામ પૂછતું નથી.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.closedNote",
+  "en": "Here's what {name} needs. To help, reply in the mandir's volunteers' group or ask at the mandir.",
+  "gu": "{name}ને આની જરૂર છે. મદદ કરવા માટે મંદિરના સ્વયંસેવકોના ગ્રુપમાં જવાબ આપો અથવા મંદિરમાં પૂછો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.dbsNeeded",
+  "en": "DBS check needed",
+  "gu": "DBS ચકાસણી જરૂરી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.shiftTaken",
+  "en": "{done} of {needed} taken",
+  "gu": "{needed}માંથી {done} ભરાઈ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.askCommittee",
+  "en": "Ask the committee: the mandir checks DBS",
+  "gu": "સમિતિને પૂછો: મંદિર DBS તપાસે છે",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.share",
+  "en": "Share this rota",
+  "gu": "આ સમયપત્રક શેર કરો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "seva.shareText",
+  "en": "Seva for {title} at {name}: {free} places still free. Take a slot, no sign-up needed:",
+  "gu": "{name}માં {title} માટે સેવા: હજી {free} જગ્યા ખાલી છે. જગ્યા લો, નોંધણીની જરૂર નથી:",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.title",
+  "en": "Tell us about an event",
+  "gu": "કાર્યક્રમ વિશે અમને જણાવો",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.intro",
+  "en": "At {name}, {town}. Seen a poster or a WhatsApp message about something coming up? Tell us, and we'll check it with the mandir before it goes on the page.",
+  "gu": "{name}, {town}. આવનારા કોઈ કાર્યક્રમનું પોસ્ટર કે WhatsApp સંદેશ જોયો છે? અમને જણાવો, અને પાના પર મૂકતા પહેલાં અમે મંદિર સાથે ખાતરી કરીશું.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.what",
+  "en": "What's happening?",
+  "gu": "શું કાર્યક્રમ છે?",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.whatExample",
+  "en": "e.g. Diwali celebrations",
+  "gu": "દા.ત. દિવાળીની ઉજવણી",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.date",
+  "en": "Date",
+  "gu": "તારીખ",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.starts",
+  "en": "Starts (optional)",
+  "gu": "શરૂ થવાનો સમય (જરૂરી નથી)",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.more",
+  "en": "Anything else people should know? (optional)",
+  "gu": "લોકોએ બીજું કંઈ જાણવું જોઈએ? (જરૂરી નથી)",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.moreExample",
+  "en": "e.g. Garba from 8pm, prasad after aarti.",
+  "gu": "દા.ત. રાત્રે 8 વાગ્યાથી ગરબા, આરતી પછી પ્રસાદ.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.where",
+  "en": "Where did you see it? (optional)",
+  "gu": "તમે તે ક્યાં જોયું? (જરૂરી નથી)",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.whereHint",
+  "en": "A link to the poster or post, if there is one.",
+  "gu": "પોસ્ટર કે પોસ્ટની લિંક, જો હોય તો.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.privacy",
+  "en": "We don't ask who you are, and we don't keep anything about you. Please don't include anyone's phone number or other personal details.",
+  "gu": "અમે તમે કોણ છો તે પૂછતા નથી, અને તમારા વિશે કંઈ રાખતા નથી. કૃપા કરીને કોઈનો ફોન નંબર કે બીજી અંગત વિગતો લખશો નહીં.",
+  "file": "gu.ts"
+ },
+ {
+  "key": "report.send",
+  "en": "Send",
+  "gu": "મોકલો",
+  "file": "gu.ts"
+ }
+]
