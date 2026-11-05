@@ -3,7 +3,7 @@
 Every sound is generated here (no samples, no licensed music). Timing comes
 from cues.js, the same file scene.html animates from, so each sound effect
 lands on the frame its animation starts. Output: soundtrack.wav, 44.1 kHz
-stereo, 60 s.
+stereo, 75 s.
 """
 import json
 from pathlib import Path
@@ -298,6 +298,8 @@ def sfx(kind, t, i, n):
         add(breath(), t - 0.25, 1.0)
         add(santoor(note(15), 2.4, 0.8), t + 0.15, 0.22, 0.2)
         add(bell(note(10), 3.5), t + 0.15, 0.12)
+    elif kind == "pluck":  # one santoor note for each word of the opening
+        add(santoor(note([5, 7, 8, 9][i % 4]), 2.0, 0.9), t, 0.36, -0.3 + 0.2 * i)
     elif kind == "santoorRun3":  # one note for each letter of TORAN as it lands
         for j in range(5):
             add(santoor(note(10 + j), 1.4, 1.1, detune=0), t + j * 0.06, 0.32, -0.5 + 0.25 * j)
@@ -356,7 +358,7 @@ while T(k) < DUR - 0.5:
     k += 1
 
 # the opening: one soft pad under the diya
-add(pad([note(0), note(2), note(3)], T(7)), T(0.5), 0.8)
+add(pad([note(0), note(2), note(3)], T(SB["mess"] - 1)), T(0.5), 0.8)
 
 # the problem: a low stroke each bar, a quiet "na" once the mess builds, a
 # muffled heartbeat once the mandir needs help, sparse low santoor
@@ -376,8 +378,8 @@ for bt in range(SB["help"], SB["turn"]):
     add(kick(0.35), T(bt), 1.0)
 
 # the turn: one wide chord under the logo
-add(pad([note(0), note(2), note(3), note(5)], T(4)), S["turn"], 1.4)
-add(sub(note(0, -1), T(4)), S["turn"], 1.0)
+add(pad([note(0), note(2), note(3), note(5)], T(SB["find"] - SB["turn"])), S["turn"], 1.4)
+add(sub(note(0, -1), T(SB["find"] - SB["turn"])), S["turn"], 1.0)
 
 # Toran in use: the groove, beat 36 to the end card
 CHORDS = [  # Bhupali only (Sa Re Ga Pa Dha): two bars each
@@ -397,6 +399,10 @@ for j, bt in enumerate(range(g0, g1, 8)):
         add(sub(ROOT[root], T(1.8)), T(bt + half), 1.1 if full else 0.85)
 
 pattern = ["dha", "ge", "na", "ti", "na", "ti", "dhi", "na"]
+QUIET = [  # where the melody rests so the cue notes are heard
+    (CUES["tapTake"]["at"][0] - 1, CUES["full"]["at"][0] + 2),
+    (CUES["drafts"]["at"][0] - 1, CUES["live"]["at"][0] + 1.5),
+]
 melody = [5, None, 6, None, 7, 8, 9, None, 8, None, 7, None, 6, 7, 5, None]
 e = 0
 while g0 + e / 2 < g1:
@@ -416,7 +422,7 @@ while g0 + e / 2 < g1:
     add(tabla(stroke), tb, (0.6 if stroke in ("dha", "ge", "dhi") else 0.45) * (1.3 if full else 1.0), pan=-0.1)
     m = melody[e % 16]
     # the melody rests while the seva rota and the drafts play their own notes
-    if m is not None and not (64 <= beat < 70 or 75 <= beat < 81):
+    if m is not None and not (QUIET[0][0] <= beat < QUIET[0][1] or QUIET[1][0] <= beat < QUIET[1][1]):
         add(santoor(note(m)), tb, 0.3 if full else 0.2, pan=-0.2)
     e += 1
 

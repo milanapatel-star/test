@@ -1,8 +1,8 @@
 # Media
 
-`toran-explainer.mp4` — 60-second animated explainer for sharing in group
-chats. Portrait 1080×1920, 30 fps, H.264 + AAC. (The earlier 28-second
-version is in the git history.)
+`toran-explainer.mp4` — 75-second animated explainer for sharing in group
+chats. Portrait 1080×1920, 30 fps, H.264 + AAC. (Earlier 28- and 60-second
+versions are in the git history.)
 
 It uses the website's "Midnight & Gold" design (midnight blue, one lapis
 blue for buttons, gold for the logo; Marcellus and Mulish) and the site's
@@ -25,17 +25,17 @@ in `cues.js`.
 
 | Time | Scene |
 | --- | --- |
-| 0:00 | A diya lights in the dark. "Diwali at your mandir. **But what's on?**" |
-| 0:04.8 | "The details are… somewhere." A WhatsApp group (47 → 412 unread), a forwarded poster, a Facebook post saying it moved, a paper notice, a website last updated in 2019. Mum: "Garba was last night. Did nobody tell you?" |
-| 0:14.4 | "And the mandir needs help." The seva rota stays red: "6 of 20 volunteers. Night 3 is tomorrow." It all collapses into a point of gold |
-| 0:19.2 | The turn: garland, the Toran mark draws itself, "TORAN — Every mandir's events. One place." |
-| 0:21.6 | 1 · "Find what's on near you." Tap "Find near me", pins drop, events nearest first |
-| 0:27.6 | 2 · "Save it. Share it." Open the event, "Add to calendar", "Send on WhatsApp" to the family; Ba replies "I'll be there!" |
-| 0:33.6 | 3 · "Follow your mandirs." Tap Follow; "Your mandirs" appears. No account, no tracking |
-| 0:37.2 | 4 · "Give seva in one tap." Take a slot; the rota fills 1 → 4 of 4; "Rota full · thank you" |
-| 0:43.2 | For mandirs: "Just send the poster." A Gujarati patrika is read into three draft events, checked by a person, then live |
-| 0:49.2 | Free for families. Free for mandirs. No account, no tracking. Works on any phone. English · ગુજરાતી · हिन्दी |
-| 0:55.2 | End card: garland, diya, "TORAN — What's on at mandirs near you", "Coming soon · Free for every mandir" |
+| 0:00 | A diya lights in the dark. One word a beat: "Festivals. Satsangs. Classes. Seva." Then: "**What's on, and when?**" |
+| 0:06 | "The details are… somewhere." A WhatsApp group (47 → 412 unread), a forwarded poster, a Facebook post saying the programme moved, a paper notice, a website last updated in 2019. Mum: "Satsang was this morning. Nobody told you?" |
+| 0:19.2 | "And the mandir needs help." The seva rota stays red: "6 of 20 volunteers. And it's tomorrow." It all collapses into a point of gold |
+| 0:26.4 | The turn: garland, the Toran mark draws itself, "TORAN — Every mandir's events. One place." |
+| 0:30 | 1 · "Find what's on near you." Tap "Find near me", pins drop, events nearest first (a weekly satsang, a kids' class, a festival) |
+| 0:37.2 | 2 · "Save it. Share it." Open the event, "Add to calendar", "Send on WhatsApp" to the family; Ba replies "I'll be there!" |
+| 0:45.6 | 3 · "Follow your mandirs." Tap Follow; "Your mandirs" appears. No account, no tracking |
+| 0:50.4 | 4 · "Give seva in one tap." Take a slot; the rota fills 1 → 4 of 4; "Rota full · thank you" |
+| 0:56.4 | For mandirs: "Just send the poster." A Gujarati patrika is read into three draft events, checked by a person, then live |
+| 1:03.6 | A list builds and stays: Free for families. Free for mandirs. No account. No tracking. Works on any phone. English · ગુજરાતી · हिन्दी |
+| 1:09.6 | End card: garland, diya, "TORAN — What's on at mandirs near you", "Coming soon · Free for every mandir" |
 
 ## Re-rendering
 
