@@ -176,6 +176,62 @@ def ding():
     return out
 
 
+# ---- the modern layer: a soft launch-film kit, a sub and pads ----------------
+def kick(gain=1.0):
+    t = tvec(0.45)
+    ph = 2 * np.pi * np.cumsum(46 + 90 * np.exp(-t / 0.035)) / SR
+    body = np.sin(ph) * env(len(t), 0.002, 0.16)
+    tick = np.zeros_like(t); c = click(3200, 0.012, 0.8); tick[: len(c)] = c
+    return (body + tick) * 0.55 * gain
+
+
+def clap():
+    """Three quick bursts of band-passed noise, then a short tail."""
+    n = int(0.3 * SR)
+    x = sosfilt(butter(2, [900, 4200], btype="band", fs=SR, output="sos"), rng.standard_normal(n))
+    t = np.arange(n) / SR
+    e = np.exp(-t / 0.09)
+    for k in range(3):
+        e += 0.8 * np.exp(-np.clip(t - k * 0.011, 0, None) / 0.004) * (t >= k * 0.011)
+    return x * e * 0.16
+
+
+def hat(open_=False):
+    n = int((0.18 if open_ else 0.05) * SR)
+    x = sosfilt(butter(2, 7500, btype="high", fs=SR, output="sos"), rng.standard_normal(n))
+    t = np.arange(n) / SR
+    return x * np.exp(-t / (0.06 if open_ else 0.012)) * 0.09
+
+
+def sub(f, sec):
+    t = tvec(sec)
+    e = np.minimum(t / 0.03, 1) * np.minimum((sec - t) / 0.15, 1)
+    return (np.sin(2 * np.pi * f * t) + 0.18 * np.sin(4 * np.pi * f * t)) * e * 0.22
+
+
+PAD_LP = butter(2, 1400, btype="low", fs=SR, output="sos")
+
+
+def pad(freqs, sec, attack=0.8, release=1.2):
+    """Warm synth pad: detuned saws (built from harmonics), low-passed."""
+    t = tvec(sec + release)
+    out = np.zeros_like(t)
+    for f in freqs:
+        for det in (-0.0035, 0.0, 0.0035):
+            for h in range(1, int(3000 / f) + 1):
+                out += np.sin(2 * np.pi * f * h * (1 + det) * t + h * det * 400) / h
+    out = sosfilt(PAD_LP, out)
+    e = np.minimum(t / attack, 1) * np.clip((sec + release - t) / release, 0, 1)
+    return out * e * 0.012 / max(1, len(freqs) ** 0.5)
+
+
+def breath(sec=0.9):
+    """The diya catching: a soft swell of low-passed air."""
+    n = int(sec * SR)
+    x = sosfilt(butter(2, [300, 2400], btype="band", fs=SR, output="sos"), rng.standard_normal(n))
+    return x * np.sin(np.pi * np.linspace(0, 1, n)) ** 2 * 0.12
+
+
 # ---- sound effects, one per cue in cues.js ----------------------------------
 def sfx(kind, t, i, n):
     pan = [-0.35, 0.35][i % 2]
@@ -238,6 +294,19 @@ def sfx(kind, t, i, n):
         add(bell(note(5)), t, 1.0)
         add(thump(110, 42, 1.4), t, 0.9)
         add(noise_sweep(0.9, 6000, 500, 0.07), t)
+    elif kind == "flame":
+        add(breath(), t - 0.25, 1.0)
+        add(santoor(note(15), 2.4, 0.8), t + 0.15, 0.22, 0.2)
+        add(bell(note(10), 3.5), t + 0.15, 0.12)
+    elif kind == "santoorRun3":  # one note for each letter of TORAN as it lands
+        for j in range(5):
+            add(santoor(note(10 + j), 1.4, 1.1, detune=0), t + j * 0.06, 0.32, -0.5 + 0.25 * j)
+    elif kind == "hit":  # each value line lands on the downbeat
+        add(kick(1.0), t)
+        add(thump(120, 50, 0.6), t, 0.25)
+        for d in (0, 2, 3):
+            add(santoor(note(d + 5 + (i % 2) * 0), 1.8, 1.0), t, 0.22)
+        add(bell(note(10 + [0, 2, 3, 4, 5][i % 5]), 1.6), t, 0.12, [-0.4, 0.4][i % 2])
     else:
         raise ValueError(kind)
 
@@ -250,6 +319,13 @@ for name, c in CUES.items():
         a, b = times
         for j in range(round((b - a) / (BEAT / 4)) + 1):
             add(click(2800, 0.02), a + j * BEAT / 4, 0.55, 0.3)
+        continue
+    if c["sfx"] == "scan":  # a light sweep while the poster is read
+        a, b = times
+        add(noise_sweep(b - a, 600, 6000, 0.035), a)
+        tt_ = tvec(b - a)
+        glide = np.sin(2 * np.pi * np.cumsum(note(15) * (1 + 0.5 * tt_ / (b - a))) / SR) * np.sin(np.pi * tt_ / (b - a)) * 0.04
+        add(glide, a, 1.0, 0.3)
         continue
     if c["sfx"] == "riser":
         a, b = times
@@ -264,43 +340,89 @@ for name, c in CUES.items():
         sfx(k, t, i, len(times))
 
 # ---- music ------------------------------------------------------------------
-S = {k: T(v) for k, v in CUES["scenes"].items()}
+# Traditional instruments carry it (tanpura, santoor in Raag Bhupali, tabla,
+# temple bells); a soft launch-film layer (kick, clap, hats, sub, pads) sits
+# under them once Toran arrives, as in modern product films.
+SB = CUES["scenes"]  # scene starts in beats
+S = {k: T(v) for k, v in SB.items()}
 
-# drone on every beat (Pa Sa' Sa' Sa), darker under the problem half
+# drone on every beat (Pa Sa' Sa' Sa), quieter under the problem half
 cycle = [3 / 2, 2, 2, 1]
 k = 0
 while T(k) < DUR - 0.5:
     t = T(k)
-    vol = 0.9 if t < S["turn"] else (1.0 if t < S["end"] else 0.85)
+    vol = 0.9 if t < S["turn"] else (0.9 if t < S["end"] else 0.8)
     add(tanpura_pluck(SA * cycle[k % 4], shimmer=0.04), t, vol, pan=-0.3 + 0.2 * (k % 4))
     k += 1
 
-# problem half: a low stroke on each bar, a quiet "na" on beat 3 from the
-# second question, sparse low santoor
-for bar in range(round(S["turn"] / T(4))):
+# the opening: one soft pad under the diya
+add(pad([note(0), note(2), note(3)], T(7)), T(0.5), 0.8)
+
+# the problem: a low stroke each bar, a quiet "na" once the mess builds, a
+# muffled heartbeat once the mandir needs help, sparse low santoor
+for bar in range(round(SB["turn"] / 4)):
     t = T(4 * bar)
-    add(tabla("ge"), t, 0.75, 0.1)
+    if bar >= 2:
+        add(tabla("ge"), t, 0.7, 0.1)
     if bar >= 4:
-        add(tabla("na"), t + T(2), 0.32, 0.1)
+        add(tabla("na"), t + T(2), 0.3, 0.1)
     if bar % 2 == 1:
         phrase = [(4, -1), (3, -1), (2, -1), (0, -1), (3, -1), (4, -1), (2, -1)]
         d, o = phrase[(bar // 2) % len(phrase)]
-        add(santoor(note(d, o + 1), 2.2, 0.7), t + T(2.5), 0.3, -0.2)
+        add(santoor(note(d, o + 1), 2.2, 0.7), t + T(2.5), 0.26, -0.2)
+# a low, uneasy pad under the mess (Sa and Pa, no third)
+add(pad([note(0, -1), note(3, -1), note(0)], T(SB["turn"] - SB["mess"]), 2.0, 0.6), S["mess"], 1.6)
+for bt in range(SB["help"], SB["turn"]):
+    add(kick(0.35), T(bt), 1.0)
 
-# from the turn: full keherwa groove on eighths, with Bhupali santoor melody
+# the turn: one wide chord under the logo
+add(pad([note(0), note(2), note(3), note(5)], T(4)), S["turn"], 1.4)
+add(sub(note(0, -1), T(4)), S["turn"], 1.0)
+
+# Toran in use: the groove, beat 36 to the end card
+CHORDS = [  # Bhupali only (Sa Re Ga Pa Dha): two bars each
+    ([0, 1, 2, 3], 0),     # D add9
+    ([-1, 0, 2, 3], -1),   # B minor 7
+    ([3, 4, 6], -2),       # A sus2
+    ([0, 2, 3, 4], 0),     # D6
+]
+ROOT = {0: note(0, -1), -1: note(4, -2), -2: note(3, -2)}
+g0, g1 = SB["find"], SB["end"]
+for j, bt in enumerate(range(g0, g1, 8)):
+    degs, root = CHORDS[j % 4]
+    sec = T(min(8, g1 - bt))
+    full = bt >= SB["values"]
+    add(pad([note(d) for d in degs], sec, 0.4, 0.8), T(bt), 1.35 if full else 1.1)
+    for half in range(0, min(8, g1 - bt), 2):  # the sub pulses on the half bar
+        add(sub(ROOT[root], T(1.8)), T(bt + half), 1.1 if full else 0.85)
+
 pattern = ["dha", "ge", "na", "ti", "na", "ti", "dhi", "na"]
 melody = [5, None, 6, None, 7, 8, 9, None, 8, None, 7, None, 6, 7, 5, None]
-b = 0
-while T(CUES["scenes"]["turn"] + b / 2) < S["end"] - 0.01:
-    beat = CUES["scenes"]["turn"] + b / 2
+e = 0
+while g0 + e / 2 < g1:
+    beat = g0 + e / 2
     tb = T(beat)
-    stroke = pattern[b % 8]
-    add(tabla(stroke), tb, 0.85 if stroke in ("dha", "ge", "dhi") else 0.65, pan=0.1)
-    m = melody[b % 16]
-    # melody rests while the garland and the rota play their own notes
-    if m is not None and (60 <= beat < 80 or 86 <= beat < 92):
-        add(santoor(note(m)), tb, 0.32, pan=-0.2)
-    b += 1
+    full = beat >= SB["values"]
+    if e % 2 == 0:
+        q = (e // 2) % 4
+        if q in (0, 2):
+            add(kick(1.0 if full else 0.8), tb)
+        else:
+            add(clap(), tb, 1.0 if full else 0.75, 0.05)
+    if e % 16 == 15:  # a pickup into each new two-bar chord
+        add(kick(0.5), tb)
+    add(hat(open_=e % 4 == 3), tb, 0.9 if full else 0.6, 0.35)
+    stroke = pattern[e % 8]
+    add(tabla(stroke), tb, (0.6 if stroke in ("dha", "ge", "dhi") else 0.45) * (1.3 if full else 1.0), pan=-0.1)
+    m = melody[e % 16]
+    # the melody rests while the seva rota and the drafts play their own notes
+    if m is not None and not (64 <= beat < 70 or 75 <= beat < 81):
+        add(santoor(note(m)), tb, 0.3 if full else 0.2, pan=-0.2)
+    e += 1
+
+# the end card: the last chord rings out under the bell
+add(pad([note(0), note(2), note(3), note(5)], T(6), 0.3, 2.5), S["end"], 1.3)
+add(sub(note(0, -1), T(4)), S["end"], 1.0)
 
 # ---- master: fade-out, soft limit, normalise ---------------------------------
 tt = np.arange(N) / SR

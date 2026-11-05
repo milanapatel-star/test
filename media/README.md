@@ -4,25 +4,38 @@
 chats. Portrait 1080×1920, 30 fps, H.264 + AAC. (The earlier 28-second
 version is in the git history.)
 
-The soundtrack is original and synthesised in code (tanpura drone, santoor
-in Raag Bhupali, synth tabla, temple bell, interface sounds), so there is
-nothing to license.
+It uses the website's "Midnight & Gold" design (midnight blue, one lapis
+blue for buttons, gold for the logo; Marcellus and Mulish) and the site's
+real screens, so the film looks like the product. Motion follows modern
+product launch films: words rising out of masks, cards flying in, one
+phone with gold rings and taps showing exactly which button does what,
+a slow camera push-in on every scene.
+
+The soundtrack is original and synthesised in code, so there is nothing to
+license. Traditional instruments carry it (tanpura drone, santoor in Raag
+Bhupali, tabla, temple bells). From the moment Toran appears, a soft
+launch-film layer joins them (kick, clap, hats, sub bass, warm pads). The
+problem half is sparse and uneasy; the music lifts at the turn and is
+fullest under the closing values.
 
 ## Storyboard
 
-100 BPM, so a beat is 0.6 s and a bar is 2.4 s. Every scene starts on a bar.
+100 BPM, so a beat is 0.6 s and a bar is 2.4 s. Every scene starts on a beat
+in `cues.js`.
 
 | Time | Scene |
 | --- | --- |
-| 0:00 | "Ever missed a mandir event because the details were buried in a WhatsApp group?" Group chat floods, 47 → 412 unread, the Garba poster scrolls past, Mum: "Garba was last night 😔" |
-| 0:09.6 | "Or struggled to find volunteers for an upcoming celebration?" Committee asks for 20 volunteers; replies trail off; rota 11 short, "Night 3 is tomorrow." |
-| 0:19.2 | "Mandir news is everywhere… and nowhere at once." Group chat, Facebook, noticeboard, old website, paper rota |
-| 0:26.4 | "And it leaves people out." Riya, 20, at university in Leicester; Ba, 79, doesn't use WhatsApp |
-| 0:33.6 | The turn: cream wipe, garland, "Toran — Every mandir's events. One place." |
-| 0:38.4 | "Find what's on near you." Map, events (one in Gujarati), add to calendar, share |
-| 0:45.6 | "Seva in one link." Link in the group, take a slot, rota fills, reminder |
-| 0:52.8 | "Committees: just forward your poster." Poster becomes an event |
-| 0:55.2 | End card: "Free for mandirs · Launching 2027" |
+| 0:00 | A diya lights in the dark. "Diwali at your mandir. **But what's on?**" |
+| 0:04.8 | "The details are… somewhere." A WhatsApp group (47 → 412 unread), a forwarded poster, a Facebook post saying it moved, a paper notice, a website last updated in 2019. Mum: "Garba was last night. Did nobody tell you?" |
+| 0:14.4 | "And the mandir needs help." The seva rota stays red: "6 of 20 volunteers. Night 3 is tomorrow." It all collapses into a point of gold |
+| 0:19.2 | The turn: garland, the Toran mark draws itself, "TORAN — Every mandir's events. One place." |
+| 0:21.6 | 1 · "Find what's on near you." Tap "Find near me", pins drop, events nearest first |
+| 0:27.6 | 2 · "Save it. Share it." Open the event, "Add to calendar", "Send on WhatsApp" to the family; Ba replies "I'll be there!" |
+| 0:33.6 | 3 · "Follow your mandirs." Tap Follow; "Your mandirs" appears. No account, no tracking |
+| 0:37.2 | 4 · "Give seva in one tap." Take a slot; the rota fills 1 → 4 of 4; "Rota full · thank you" |
+| 0:43.2 | For mandirs: "Just send the poster." A Gujarati patrika is read into three draft events, checked by a person, then live |
+| 0:49.2 | Free for families. Free for mandirs. No account, no tracking. Works on any phone. English · ગુજરાતી · हिन्दी |
+| 0:55.2 | End card: garland, diya, "TORAN — What's on at mandirs near you", "Coming soon · Free for every mandir" |
 
 ## Re-rendering
 
@@ -37,9 +50,14 @@ Source is in `source/`:
   (`KEYS=5,20,40 node render.mjs <chromium> <source dir> keys`)
 - `soundtrack.py` — synthesises `soundtrack.wav` (needs numpy and scipy)
 
-Steps: put Bricolage Grotesque, Figtree and Noto Sans Gujarati (Google
-Fonts) in `source/fonts/` with a `local.css`, render frames to
-`source/frames/`, run `python3 soundtrack.py`, then:
+Steps: put Marcellus, Mulish (400, 600, 700, 800), Noto Serif Gujarati
+(600, 700) and Noto Sans Devanagari (600) from Google Fonts in
+`source/fonts/` with a `local.css` (the folder is gitignored). The two
+poster images in `source/assets/` are the demo posters from the website
+repo (`public/demo-posters/`). Render frames to `source/frames/` (set
+`OUT=<dir>` to write `frames/` or `keys/` somewhere else, and
+`FROM`/`TO` to render a range of frames, e.g. in parallel), run
+`python3 soundtrack.py`, then:
 
 ```bash
 ffmpeg -framerate 30 -i frames/%04d.png -i soundtrack.wav -map 0:v -map 1:a \
