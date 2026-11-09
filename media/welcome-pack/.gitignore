@@ -9,3 +9,4 @@ out/*/soundtrack.wav
 shots/*.json
 !shots/manifest.json
 shots/explore/
+out/share.log
