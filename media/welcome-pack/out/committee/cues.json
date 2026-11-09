@@ -1,242 +1,250 @@
 {
- "duration": 133.6,
+ "duration": 134.1,
  "cues": [
   {
    "t": 0.5,
    "kind": "swap"
   },
   {
-   "t": 7.8,
-   "kind": "click"
+   "t": 7.6,
+   "kind": "tap"
   },
   {
-   "t": 8.2,
+   "t": 8.1,
    "kind": "type",
-   "dur": 1.5
+   "dur": 1.4
   },
   {
-   "t": 11,
-   "kind": "click"
+   "t": 10.3,
+   "kind": "tap"
   },
   {
-   "t": 11.5,
+   "t": 11.1,
    "kind": "swap"
   },
   {
-   "t": 11.8,
+   "t": 11.4,
    "kind": "chime"
   },
   {
-   "t": 13.9,
+   "t": 13.7,
+   "kind": "swap"
+  },
+  {
+   "t": 15.9,
+   "kind": "tap"
+  },
+  {
+   "t": 22.1,
    "kind": "swap"
   },
   {
    "t": 28.6,
-   "kind": "click"
+   "kind": "tap"
   },
   {
-   "t": 29.1,
+   "t": 29,
    "kind": "swap"
   },
   {
-   "t": 31,
-   "kind": "click"
+   "t": 30.7,
+   "kind": "tap"
   },
   {
-   "t": 31.8,
+   "t": 31.1,
    "kind": "swap"
   },
   {
-   "t": 33.5,
-   "kind": "click"
+   "t": 33,
+   "kind": "tap"
   },
   {
-   "t": 33.8,
+   "t": 33.4,
    "kind": "swap"
   },
   {
-   "t": 36.1,
+   "t": 35.7,
    "kind": "swap"
   },
   {
-   "t": 38.8,
-   "kind": "click"
+   "t": 38.7,
+   "kind": "tap"
   },
   {
-   "t": 40.1,
+   "t": 39.1,
    "kind": "swap"
   },
   {
-   "t": 40.3,
+   "t": 39.3,
    "kind": "chime"
   },
   {
-   "t": 44.6,
-   "kind": "click"
+   "t": 44.1,
+   "kind": "tap"
   },
   {
-   "t": 45,
+   "t": 44.5,
    "kind": "swap"
   },
   {
-   "t": 46.2,
-   "kind": "click"
+   "t": 45.4,
+   "kind": "tap"
   },
   {
-   "t": 46.5,
+   "t": 46,
    "kind": "type",
    "dur": 2.2
   },
   {
+   "t": 49.3,
+   "kind": "tap"
+  },
+  {
    "t": 49.8,
-   "kind": "click"
-  },
-  {
-   "t": 50.7,
    "kind": "swap"
   },
   {
-   "t": 53.1,
-   "kind": "click"
+   "t": 52.6,
+   "kind": "tap"
   },
   {
-   "t": 53.9,
+   "t": 53,
    "kind": "swap"
   },
   {
-   "t": 54.1,
+   "t": 53.2,
    "kind": "chime"
   },
   {
-   "t": 58.2,
+   "t": 57.7,
    "kind": "tap"
   },
   {
-   "t": 63.5,
+   "t": 63,
    "kind": "tap"
   },
   {
-   "t": 67.1,
-   "kind": "click"
+   "t": 67,
+   "kind": "tap"
   },
   {
-   "t": 67.5,
-   "kind": "swap"
-  },
-  {
-   "t": 68.5,
+   "t": 67.4,
    "kind": "type",
-   "dur": 1.5
+   "dur": 1.4
   },
   {
-   "t": 68.6,
-   "kind": "click"
+   "t": 69.1,
+   "kind": "tap"
   },
   {
-   "t": 70.3,
+   "t": 69.3,
    "kind": "type",
    "dur": 0.3
   },
   {
-   "t": 70.4,
-   "kind": "click"
+   "t": 69.8,
+   "kind": "tap"
   },
   {
-   "t": 70.9,
-   "kind": "type",
-   "dur": 0.6
-  },
-  {
-   "t": 71.3,
-   "kind": "click"
-  },
-  {
-   "t": 71.8,
+   "t": 70,
    "kind": "type",
    "dur": 0.5
   },
   {
-   "t": 72.2,
-   "kind": "click"
+   "t": 70.7,
+   "kind": "tap"
   },
   {
-   "t": 74.8,
+   "t": 70.9,
+   "kind": "type",
+   "dur": 0.5
+  },
+  {
+   "t": 73.9,
+   "kind": "tap"
+  },
+  {
+   "t": 74.5,
    "kind": "swap"
   },
   {
-   "t": 75,
+   "t": 74.7,
    "kind": "chime"
   },
   {
-   "t": 80.4,
-   "kind": "click"
+   "t": 79.2,
+   "kind": "tap"
   },
   {
-   "t": 80.6,
-   "kind": "swap"
+   "t": 84.5,
+   "kind": "tap"
   },
   {
-   "t": 88.8,
-   "kind": "click"
-  },
-  {
-   "t": 90,
-   "kind": "swap"
-  },
-  {
-   "t": 96.4,
-   "kind": "click"
-  },
-  {
-   "t": 97,
-   "kind": "swap"
-  },
-  {
-   "t": 98.4,
-   "kind": "click"
-  },
-  {
-   "t": 99.3,
-   "kind": "swap"
-  },
-  {
-   "t": 100.7,
-   "kind": "click"
-  },
-  {
-   "t": 102,
-   "kind": "swap"
-  },
-  {
-   "t": 105.2,
-   "kind": "click"
-  },
-  {
-   "t": 114.4,
-   "kind": "click"
-  },
-  {
-   "t": 114.6,
+   "t": 84.8,
    "kind": "chime"
   },
   {
-   "t": 118,
+   "t": 89.3,
+   "kind": "tap"
+  },
+  {
+   "t": 89.7,
+   "kind": "swap"
+  },
+  {
+   "t": 96.7,
+   "kind": "tap"
+  },
+  {
+   "t": 97.1,
+   "kind": "swap"
+  },
+  {
+   "t": 98.1,
+   "kind": "tap"
+  },
+  {
+   "t": 99.7,
+   "kind": "swap"
+  },
+  {
+   "t": 101.9,
+   "kind": "tap"
+  },
+  {
+   "t": 102.9,
+   "kind": "swap"
+  },
+  {
+   "t": 106.5,
+   "kind": "tap"
+  },
+  {
+   "t": 114.7,
+   "kind": "tap"
+  },
+  {
+   "t": 115.1,
+   "kind": "chime"
+  },
+  {
+   "t": 118.5,
    "kind": "whoosh"
   },
   {
-   "t": 119.3,
+   "t": 119.8,
    "kind": "tick"
   },
   {
-   "t": 120.3,
+   "t": 120.8,
    "kind": "tick"
   },
   {
-   "t": 121.3,
+   "t": 121.8,
    "kind": "tick"
   },
   {
-   "t": 127,
+   "t": 127.5,
    "kind": "whoosh"
   }
  ],
@@ -249,72 +257,72 @@
   },
   {
    "start": 6.5,
-   "dur": 10,
-   "kind": "laptop",
+   "dur": 11,
+   "kind": "phone",
    "title": "Log in with your email"
   },
   {
-   "start": 16.5,
-   "dur": 11,
-   "kind": "laptop",
+   "start": 17.5,
+   "dur": 10,
+   "kind": "phone",
    "title": "Your committee page"
   },
   {
    "start": 27.5,
-   "dur": 16,
-   "kind": "laptop",
+   "dur": 15.5,
+   "kind": "phone",
    "title": "Send a photo of the poster"
   },
   {
-   "start": 43.5,
+   "start": 43,
    "dur": 13,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Paste a WhatsApp message"
   },
   {
-   "start": 56.5,
+   "start": 56,
    "dur": 9.5,
    "kind": "phone",
-   "title": "Share it straight to Toran"
+   "title": "Or share it straight to Toran"
   },
   {
-   "start": 66,
+   "start": 65.5,
    "dur": 12,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Type it in"
   },
   {
-   "start": 78,
-   "dur": 9,
-   "kind": "laptop",
+   "start": 77.5,
+   "dur": 10,
+   "kind": "phone",
    "title": "Tick your festivals"
   },
   {
-   "start": 87,
+   "start": 87.5,
    "dur": 8,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Plans change? Edit it"
   },
   {
-   "start": 95,
+   "start": 95.5,
    "dur": 14,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Plan the seva rota"
   },
   {
-   "start": 109,
+   "start": 109.5,
    "dur": 9,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Send this week's events"
   },
   {
-   "start": 118,
+   "start": 118.5,
    "dur": 9,
    "kind": "night",
    "title": "Your weekly routine"
   },
   {
-   "start": 127,
+   "start": 127.5,
    "dur": 6,
    "kind": "night",
    "title": "You're ready"

@@ -24,6 +24,9 @@ let manifest: Record<string, Shot> = existsSync(MANIFEST)
   ? JSON.parse(readFileSync(MANIFEST, "utf8"))
   : {};
 
+const PHONE_INPUTS =
+  "input::-webkit-calendar-picker-indicator{display:none!important}";
+
 export async function box(target: Locator): Promise<Box> {
   await target.waitFor({ state: "visible", timeout: 10_000 });
   return target.evaluate((el) => {
@@ -60,9 +63,11 @@ export async function snap(
   const boxes: Record<string, Box> = {};
   for (const [key, loc] of Object.entries(targets)) boxes[key] = await box(loc);
   const scrollY = await page.evaluate(() => window.scrollY);
-  const style = full
-    ? await page.addStyleTag({ content: HIDE_TABS })
-    : null;
+  // Date and time boxes as a phone draws them: no desktop picker icon, which
+  // would leave a narrow box too little room for the date.
+  const style = await page.addStyleTag({
+    content: PHONE_INPUTS + (full ? HIDE_TABS : ""),
+  });
   const file = `${name}.jpg`;
   await page.screenshot({
     path: `${SHOTS}/${file}`,
@@ -72,7 +77,7 @@ export async function snap(
     animations: "disabled",
     caret: "initial",
   });
-  if (style) await style.evaluate((el) => (el as Element).remove());
+  await style.evaluate((el) => (el as Element).remove());
   const size = await page.evaluate(() => ({
     width: document.documentElement.scrollWidth,
     height: document.documentElement.scrollHeight,
@@ -80,6 +85,15 @@ export async function snap(
     vh: window.innerHeight,
     dpr: window.devicePixelRatio,
   }));
+  // Anything a film will point at must be on screen, clear of the phone's
+  // tab bar, in a picture of the screen (not the whole page).
+  const tabBar = size.vw < 600 ? 80 : 0;
+  const outside = full
+    ? []
+    : Object.entries(boxes)
+        .filter(([, b]) => b.y - scrollY < 0 || b.y - scrollY + b.h > size.vh - tabBar || b.x < 0 || b.x + b.w > size.vw)
+        .map(([k]) => k);
+  if (outside.length) console.warn(`OFF SCREEN in ${name}: ${outside.join(", ")}`);
   manifest[name] = {
     file,
     width: size.width,

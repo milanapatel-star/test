@@ -10,6 +10,8 @@ const ANYTOWN = { latitude: 52.6369, longitude: -1.1398 };
 const phone = {
   ...devices["iPhone 13"],
   deviceScaleFactor: 3,
+  locale: "en-GB",
+  timezoneId: "Europe/London",
   geolocation: ANYTOWN,
   permissions: ["geolocation"],
 };
@@ -33,7 +35,7 @@ test("a family on a phone", async ({ browser }) => {
   const choose = page.getByText(/Find near me|Change/).first();
   const kartik = page.getByRole("link", { name: /Kartik Purnima/ }).first();
   await snap(page, "f-whatson", { choose, kartik });
-  await snap(page, "f-whatson-top", { choose, kartik }, { full: false });
+  await snap(page, "f-whatson-top", { choose }, { full: false });
   await choose.click();
   await page.waitForTimeout(800);
   const useLocation = page.getByRole("button", { name: /location/i }).first();
@@ -54,11 +56,12 @@ test("a family on a phone", async ({ browser }) => {
   const whatsapp = page.getByRole("link", { name: /WhatsApp/ }).first();
   const seva = page.getByRole("link", { name: /seva/i }).first();
   await snap(page, "f-event", { calendar, whatsapp, seva });
-  await snap(page, "f-event-top", { calendar, whatsapp }, { full: false });
+  await snap(page, "f-event-top", {}, { full: false });
+  // Sharing first, while the calendar choices are closed.
+  await snap(page, "f-event-share", { whatsapp }, { full: false, center: whatsapp });
   await calendar.click();
   await page.waitForTimeout(700);
   await snap(page, "f-event-calendar", { calendar }, { full: false, center: calendar });
-  await snap(page, "f-event-share", { whatsapp }, { full: false, center: whatsapp });
   const eventUrl = page.url();
 
   // Seva: take a slot.
@@ -96,8 +99,8 @@ test("a family on a phone", async ({ browser }) => {
   await snap(page, "f-map", { nearMe }, { full: false, center: page.locator(".toran-map").first() });
   await nearMe.click();
   await page.waitForTimeout(4000);
-  await snap(page, "f-map-near", {}, { full: false, center: page.locator(".toran-map").first() });
   const lamp = page.locator(".toran-lamp").first();
+  await snap(page, "f-map-near", { lamp }, { full: false, center: page.locator(".toran-map").first() });
   if (await lamp.isVisible().catch(() => false)) {
     const where = await lamp.boundingBox();
     await lamp.click();

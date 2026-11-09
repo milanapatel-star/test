@@ -8,7 +8,9 @@ for (const name of ["mandirs", "committee", "families"]) {
   let at = 0;
   const lines = [];
   for (const s of window.FILM.scenes) {
-    if (s.kind === "night") {
+    if (s.kind === "intro") {
+      lines.push({ t: at, title: s.title, text: [s.title, s.sub].filter(Boolean).join(" · ").replace(/<[^>]+>/g, "") });
+    } else if (s.kind === "night") {
       const text = [s.title, s.sub, ...(s.lines || []).map((l) => l.text), ...(s.items || []), s.foot, s.url].filter(Boolean).join(" · ");
       lines.push({ t: at, title: s.title || "", text: text.replace(/<br>/g, " ").replace(/<[^>]+>/g, "") });
     } else {

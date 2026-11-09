@@ -13,6 +13,6 @@ for f in mandirs committee families; do
   ffmpeg -loglevel error -y -i $IN -c:v libx264 -preset slow -b:v ${VB}k -pass 1 -an -f mp4 /dev/null
   ffmpeg -loglevel error -y -i $IN -c:v libx264 -preset slow -b:v ${VB}k -pass 2 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k $WP/pack/films/toran-$f.mp4
   rm -f ffmpeg2pass-0.log ffmpeg2pass-0.log.mbtree
-  ffmpeg -loglevel error -y -ss ${2:-3.2} -i $IN -frames:v 1 -vf scale=1280:-2 -q:v 3 $WP/pack/films/toran-$f.jpg
+  ffmpeg -loglevel error -y -ss ${2:-3.2} -i $IN -frames:v 1 -vf scale=720:-2 -q:v 3 $WP/pack/films/toran-$f.jpg
   ls -la $WP/pack/films/toran-$f.mp4
 done

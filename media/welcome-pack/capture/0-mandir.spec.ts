@@ -6,7 +6,7 @@ import { snap } from "./zz-capture-lib";
 // it, and a trustee (Anil, made up) asking to look after it, on a phone.
 
 const SLUG = "shree-sample-mandir-anytown";
-const phone = { ...devices["iPhone 13"], deviceScaleFactor: 3 };
+const phone = { ...devices["iPhone 13"], deviceScaleFactor: 3, locale: "en-GB", timezoneId: "Europe/London" };
 
 test("a trustee claims the page", async ({ browser }) => {
   test.setTimeout(300_000);

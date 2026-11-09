@@ -10,3 +10,4 @@ shots/*.json
 !shots/manifest.json
 shots/explore/
 out/share.log
+out/*.log

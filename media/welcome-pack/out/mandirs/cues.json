@@ -54,27 +54,27 @@
   },
   {
    "t": 51.1,
-   "kind": "click"
+   "kind": "tap"
   },
   {
    "t": 51.5,
    "kind": "swap"
   },
   {
-   "t": 53.2,
-   "kind": "click"
+   "t": 53.3,
+   "kind": "tap"
   },
   {
-   "t": 53.6,
+   "t": 53.7,
    "kind": "swap"
   },
   {
-   "t": 55.6,
+   "t": 55.8,
    "kind": "swap"
   },
   {
-   "t": 58.2,
-   "kind": "click"
+   "t": 59.2,
+   "kind": "tap"
   },
   {
    "t": 59.6,
@@ -146,7 +146,7 @@
   {
    "start": 50,
    "dur": 13.5,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Add events in minutes"
   },
   {
@@ -158,13 +158,13 @@
   {
    "start": 75.5,
    "dur": 8.5,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "Ask for seva"
   },
   {
    "start": 84,
    "dur": 8.5,
-   "kind": "laptop",
+   "kind": "phone",
    "title": "See it working"
   },
   {

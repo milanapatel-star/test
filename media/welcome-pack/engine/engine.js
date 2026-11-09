@@ -33,7 +33,7 @@
   // ---- layout ------------------------------------------------------------
   const GEO = {
     laptop: { k: 0.84, vw: 1440, vh: 900, x: 640, y: 129, chrome: 46, panel: 110 },
-    phone: { k: 1.32, vw: 390, vh: 664, x: 1060, y: 87, pad: 13, panel: 200 },
+    phone: { k: 1.8, vw: 390, vh: 664, x: 175, y: 600, pad: 14, panel: 90 },
   };
 
   // ---- shared pieces ------------------------------------------------------
@@ -96,6 +96,16 @@
   }
 
   const isFull = (ref, g) => Array.isArray(ref) && typeof ref[0] === "string" && M[ref[0]].height > g.vh + 2;
+  // The screenshot a scene shows at time t.
+  const shotIn = (s, t) => {
+    let cur = (s.shots || [])[0]?.shot;
+    for (const kf of s.shots || []) if (t >= kf.at) cur = kf.shot;
+    return cur;
+  };
+  // Whether a target scrolls with the page: a named target on a full-page
+  // shot, or a raw position while a full-page shot is showing.
+  const onFull = (s, ref, t, g) =>
+    isFull(ref, g) || (Array.isArray(ref) && typeof ref[0] === "number" && (M[shotIn(s, t)]?.height ?? 0) > g.vh + 2);
 
   function buildProduct(s) {
     const g = GEO[s.kind];
@@ -144,10 +154,18 @@
       const b = resolveBox(r.on), pad = r.pad ?? 8;
       css(d, { left: (b.x - pad) * k + "px", top: (b.y - pad) * k + "px", width: (b.w + 2 * pad) * k + "px", height: (b.h + 2 * pad) * k + "px", borderRadius: (r.radius ?? 14) + "px" });
       s.dom.rings.push({ d, r });
-      if (!isFull(r.on, g)) s.dom.fixed = [...(s.dom.fixed || []), d];
+      if (!onFull(s, r.on, r.at, g)) s.dom.fixed = [...(s.dom.fixed || []), d];
     }
     for (const ty of s.types || []) {
       const b = resolveBox(ty.on), m = M[ty.shot], pad = ty.pad ?? 2;
+      // A text box clears its placeholder at the first key, so for typing
+      // that appears line by line, blank the box (inside its border) first.
+      let blank = null;
+      if (ty.mode === "lines") {
+        blank = el("div", "abs", scroll);
+        const i = ty.inset ?? 3;
+        css(blank, { left: (b.x + i) * k + "px", top: (b.y + i) * k + "px", width: (b.w - 2 * i) * k + "px", height: (b.h - 2 * i) * k + "px", background: ty.blank ?? "#fff", borderRadius: "8px", opacity: 0 });
+      }
       const d = el("div", "typer", scroll);
       css(d, {
         left: (b.x - pad) * k + "px", top: (b.y - pad) * k + "px", width: (b.w + 2 * pad) * k + "px", height: (b.h + 2 * pad) * k + "px",
@@ -155,8 +173,8 @@
         backgroundPosition: `${-(b.x - pad) * k}px ${-(b.y - pad) * k}px`, clipPath: "inset(0 100% 0 0)",
       });
       const caret = el("div", "caret", scroll);
-      s.dom.typers.push({ d, ty, b, caret });
-      if (!isFull(ty.on, g)) s.dom.fixed = [...(s.dom.fixed || []), d, caret];
+      s.dom.typers.push({ d, ty, b, caret, blank });
+      if (!isFull(ty.on, g)) s.dom.fixed = [...(s.dom.fixed || []), d, caret, ...(blank ? [blank] : [])];
       cue(s.start + ty.at, "type", { dur: ty.dur });
     }
     if (s.kind === "phone") {
@@ -177,20 +195,16 @@
 
     // Captions
     const panel = el("div", "panel", root);
-    css(panel, { left: g.panel + "px", width: (s.kind === "phone" ? 600 : 470) + "px" });
+    s.dom.panel = panel;
     s.caps = (s.captions || [{ at: 0, chip: s.chip, title: s.title, body: s.body }]).map((c, i) => {
       const d = el("div", "cap", panel);
-      css(d, { width: (s.kind === "phone" ? 600 : 470) + "px" });
       const chip = c.chip ? `<span class="chip">${c.n ? `<span class="n">${c.n}</span>` : ""}${c.chip}</span>` : "";
       d.innerHTML = `${chip}<div class="t">${c.title}</div>${c.body ? `<div class="b">${c.body}</div>` : ""}`;
       return { d, c, next: null, i };
     });
     s.caps.forEach((c, i) => (c.next = s.caps[i + 1]?.c.at ?? 1e9));
-    // centre each caption vertically
-    s.caps.forEach((c) => css(c.d, { top: "50%" }));
 
     el("div", "brand", root, `<span style="width:30px;height:30px;display:inline-block">${TILE}</span>TORAN`);
-    css(root.lastChild, { left: g.panel + "px" });
     el("div", "example", root, "Example mandir and events");
 
     // Pointer / finger
@@ -270,14 +284,15 @@
     for (const { d, r } of D.rings) {
       const a = ramp(t, r.at, 0.3) * (1 - ramp(t, r.at + (r.dur ?? 2), 0.3));
       const pulse = 1 + 0.04 * Math.sin((t - r.at) * 6);
-      css(d, { opacity: a, transform: `scale(${a ? pulse : 1})` });
+      css(d, { opacity: a, transform: `scale(${a ? pulse : 1})`, zIndex: 3 });
     }
     // typing
-    for (const { d, ty, b, caret } of D.typers) {
+    for (const { d, ty, b, caret, blank } of D.typers) {
       const p = clamp((t - ty.at) / ty.dur);
       const vis = t >= ty.at - 0.01 && t < (ty.until ?? 1e9);
       d.style.opacity = vis ? 1 : 0;
       d.style.zIndex = 3;
+      if (blank) css(blank, { opacity: vis ? 1 : 0, zIndex: 3 });
       const pad = ty.pad ?? 2;
       if (ty.mode === "lines") {
         const lh = ty.lineH ?? 24;
@@ -328,7 +343,7 @@
       let shown = false;
       for (const c of s.taps || []) {
         const b = resolveBox(c.on);
-        const full = typeof c.on[0] === "string" && M[c.on[0]].height > g.vh + 2;
+        const full = onFull(s, c.on, c.at, g);
         const [X, Y] = toStage(s, b.x + b.w / 2, b.y + b.h / 2, t, cam, full ? sc : 0);
         if (t >= c.at - 0.45 && t < c.at + 0.6) {
           shown = true;
@@ -344,7 +359,7 @@
     // callouts
     for (const { d, c } of D.callouts) {
       const b = resolveBox(c.on);
-      const full = typeof c.on[0] === "string" && M[c.on[0]].height > g.vh + 2;
+      const full = onFull(s, c.on, c.at, g);
       const [X, Y] = toStage(s, b.x + b.w * (c.fx ?? 0.5), b.y, t, cam, full ? sc : 0);
       const a = ramp(t, c.at, 0.3) * (1 - ramp(t, c.at + (c.dur ?? 2), 0.3));
       css(d, { opacity: a, left: X - 30 + "px", top: Y - 76 + (1 - easeOut(ramp(t, c.at, 0.4))) * 14 + "px" });
@@ -353,7 +368,7 @@
     for (const c of s.caps) {
       const a = easeOut(ramp(t, c.c.at + (c.i === 0 ? 0.15 : 0), 0.6)) * (1 - ramp(t, c.next - 0.35, 0.35));
       const rise = (1 - easeOut(ramp(t, c.c.at + (c.i === 0 ? 0.15 : 0), 0.7))) * 30;
-      css(c.d, { opacity: a, transform: `translateY(calc(-50% + ${rise}px))` });
+      css(c.d, { opacity: a, transform: `translateY(${rise}px)` });
     }
   }
 
@@ -363,11 +378,10 @@
     if (opts.rangoli !== false) {
       const r = el("img", "abs", root);
       r.src = "assets/rangoli-night.svg";
-      css(r, { width: "900px", height: "900px", left: "510px", top: "90px", opacity: 0.18 });
-      opts.rangoliEl = r;
+      css(r, { width: "980px", height: "980px", left: "50px", top: "470px", opacity: 0.16 });
     }
     const glow = el("div", "glow", root);
-    css(glow, { width: "1300px", height: "1300px", left: "310px", top: "-260px", opacity: 0.55 });
+    css(glow, { width: "1400px", height: "1400px", left: "-160px", top: "120px", opacity: 0.55 });
     el("div", "garland", root);
     return glow;
   }
@@ -376,56 +390,43 @@
     const root = el("div", "scene", stage);
     s.dom = { root };
     s.glow = nightBase(root, s);
-    const brand = el("div", "brand light", root, `<span style="width:30px;height:30px;display:inline-block">${MARK}</span>TORAN`);
-    s.dom.brand = brand;
+    s.dom.brand = el("div", "brand light", root, `<span style="width:30px;height:30px;display:inline-block">${MARK}</span>TORAN`);
     if (s.type === "title" || s.type === "end") {
-      const diya = el("div", "abs", root, DIYA);
-      css(diya, { width: "190px", height: "152px", left: "865px", top: s.type === "end" ? "180px" : "160px" });
+      const col = el("div", "ncol", root);
+      const diya = el("div", "", col, DIYA);
+      css(diya, { width: "210px", height: "168px" });
       s.dom.diya = diya;
-      if (s.chip) {
-        const c = el("div", "abs", root, `<span class="nchip">${s.chip}</span>`);
-        css(c, { left: 0, width: "1920px", textAlign: "center", top: "360px" });
-        s.dom.chip = c;
-      }
-      const ti = el("div", "abs d on", root, rising(s.title));
-      css(ti, { left: "160px", width: "1600px", textAlign: "center", top: s.type === "end" ? "380px" : "440px", fontSize: (s.size || 92) + "px" });
+      if (s.chip) s.dom.chip = el("div", "", col, `<span class="nchip">${s.chip}</span>`);
+      const ti = el("div", "d on", col, rising(s.title));
+      css(ti, { fontSize: (s.size || 92) + "px", width: "900px" });
       s.dom.title = ti;
       if (s.sub) {
-        const sb = el("div", "abs nm", root, s.sub);
-        css(sb, { left: "260px", width: "1400px", textAlign: "center", top: s.type === "end" ? "540px" : "680px", fontSize: "34px", lineHeight: 1.4 });
-        s.dom.sub = sb;
+        s.dom.sub = el("div", "nm", col, s.sub);
+        css(s.dom.sub, { fontSize: "38px", lineHeight: 1.4, maxWidth: "860px" });
       }
-      if (s.url) {
-        const u = el("div", "abs", root, `<span class="url-pill">${s.url}</span>`);
-        css(u, { left: 0, width: "1920px", textAlign: "center", top: "650px" });
-        s.dom.url = u;
-      }
+      if (s.url) s.dom.url = el("div", "", col, `<span class="url-pill">${s.url}</span>`);
       if (s.small) {
-        const sm = el("div", "abs nm", root, s.small);
-        css(sm, { left: 0, width: "1920px", textAlign: "center", top: "790px", fontSize: "26px" });
-        s.dom.small = sm;
+        s.dom.small = el("div", "nm", col, s.small);
+        css(s.dom.small, { fontSize: "30px" });
       }
     }
     if (s.type === "lines") {
       s.dom.lines = (s.lines || []).map((ln) => {
         const d = el("div", "abs d " + (ln.cls || "on"), root, rising(ln.text));
-        css(d, { left: (ln.x ?? 160) + "px", top: ln.y + "px", width: (ln.w ?? 1600) + "px", fontSize: (ln.size ?? 72) + "px", textAlign: ln.align || "left" });
+        css(d, { left: (ln.x ?? 90) + "px", top: ln.y + "px", width: (ln.w ?? 900) + "px", fontSize: (ln.size ?? 64) + "px", textAlign: ln.align || "left" });
         return { d, ln };
       });
       s.dom.cards = (s.cards || []).map((c) => {
         let d;
         if (c.type === "poster") {
           d = el("div", "card", root, `<img src="assets/patrika.jpg" style="width:100%;display:block">`);
-          css(d, { width: (c.w || 360) + "px" });
+          css(d, { width: (c.w || 380) + "px" });
         } else if (c.type === "chat") {
           d = el("div", "card chat", root, `<div class="hd"><div class="av">🙏</div><div><div class="n1">Mandir Seva Group</div><div class="s1">412 members</div></div><div class="badge">${c.unread || 412}</div></div>
             <div class="bub"><b>Kirit</b>Jai Shree Krishna 🙏 Good morning all</div>
             <div class="bub"><b>Hema</b>📷 Photo</div>
             <div class="bub"><b>Raj</b>Anyone know what time the havan is?</div>
             <div class="bub"><b>Nita</b>🌸🌸🌸</div>`);
-        } else if (c.type === "html") {
-          d = el("div", "card", root, c.html);
-          css(d, { width: (c.w || 400) + "px" });
         }
         css(d, { left: c.x + "px", top: c.y + "px" });
         return { d, c };
@@ -434,11 +435,11 @@
     if (s.type === "list" || s.type === "steps") {
       if (s.title) {
         const ti = el("div", "abs d on", root, rising(s.title));
-        css(ti, { left: "160px", width: "1600px", textAlign: "center", top: (s.titleY ?? 190) + "px", fontSize: "76px" });
+        css(ti, { left: "90px", width: "900px", textAlign: "center", top: (s.titleY ?? (s.type === "list" ? 600 : 470)) + "px", fontSize: "84px" });
         s.dom.title = ti;
       }
       const list = el("div", "list", root);
-      css(list, { top: (s.listY ?? 380) + "px", alignItems: s.type === "steps" ? "flex-start" : "center", left: s.type === "steps" ? "560px" : 0, width: s.type === "steps" ? "1000px" : "1920px", gap: s.type === "steps" ? "34px" : "26px" });
+      css(list, { top: (s.listY ?? (s.type === "list" ? 810 : 680)) + "px", alignItems: "flex-start", left: s.type === "steps" ? "110px" : "170px", width: s.type === "steps" ? "880px" : "820px", gap: s.type === "steps" ? "44px" : "34px" });
       s.dom.items = s.items.map((it, i) =>
         s.type === "steps"
           ? el("div", "step", list, `<span class="no">${i + 1}</span><span>${it}</span>`)
@@ -446,29 +447,28 @@
       );
       if (s.foot) {
         const f = el("div", "abs nm", root, s.foot);
-        css(f, { left: 0, width: "1920px", textAlign: "center", top: (s.footY ?? 880) + "px", fontSize: "30px" });
+        css(f, { left: "90px", width: "900px", textAlign: "center", top: (s.footY ?? 1250) + "px", fontSize: "34px", lineHeight: 1.45 });
         s.dom.foot = f;
       }
     }
     if (s.type === "homescreen") {
-      // A phone home screen with Toran on it, for "add to home screen".
       const ph = el("div", "phone", root);
-      css(ph, { left: "1120px", top: "120px", width: "420px", height: "860px" });
+      css(ph, { left: "315px", top: "860px", width: "450px", height: "900px" });
       const scr = el("div", "screen", ph);
-      css(scr, { width: "394px", height: "834px", background: "linear-gradient(160deg,#3b4f86,#1b2440 60%,#0b1222)" });
+      css(scr, { width: "422px", height: "872px", background: "linear-gradient(160deg,#3b4f86,#1b2440 60%,#0b1222)" });
       const icons = ["#e8a87c", "#7cb0e8", "#9ad19a", "#e87c9c", "#c7a6ef", "#f1d27a", "#7ce0d6", "#f29c6b"];
       icons.forEach((c, i) => {
         const ic = el("div", "abs", scr);
-        css(ic, { left: 30 + (i % 4) * 88 + "px", top: 90 + Math.floor(i / 4) * 110 + "px", width: "66px", height: "66px", borderRadius: "16px", background: c, opacity: 0.85 });
+        css(ic, { left: 34 + (i % 4) * 94 + "px", top: 100 + Math.floor(i / 4) * 116 + "px", width: "70px", height: "70px", borderRadius: "17px", background: c, opacity: 0.85 });
       });
-      const tor = el("div", "abs", scr, `<div style="width:66px;height:66px">${TILE}</div><div style="color:#fff;font-size:14px;font-weight:700;text-align:center;margin-top:6px">Toran</div>`);
-      css(tor, { left: 30 + "px", top: 90 + 2 * 110 + "px", width: "66px" });
+      const tor = el("div", "abs", scr, `<div style="width:70px;height:70px">${TILE}</div><div style="color:#fff;font-size:15px;font-weight:700;text-align:center;margin-top:6px">Toran</div>`);
+      css(tor, { left: "34px", top: 100 + 2 * 116 + "px", width: "70px" });
       s.dom.tor = tor;
       const ti = el("div", "abs d on", root, rising(s.title));
-      css(ti, { left: "200px", width: "820px", top: "300px", fontSize: "76px" });
+      css(ti, { left: "90px", width: "900px", top: "230px", fontSize: "80px", textAlign: "center" });
       s.dom.title = ti;
       const sb = el("div", "abs nm", root, s.sub);
-      css(sb, { left: "200px", width: "760px", top: "560px", fontSize: "34px", lineHeight: 1.45 });
+      css(sb, { left: "90px", width: "900px", top: "500px", fontSize: "36px", lineHeight: 1.5, textAlign: "center" });
       s.dom.sub = sb;
     }
     if (s.whoosh !== false) cue(s.start, "whoosh");
@@ -524,7 +524,7 @@
     el("div", "bg-cream", root);
     el("div", "dots", root);
     const glow = el("div", "glow", root);
-    css(glow, { width: "1100px", height: "1100px", left: "900px", top: "-80px", opacity: 0.55 });
+    css(glow, { width: "1300px", height: "1300px", left: "-110px", top: "700px", opacity: 0.55 });
     s.dom = { root, glow, devices: [] };
     for (const d of s.devices || []) {
       const m = M[d.shot];
@@ -539,11 +539,11 @@
         css(screen, { width: d.w + "px", height: h + "px" });
       } else {
         const h = (d.w * m.viewport.h) / m.viewport.w;
-        css(box, { left: d.x + "px", top: d.y + "px", width: d.w + 20 + "px", height: h + 20 + "px", padding: "10px", borderRadius: "46px" });
+        css(box, { left: d.x + "px", top: d.y + "px", width: d.w + 24 + "px", height: h + 24 + "px", padding: "12px", borderRadius: "60px" });
         el("div", "island", box);
-        css(box.lastChild, { top: "18px", width: "84px", height: "24px", marginLeft: "-42px" });
+        css(box.lastChild, { top: "22px", width: "110px", height: "32px", marginLeft: "-55px" });
         screen = el("div", "screen", box);
-        css(screen, { width: d.w + "px", height: h + "px", borderRadius: "37px" });
+        css(screen, { width: d.w + "px", height: h + "px", borderRadius: "48px" });
       }
       const img = el("img", "shot", screen);
       img.src = SHOTS + m.file;
@@ -552,12 +552,12 @@
       s.dom.devices.push({ box, d });
     }
     const panel = el("div", "abs", root);
-    css(panel, { left: "110px", top: "0", bottom: "0", width: s.panelW ? s.panelW + "px" : "700px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0" });
+    css(panel, { left: "90px", top: "190px", width: "900px", display: "flex", flexDirection: "column" });
     const chip = el("div", "", panel, `<span class="chip"><span style="width:34px;height:34px;display:inline-block">${TILE}</span>${s.chip}</span>`);
     const ti = el("div", "d", panel, rising(s.title));
     css(ti, { fontSize: (s.size || 84) + "px", color: "var(--ink)", marginTop: "30px", lineHeight: 1.04 });
     const sb = el("div", "", panel, s.sub || "");
-    css(sb, { fontSize: "30px", lineHeight: 1.42, color: "var(--muted)", marginTop: "26px", fontWeight: 500, maxWidth: "620px" });
+    css(sb, { fontSize: "36px", lineHeight: 1.42, color: "var(--muted)", marginTop: "28px", fontWeight: 500, maxWidth: "860px" });
     const url = el("div", "", panel, `<span style="display:inline-flex;gap:10px;align-items:center;border:2px solid var(--line);background:#fff;border-radius:999px;padding:10px 22px;font-weight:800;font-size:24px;color:var(--lapis)">toran.org.uk</span>`);
     css(url, { marginTop: "34px" });
     Object.assign(s.dom, { chip, ti, sb, url });
@@ -591,6 +591,66 @@
   const fade = el("div", "abs", stage);
   css(fade, { inset: 0, background: "#000", opacity: 0, zIndex: 60 });
 
+
+  // ---- checks: everything the film points at must be in frame ---------------
+  // Run once the fonts are loaded (render.mjs calls it). Each tap, highlight,
+  // callout and typing box must be on the phone's screen at its moment, clear
+  // of the tab bar, on the screen that's showing then; captions must stay
+  // clear of the phone; title cards must fit the frame.
+  window.runChecks = function () {
+    const problems = [];
+    const shotAt = (s, t) => {
+      let cur = (s.shots || [])[0]?.shot;
+      for (const kf of s.shots || []) if (t >= kf.at) cur = kf.shot;
+      return cur;
+    };
+    for (const s of built) {
+      const was = s.dom.root.style.display;
+      s.dom.root.style.display = "block";
+      const name = `scene at ${s.start.toFixed(1)}s (${(s.captions?.[0]?.title || s.title || s.type || "").replace(/<[^>]+>/g, "")})`;
+      if (s.kind === "phone" || s.kind === "laptop") {
+        const g = GEO[s.kind], k = g.k, W = g.vw * k, H = g.vh * k;
+        const left = s.ox, top = s.oy, right = s.ox + W, bottom = s.oy + H - (s.kind === "phone" ? 80 * k : 0);
+        const inFrame = (ref, t, what) => {
+          if (!Array.isArray(ref) || typeof ref[0] !== "string") {
+            // raw position: check against the screen too
+          } else if (shotAt(s, t) !== ref[0]) {
+            problems.push(`${name}: ${what} at ${t}s points at ${ref[0]} but ${shotAt(s, t)} is showing`);
+          }
+          const b = resolveBox(ref);
+          const sc = scrollAt(s, t), cam = camAt(s, t);
+          const full = isFull(ref, g) || (Array.isArray(ref) && typeof ref[0] === "number" && M[shotAt(s, t)] && M[shotAt(s, t)].height > g.vh + 2);
+          const [x1, y1] = toStage(s, b.x, b.y, t, cam, full ? sc : 0);
+          const [x2, y2] = toStage(s, b.x + b.w, b.y + b.h, t, cam, full ? sc : 0);
+          if (x1 < left - 2 || x2 > right + 2 || y1 < top - 2 || y2 > bottom + 2) {
+            problems.push(`${name}: ${what} at ${t}s is out of frame (${Math.round(x1)},${Math.round(y1)})–(${Math.round(x2)},${Math.round(y2)}) vs screen (${Math.round(left)},${Math.round(top)})–(${Math.round(right)},${Math.round(bottom)})`);
+          }
+        };
+        for (const c of s.taps || []) inFrame(c.on, c.at, "tap");
+        for (const c of s.cursor || []) if (c.click) inFrame(c.to, c.at + (c.dur ?? 0.8), "click");
+        for (const r of s.rings || []) { inFrame(r.on, r.at + 0.35, "highlight"); inFrame(r.on, r.at + (r.dur ?? 2) - 0.1, "highlight end"); }
+        for (const c of s.callouts || []) inFrame(c.on, c.at + 0.3, "callout");
+        for (const ty of s.types || []) { inFrame(ty.on, ty.at, "typing"); inFrame(ty.on, ty.at + ty.dur, "typing end"); }
+        // captions above the phone
+        for (const c of s.caps) {
+          const h = c.d.offsetHeight;
+          if (150 + h > s.oy - 24) problems.push(`${name}: caption "${c.c.title}" is ${h}px tall and runs into the phone`);
+        }
+      }
+      if (s.kind === "intro") {
+        for (const { box, d } of s.dom.devices) {
+          const w = box.offsetWidth, h = box.offsetHeight;
+          if (d.x < -10 || d.x + w > 1090 || d.y + h > 1840) problems.push(`${name}: a device runs off the frame (${d.x},${d.y} ${w}×${h})`);
+        }
+      }
+      // any text wider than its box
+      s.dom.root.querySelectorAll(".d, .nm, .t, .b").forEach((e) => {
+        if (e.scrollWidth > e.clientWidth + 2) problems.push(`${name}: text "${e.textContent.slice(0, 40)}" is wider than its box`);
+      });
+      s.dom.root.style.display = was;
+    }
+    return problems;
+  };
   window.DURATION = DURATION;
   window.CUES = CUES.sort((a, b) => a.t - b.t);
   window.SCENES = scenes.map((s) => ({ start: s.start, dur: s.dur, kind: s.kind, title: s.title || s.captions?.[0]?.title }));
@@ -608,7 +668,7 @@
       s.dom.root.style.zIndex = i;
       if (live) (s.kind === "night" ? drawNight : s.kind === "intro" ? drawIntro : drawProduct)(s, lt);
     });
-    progress.style.width = (clamp(t / (DURATION - 0.6)) * 1920).toFixed(1) + "px";
+    progress.style.width = (clamp(t / (DURATION - 0.6)) * 1080).toFixed(1) + "px";
     const opening = 1 - ramp(t, 0, 0.5);
     fade.style.background = opening > 0 ? "#f6f4ef" : "#000";
     fade.style.opacity = Math.max(opening, ramp(t, DURATION - 0.6, 0.6));

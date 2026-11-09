@@ -1,6 +1,7 @@
-// Film 1: for mandir committees deciding whether to join. What Toran is,
-// how a mandir's page is claimed, and what it does for the mandir. The
-// mandir is Shree Sample Mandir, Anytown, made up (Toran's /demo page).
+// Film 1: for mandir committees deciding whether to join, in portrait for
+// phones. What Toran is, how a mandir's page is claimed, and what it does
+// for the mandir. The mandir is Shree Sample Mandir, Anytown, made up
+// (Toran's /demo page).
 window.FILM = {
   name: "mandirs",
   title: "Toran for mandirs",
@@ -9,22 +10,23 @@ window.FILM = {
       kind: "intro", dur: 7,
       chip: "For mandir committees",
       title: "Your mandir's events, where families look",
-      sub: "What Toran is, and how your mandir joins. About ninety seconds.",
+      sub: "What Toran is, and how your mandir joins. Under two minutes.",
       devices: [
-        { type: "laptop", shot: "c-manage", x: 880, y: 200, w: 860, rot: -10, url: "/manage/shree-sample-mandir-anytown", z: 1 },
-        { type: "phone", shot: "f-mandir-top", x: 1520, y: 330, w: 290, rot: -6, z: 2 },
+        { type: "phone", shot: "pc-manage", x: 50, y: 1040, w: 340, rot: 10, z: 1 },
+        { type: "phone", shot: "f-event-top", x: 690, y: 1040, w: 340, rot: -10, z: 1 },
+        { type: "phone", shot: "f-mandir-top", x: 316, y: 940, w: 420, rot: 0, z: 2 },
       ],
     },
     {
       kind: "night", type: "lines", dur: 11,
       lines: [
-        { at: 0.4, text: "Your programme goes on a poster…", y: 250, size: 64, x: 130, w: 860 },
-        { at: 3.6, text: "…the poster goes into busy WhatsApp groups…", y: 450, size: 64, x: 130, w: 860 },
-        { at: 7.0, text: "…and families still miss it.", y: 650, size: 64, x: 130, w: 860, cls: "gold" },
+        { at: 0.4, text: "Your programme goes on a poster…", y: 220, size: 62 },
+        { at: 3.6, text: "…the poster goes into busy WhatsApp groups…", y: 420, size: 62 },
+        { at: 7.0, text: "…and families still miss it.", y: 620, size: 62, cls: "gold" },
       ],
       cards: [
-        { at: 0.9, type: "poster", x: 1080, y: 130, w: 330, rot: 4 },
-        { at: 4.1, type: "chat", x: 1250, y: 400, rot: -3, unread: 412 },
+        { at: 0.9, type: "poster", x: 110, y: 880, w: 400, rot: -5 },
+        { at: 4.1, type: "chat", x: 470, y: 1060, rot: 4, unread: 412 },
       ],
     },
     {
@@ -37,10 +39,10 @@ window.FILM = {
     {
       kind: "phone", dur: 13, enter: true,
       shots: [{ at: 0, shot: "m-mandir-new" }],
-      scroll: [{ at: 0, y: 0, dur: 0 }, { at: 3.2, y: 1480, dur: 3.2 }, { at: 8.6, y: 2370, dur: 2 }],
-      rings: [{ at: 10.6, dur: 2.2, on: ["m-mandir-new", "lookAfter"], radius: 30 }],
+      scroll: [{ at: 0, y: 0, dur: 0 }, { at: 3.0, y: 1450, dur: 3.0 }, { at: 7.4, y: 2380, dur: 2.0 }],
+      rings: [{ at: 10.4, dur: 2.2, on: ["m-mandir-new", "lookAfter"], radius: 30 }],
       captions: [
-        { at: 0, chip: "Step 1", n: 1, title: "Your mandir is already listed", body: "Toran lists UK mandirs from public details: where it is, when it's open, how to get there." },
+        { at: 0, chip: "Step 1", n: 1, title: "Your mandir is already listed", body: "From public details: where it is, when it's open, how to get there." },
         { at: 5.0, chip: "Step 1", n: 1, title: "Families can find it", body: "By town, on the map, and by festival, in English, Gujarati and Hindi." },
         { at: 9.6, chip: "Step 1", n: 1, title: "On the committee?", body: "Tap <b>Look after this page</b>." },
       ],
@@ -48,7 +50,7 @@ window.FILM = {
     {
       kind: "phone", dur: 12.5,
       shots: [{ at: 0, shot: "m-claim" }, { at: 9.0, shot: "m-claim-sent" }],
-      scroll: [{ at: 0, y: 240, dur: 0 }, { at: 4.4, y: 640, dur: 1.4 }, { at: 6.2, y: 980, dur: 1.4 }],
+      scroll: [{ at: 0, y: 300, dur: 0 }, { at: 4.2, y: 700, dur: 1.4 }, { at: 6.7, y: 1010, dur: 1.2 }],
       types: [
         { at: 1.6, dur: 1.0, shot: "m-claim-filled", on: ["m-claim", "role"], textW: 80, until: 9.1 },
         { at: 5.9, dur: 0.1, shot: "m-claim-filled", on: ["m-claim", "tick1"], pad: 4, until: 9.1 },
@@ -67,27 +69,22 @@ window.FILM = {
       chimes: [9.2],
     },
     {
-      kind: "laptop", dur: 13.5, enter: true, url: "/manage/shree-sample-mandir-anytown",
+      kind: "phone", dur: 13.5,
       shots: [
-        { at: 0, shot: "c-manage-empty" },
-        { at: 1.5, shot: "c-poster-chosen" },
-        { at: 3.6, shot: "c-poster-reading", fade: 0.15 },
-        { at: 5.6, shot: "c-poster-read" },
-        { at: 9.6, shot: "c-poster-published" },
+        { at: 0, shot: "pc-manage-empty" },
+        { at: 1.5, shot: "pc-poster-chosen" },
+        { at: 3.7, shot: "pc-poster-reading", fade: 0.15 },
+        { at: 5.8, shot: "pc-poster-read" },
+        { at: 9.6, shot: "pc-poster-published" },
       ],
-      cursor: [
-        { at: 0.3, to: ["c-manage-empty", "photo"], click: true },
-        { at: 2.4, to: ["c-poster-chosen", "readIt"], click: true },
-        { at: 7.4, to: ["c-poster-read", "publish"], click: true },
-      ],
-      cam: [
-        { at: 1.6, s: 1.55, on: ["c-poster-chosen", "file"], dy: 40 },
-        { at: 5.4, s: 1.45, on: ["c-poster-read", "first"] },
-        { at: 9.4, s: 1 },
+      taps: [
+        { at: 1.1, on: ["pc-manage-empty", "photo"] },
+        { at: 3.3, on: ["pc-poster-chosen", "readIt"] },
+        { at: 9.2, on: ["pc-poster-read", "publish"] },
       ],
       captions: [
         { at: 0, chip: "Step 3", n: 3, title: "Add events in minutes", body: "Send a photo of your poster, paste a WhatsApp message, or type it in." },
-        { at: 5.6, chip: "Step 3", n: 3, title: "A person always checks", body: "Toran reads the poster; nothing goes live until your committee has checked it." },
+        { at: 5.6, chip: "Step 3", n: 3, title: "A person always checks", body: "Toran reads the poster. Nothing goes live until your committee has checked it." },
       ],
       chimes: [9.8],
     },
@@ -95,33 +92,33 @@ window.FILM = {
       kind: "phone", dur: 12,
       shots: [{ at: 0, shot: "f-mandir" }, { at: 6.6, shot: "f-event-calendar" }],
       scroll: [{ at: 0, y: 0, dur: 0 }, { at: 1.8, y: 620, dur: 3 }],
-      cam: [{ at: 6.8, s: 1.3, on: ["f-event-calendar", "calendar"], dy: 120 }, { at: 10.8, s: 1 }],
+      rings: [{ at: 7.2, dur: 2.6, on: ["f-event-calendar", "calendar"], radius: 30 }],
       captions: [
-        { at: 0, chip: "Step 4", n: 4, title: "Families find it, save it, share it", body: "On your page, in What's on and on the map. Families can follow your mandir." },
+        { at: 0, chip: "Step 4", n: 4, title: "Families find it, save it, share it", body: "On your page, in What's on and on the map. They can follow your mandir." },
         { at: 6.4, chip: "Step 4", n: 4, title: "One tap to their calendar", body: "Or straight to the family WhatsApp group." },
       ],
     },
     {
-      kind: "laptop", dur: 8.5, url: "/manage/shree-sample-mandir-anytown/seva",
-      shots: [{ at: 0, shot: "c-seva-message" }],
-      cam: [{ at: 0.4, s: 1.35, on: ["c-seva-message", "copy"], dx: 140, dy: -170 }, { at: 7.2, s: 1 }],
+      kind: "phone", dur: 8.5,
+      shots: [{ at: 0, shot: "pc-seva-message" }],
+      rings: [{ at: 1.6, dur: 3.0, on: ["pc-seva-message", "whatsapp"], radius: 30 }],
       captions: [
         { at: 0, chip: "Step 5", n: 5, title: "Ask for seva", body: "Plan a rota and send it to your volunteers. They take a slot in one tap." },
       ],
     },
     {
-      kind: "laptop", dur: 8.5, url: "/manage/shree-sample-mandir-anytown/numbers",
-      shots: [{ at: 0, shot: "c-numbers" }],
-      cam: [{ at: 0.6, s: 1.45, on: [459, 545, 521, 293] }, { at: 7.2, s: 1 }],
+      kind: "phone", dur: 8.5,
+      shots: [{ at: 0, shot: "pc-numbers" }],
+      rings: [{ at: 1.4, dur: 3.2, on: [20, 330, 166, 162], pad: 3, radius: 26 }],
       captions: [
-        { at: 0, chip: "Step 6", n: 6, title: "See it working", body: "How many people saw your events, added them to a calendar and shared them. Counted without cookies." },
+        { at: 0, chip: "Step 6", n: 6, title: "See it working", body: "How many people saw your events, added them to a calendar and shared them." },
       ],
     },
     {
       kind: "night", type: "list", dur: 8,
       title: "Toran is",
-      items: ["Free for every mandir", "No adverts, no tracking", "Run by your committee", "English · ગુજરાતી · हिन्दी"],
-      first: 1.2, every: 0.9, titleY: 200, listY: 360,
+      items: ["Free for every mandir", "Run by your committee", "Checked by a person", "English · ગુજરાતી · हिन्दी"],
+      first: 1.2, every: 0.9,
     },
     {
       kind: "night", type: "end", dur: 7,

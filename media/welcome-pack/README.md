@@ -8,10 +8,11 @@ the pilot launch (mid-December 2026) and the public launch (mid-January
 | --- | --- | --- | --- |
 | Toran for mandirs | Committees deciding whether to join | 1:48 | `out/toran-mandirs.mp4` |
 | Committee guide | Committee members who add events | 2:14 | `out/toran-committee.mp4` |
-| Find what's on | Families | 1:55 | `out/toran-families.mp4` |
+| Find what's on | Families | 1:56 | `out/toran-families.mp4` |
 
-Each is 1920×1080, 30 fps, H.264 and AAC, with captions burned in so it
-works with the sound off. `pack/films/` has share-sized copies (under 14 MB,
+Each is portrait, 1080×1920 (9:16, for phones and WhatsApp), 30 fps,
+H.264 and AAC, with captions burned in so it works with the sound off.
+Every screen is shown on a phone, as most people will see Toran. `pack/films/` has share-sized copies (under 14 MB,
 for WhatsApp and the welcome pack page) and a still from each.
 
 Every film follows **Shree Sample Mandir, Anytown**, the made-up mandir from
@@ -26,19 +27,27 @@ film says "Example mandir and events" in the corner.
    `capture/mock-claude.cjs`, so no AI is called). `seed.sql` adds the
    made-up mandirs; the specs then log in and add events through the site
    itself, as a committee would, taking a screenshot at every step and
-   recording where each button is (`shots/manifest.json`). Stages: `0`
-   (a trustee claims the page), `a` (a committee member on a laptop adds
-   events every way, plans seva), `b` (a family on a phone), `d` (extras).
-   Run `capture/run-capture.sh "0 a b d" --reset` with local Supabase and
-   the site running on port 3100.
+   recording where each button is (`shots/manifest.json`, then
+   `shots/manifest.js` for the engine). Stages, all on an iPhone-sized
+   screen in British English: `0` (a trustee claims the page), `a` (a
+   committee member adds events every way, plans seva), `b` (a family).
+   Run `capture/run-capture.sh "0 a b" --reset` with local Supabase: the
+   reset empties the database, seeds it, then builds and starts the site
+   on port 3100 afresh (pages are prerendered at build time, so a stale
+   build would show the last run's events). It warns `OFF SCREEN` for any
+   button recorded outside the visible screen.
 2. **Films** (`films/*.js`). Each film is a list of scenes: a light opening
-   (the title beside Toran's real screens on a laptop and phone), dark list
-   and closing cards, and laptop or phone scenes that show the screenshots with a
-   pointer or finger, clicks, zooms, scrolling, typing, highlights and
-   captions, all placed from the recorded button positions.
+   (the title above three of Toran's real screens on phones), dark list
+   and closing cards, and phone scenes that show the screenshots with a
+   finger, taps, scrolling, typing, highlights and captions above the
+   phone, all placed from the recorded button positions.
 3. **Engine** (`engine/`). `film.html?film=<name>` draws any frame with
    `render(t)`; `render.mjs` renders stills (`keys`), every frame
-   (`frames`) or the sound cues (`cues`).
+   (`frames`) or the sound cues (`cues`). Every run first checks the
+   framing (`check` runs only that): each tap, highlight and typed box must
+   be on screen, clear of the tab bar and on the screenshot showing at
+   that moment; captions must clear the phone; cards must fit. A failing
+   check stops `make.sh`.
 4. **Sound** (`sound/music.py`). Original music synthesised in code: a
    bright, modern track at 112 BPM in D major (warm pads, a plucked synth
    arpeggio, a light four-on-the-floor kit, a rounded bass and a

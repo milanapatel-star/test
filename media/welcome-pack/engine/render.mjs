@@ -9,7 +9,7 @@ const [film, mode, arg] = process.argv.slice(2);
 const dir = new URL(".", import.meta.url).pathname;
 const out = process.env.OUT || `${dir}../out/${film}`;
 const b = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium", args: ["--allow-file-access-from-files"] });
-const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
 const errs = [];
 p.on("pageerror", (e) => errs.push(e.message));
 p.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
@@ -19,7 +19,14 @@ await p.evaluate(async () => {
   await Promise.all([...document.images].map((i) => (i.complete ? null : new Promise((r) => { i.onload = i.onerror = r; }))));
 });
 await p.waitForTimeout(400);
-if (mode === "keys") {
+const problems = await p.evaluate(() => { window.render(0.01); return window.runChecks(); });
+if (problems.length) {
+  console.log("FRAMING PROBLEMS:\n  " + problems.join("\n  "));
+  if (mode === "cues" || mode === "check") process.exitCode = 1;
+} else console.log("framing checks passed");
+if (mode === "check") {
+  // the framing checks above are all
+} else if (mode === "keys") {
   mkdirSync(`${out}/keys`, { recursive: true });
   for (const t of (arg || "2,6,10").split(",").map(Number)) {
     await p.evaluate((t) => window.render(t), t);
