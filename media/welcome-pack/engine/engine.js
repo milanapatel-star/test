@@ -318,7 +318,10 @@
         if (t >= tc && t < tc + 0.6) rip = (t - tc) / 0.6;
       }
       const vis = cs.length ? ramp(t, cs[0].at - 0.4, 0.3) * (1 - ramp(t, s.dur - 0.3, 0.3)) : 0;
-      css(D.cursor, { opacity: vis, transform: `translate(${X - 6}px,${Y - 3}px) scale(${press})` });
+      // keep the pointer inside the window
+      const W = g.vw * k, H = g.vh * k;
+      const cx = clamp(X, s.ox + 12, s.ox + W - 30), cy = clamp(Y, s.oy + 12, s.oy + H - 30);
+      css(D.cursor, { opacity: vis, transform: `translate(${cx - 6}px,${cy - 3}px) scale(${press})` });
       css(D.ripple, { opacity: rip >= 0 ? 1 - rip : 0, left: X + "px", top: Y + "px", transform: `scale(${0.4 + rip * 1.1})` });
     } else {
       // finger (phone): appears on the button, presses, ripples
