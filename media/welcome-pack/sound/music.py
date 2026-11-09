@@ -1,10 +1,11 @@
 """Original music and sound for the welcome-pack films, synthesised here.
 
-Nothing is sampled or licensed. The instruments are the Toran explainer's
-(media/source/soundtrack.py): tanpura, santoor in Raag Bhupali, temple
-bell, and a soft modern kit with pads. Each film's cues.json (written by
-engine/render.mjs from the film's timeline) places every click, tap,
-chime and whoosh on the frame its animation happens.
+Nothing is sampled or licensed. A bright, modern track (112 BPM, D major:
+pads, a plucked synth, a light kit, bass and glockenspiel) that stays under
+the captions. Each film's cues.json (written by engine/render.mjs from the
+film's timeline) places every click, tap, chime and whoosh on the frame its
+animation happens. Some instrument code is shared with the Toran explainer
+(media/source/soundtrack.py).
 
 Usage: python3 music.py <film>   ->  out/<film>/soundtrack.wav
 """
@@ -228,62 +229,161 @@ def breath(sec=0.9):
 
 
 # ---- music ----------------------------------------------------------------
-# Calm and warm under reading: a tanpura drone throughout, pads moving
-# through D, Bm, G, A (two bars each), santoor picking Bhupali phrases, and
-# a soft kit only while the product is on screen (it drops out under the
-# dark title and closing cards, so they breathe).
-ML, MR = np.zeros(N), np.zeros(N)
-MUS = (ML, MR)
+# Bright and modern, but kept under the captions: 112 BPM in D major, a
+# I–V–vi–IV loop (D, A, Bm, G) a bar each. Warm pads and a plucked synth
+# arpeggio carry it, with a light four-on-the-floor kit, a rounded bass, a
+# glockenspiel phrase now and then, and a little room reverb. The opening
+# is just pads and plucks; the kit and bass come in with the first screen;
+# the dark list and end cards drop back to pads and glockenspiel so they
+# breathe. The pads duck gently on every kick, as in modern pop.
+from scipy.signal import fftconvolve
+PAD_LP = butter(2, 2600, btype="low", fs=SR, output="sos")
+
+BPM = 112
+BEAT = 60 / BPM
 BAR = 4 * BEAT
+CHORDS = [
+    [293.66, 369.99, 440.00, 587.33],   # D
+    [277.18, 329.63, 440.00, 554.37],   # A
+    [293.66, 369.99, 493.88, 587.33],   # Bm
+    [293.66, 392.00, 493.88, 587.33],   # G
+]
+ROOTS = [146.83, 110.00, 123.47, 98.00]  # an octave up: light and rounded
+GLOCK_NOTES = [1174.66, 1318.51, 1479.98, 1760.00, 1975.53, 2349.32]  # D6 E6 F#6 A6 B6 D7
+
+PADS = (np.zeros(N), np.zeros(N))
+DRUMS = (np.zeros(N), np.zeros(N))
+BASSB = (np.zeros(N), np.zeros(N))
+SPARK = (np.zeros(N), np.zeros(N))
+
+
+def pluck_note(f, sec=0.5):
+    t = tvec(sec)
+    out = np.zeros_like(t)
+    for h in range(1, 17):
+        out += (1 / h) * np.sin(2 * np.pi * f * h * t) * np.exp(-t * (4 + 1.1 * h))
+    return out * np.minimum(t / 0.003, 1) * 0.15
+
+
+def bass_note(f, sec):
+    t = tvec(sec + 0.08)
+    e = np.minimum(t / 0.006, 1) * np.exp(-t / (sec * 0.9))
+    x = np.sin(2 * np.pi * f * t) + 0.35 * np.sin(4 * np.pi * f * t) + 0.12 * np.sin(6 * np.pi * f * t)
+    return np.tanh(1.4 * x * e) * 0.1
+
+
+def glock(f, sec=1.4):
+    t = tvec(sec)
+    out = np.zeros_like(t)
+    for r, amp, dec in [(1, 1, 0.9), (2.76, 0.32, 0.25), (5.4, 0.12, 0.09)]:
+        out += amp * np.sin(2 * np.pi * f * r * t) * np.exp(-t / dec)
+    return out * np.minimum(t / 0.001, 1) * 0.09
+
+
+def soft_kick(gain=1.0):
+    """A short, tight kick: felt more than heard, so it never booms."""
+    t = tvec(0.25)
+    ph = 2 * np.pi * np.cumsum(58 + 85 * np.exp(-t / 0.025)) / SR
+    body = np.sin(ph) * np.minimum(t / 0.002, 1) * np.exp(-t / 0.075)
+    c = np.zeros_like(t); k = click(3400, 0.01, 1.0); c[: len(k)] = k
+    return (body + c) * 0.5 * gain
+
+
+def shaker():
+    n = int(0.07 * SR)
+    x = sosfilt(butter(2, [5000, 11000], btype="band", fs=SR, output="sos"), rng.standard_normal(n))
+    t = np.arange(n) / SR
+    return x * np.minimum(t / 0.012, 1) * np.exp(-t / 0.02) * 0.05
+
+
 scenes = INFO["scenes"]
-def product_at(t):
+def section(t):
     for s in scenes:
         if s["start"] <= t < s["start"] + s["dur"]:
-            return s["kind"] != "night"
-    return False
+            return "intro" if s["kind"] == "intro" else ("night" if s["kind"] == "night" else "full")
+    return "end"
 
-# drone: Pa Sa' Sa' Sa on every beat
-b = 0
-while b * BEAT < DUR:
-    f = [SA * 3 / 4, SA, SA, SA / 2][b % 4]
-    add(tanpura_pluck(f, 3.0), b * BEAT, 0.55, pan=-0.25 + 0.5 * (b % 2), bus=MUS)
-    b += 1
-
-CHORDS = [  # D, Bm, G, A (Hz)
-    [146.83, 185.00, 220.00, 293.66],
-    [123.47, 146.83, 185.00, 246.94],
-    [98.00, 146.83, 196.00, 246.94],
-    [110.00, 138.59, 164.81, 220.00],
-]
-ROOTS = [73.42, 61.74, 49.00, 55.00]
+duck = np.ones(N)
+kick_t = []
 bar = 0
-while bar * BAR < DUR:
-    c = (bar // 2) % 4
+while bar * BAR < DUR + BAR:
     t0 = bar * BAR
-    if bar % 2 == 0:
-        add(pad(CHORDS[c], 2 * BAR, attack=1.2, release=1.6), t0, 1.0, bus=MUS)
-    if product_at(t0 + 0.1):
-        # soft kit: kick on 1 and 3, clap on 4, quiet hats on the off-beats
+    c = bar % 4
+    sec = section(t0 + 0.05)
+    # pads, every bar, a touch quieter in the full groove
+    add(pad(CHORDS[c], BAR, attack=0.25, release=0.6), t0, 1.0 if sec != "full" else 0.75, bus=PADS)
+    # plucked arpeggio in eighths across two octaves
+    order = [0, 1, 2, 3, 2, 1, 2, 3] if bar % 2 == 0 else [0, 2, 1, 3, 2, 3, 1, 2]
+    for i, k in enumerate(order):
+        f = CHORDS[c][k] * (2 if i in (3, 7) else 1)
+        vel = 0.9 if i % 2 == 0 else 0.6
+        gain = {"intro": 0.7, "full": 0.85, "night": 0.6, "end": 0.6}[sec]
+        add(pluck_note(f), t0 + i * BEAT / 2, vel * gain, pan=-0.35 + 0.1 * (i % 8), bus=PADS)
+    if sec == "full":
         for beat in range(4):
             tb = t0 + beat * BEAT
-            if beat in (0, 2):
-                add(kick(0.55), tb, bus=MUS)
-            if beat == 3:
-                add(clap(), tb, 0.55, pan=0.1, bus=MUS)
-            add(hat(), tb + BEAT / 2, 0.7, pan=0.3, bus=MUS)
-        add(sub(ROOTS[c], BAR * 0.95), t0, 0.9, bus=MUS)
-    # santoor: a short Bhupali phrase every bar, varied
-    phrase = [[0, 2, 4, 3], [5, 4, 2, 1], [2, 3, 5, 7], [7, 5, 4, 2], [4, 5, 7, 9], [9, 7, 5, 4]][(bar * 5 + c) % 6]
-    for i, deg in enumerate(phrase):
-        if rng.random() < 0.8:
-            add(santoor(note(deg, 1), 1.4, bright=0.8), t0 + i * BEAT * (0.5 if bar % 3 == 2 else 1), 0.42, pan=-0.35 + 0.23 * i, bus=MUS)
+            add(soft_kick(0.42), tb, bus=DRUMS)
+            kick_t.append(tb)
+            if beat in (1, 3):
+                add(clap(), tb, 0.45, pan=0.05, bus=DRUMS)
+            add(hat(), tb + BEAT / 2, 0.8, pan=0.25, bus=DRUMS)
+            for q in (0, 1, 2, 3):
+                add(shaker(), tb + q * BEAT / 4, 1.1 if q == 2 else 0.6, pan=-0.3, bus=DRUMS)
+        for at, ln in [(0, 0.45), (0.75, 0.2), (1.5, 0.45), (2.5, 0.3), (3.0, 0.45)]:
+            add(bass_note(ROOTS[c], ln * BEAT * 2), t0 + at * BEAT, 1.0, bus=BASSB)
+    elif sec == "intro" and bar >= 1:
+        for beat in range(4):
+            add(hat(), t0 + beat * BEAT + BEAT / 2, 0.35, pan=0.25, bus=DRUMS)
+    # glockenspiel phrase every other two bars, softer in the groove
+    if bar % 4 == 2 or sec in ("night", "end"):
+        phrase = [[3, 4, 5, 3], [2, 3, 1, 0], [5, 4, 3, 2], [0, 2, 3, 4]][(bar // 2) % 4]
+        for i, (at, k) in enumerate(zip([0, 1.5, 2, 3], phrase)):
+            add(glock(GLOCK_NOTES[k]), t0 + at * BEAT, 0.8 if sec != "full" else 0.55, pan=0.3 - 0.2 * i, bus=SPARK)
     bar += 1
 
-# a bell on each dark title card, and the closing chord
-for s in scenes:
-    if s["kind"] == "night":
-        add(bell(note(10, -1), 4.0), s["start"] + 0.15, 0.45, bus=MUS)
-add(bell(note(5, -1), 6.0), DUR - 6.2, 0.5, bus=MUS)
+# a bright chord and a glockenspiel run to close
+end_t = DUR - 5.5
+add(pad(CHORDS[0], 4.0, attack=0.05, release=1.5), end_t, 1.4, bus=PADS)
+for i, k in enumerate([0, 1, 2, 3, 5]):
+    add(glock(GLOCK_NOTES[k], 2.2), end_t + i * 0.12, 0.8, pan=-0.3 + 0.15 * i, bus=SPARK)
+
+# side-chain: pads and plucks dip on every kick and swell back
+for tk in kick_t:
+    i = int(tk * SR)
+    n = int(0.32 * SR)
+    if i >= N:
+        continue
+    seg = 1 - 0.38 * np.exp(-np.arange(min(n, N - i)) / SR / 0.09)
+    duck[i : i + len(seg)] = np.minimum(duck[i : i + len(seg)], seg)
+
+def reverb(bus, wet, seed):
+    r = np.random.default_rng(seed)
+    n = int(1.6 * SR)
+    t = np.arange(n) / SR
+    ir = r.standard_normal(n) * np.exp(-t / 0.42)
+    ir = sosfilt(butter(2, 5000, btype="low", fs=SR, output="sos"), ir)
+    ir /= np.sqrt((ir ** 2).sum())
+    return bus + wet * fftconvolve(bus, ir)[: len(bus)]
+
+# keep the low end light: nothing below 45 Hz, and the bass trimmed
+_hp = butter(2, 45, btype="high", fs=SR, output="sos")
+DRUMS = (sosfilt(_hp, DRUMS[0]), sosfilt(_hp, DRUMS[1]))
+BASSB = (sosfilt(_hp, BASSB[0]), sosfilt(_hp, BASSB[1]))
+ML = PADS[0] * duck + SPARK[0] + DRUMS[0] + BASSB[0]
+MR = PADS[1] * duck + SPARK[1] + DRUMS[1] + BASSB[1]
+ML = reverb(PADS[0] * duck + SPARK[0], 0.35, 1) - (PADS[0] * duck + SPARK[0]) + ML
+MR = reverb(PADS[1] * duck + SPARK[1], 0.35, 2) - (PADS[1] * duck + SPARK[1]) + MR
+
+import os
+if os.environ.get("STEM"):  # for checking the mix: one layer on its own
+    pick = {"drums": DRUMS, "bass": BASSB, "pads": (PADS[0] * duck, PADS[1] * duck), "spark": SPARK}[os.environ["STEM"]]
+    ML, MR = pick[0].copy(), pick[1].copy()
+    INFO["cues"] = []
+
+# a gentle lift above 3 kHz, for air and sparkle
+_air = butter(2, 3000, btype="high", fs=SR, output="sos")
+ML = ML + 0.8 * sosfilt(_air, ML)
+MR = MR + 0.8 * sosfilt(_air, MR)
 
 # ---- sound effects -----------------------------------------------------------
 def soft_click():
@@ -319,7 +419,7 @@ for c in INFO["cues"]:
     elif k == "chime":
         add(chime(), t, 0.9, pan=0.2)
     elif k == "tick":
-        add(santoor(note(12), 1.2, bright=1.1), t, 0.6, pan=-0.1)
+        add(glock(GLOCK_NOTES[3], 1.2), t, 1.0, pan=-0.1)
     elif k == "type":
         n = max(2, int(c.get("dur", 1) * 11))
         for i in range(n):
@@ -328,7 +428,7 @@ for c in INFO["cues"]:
 # ---- master --------------------------------------------------------------------
 fade_in = np.minimum(np.arange(N) / (0.6 * SR), 1)
 fade_out = np.clip((DUR - np.arange(N) / SR) / 1.2, 0, 1)
-music_gain = 0.55
+music_gain = 0.62
 Lm = (ML * music_gain + L) * fade_in * fade_out
 Rm = (MR * music_gain + R) * fade_in * fade_out
 hp = butter(1, 30, btype="high", fs=SR, output="sos")

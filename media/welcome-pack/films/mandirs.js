@@ -6,10 +6,14 @@ window.FILM = {
   title: "Toran for mandirs",
   scenes: [
     {
-      kind: "night", type: "title", dur: 7,
+      kind: "intro", dur: 7,
       chip: "For mandir committees",
       title: "Your mandir's events, where families look",
-      sub: "What Toran is, and how your mandir joins.<br>About ninety seconds.",
+      sub: "What Toran is, and how your mandir joins. About ninety seconds.",
+      devices: [
+        { type: "laptop", shot: "c-manage", x: 880, y: 200, w: 860, rot: -10, url: "/manage/shree-sample-mandir-anytown", z: 1 },
+        { type: "phone", shot: "f-mandir-top", x: 1520, y: 330, w: 290, rot: -6, z: 2 },
+      ],
     },
     {
       kind: "night", type: "lines", dur: 11,

@@ -516,7 +516,77 @@
     }
   }
 
-  const built = scenes.map((s) => (s.kind === "night" ? buildNight(s) : buildProduct(s)));
+
+  // The opening: the same light page as the walkthrough, the title on the
+  // left, and Toran's real screens on a laptop and a phone rising in.
+  function buildIntro(s) {
+    const root = el("div", "scene", stage);
+    el("div", "bg-cream", root);
+    el("div", "dots", root);
+    const glow = el("div", "glow", root);
+    css(glow, { width: "1100px", height: "1100px", left: "900px", top: "-80px", opacity: 0.55 });
+    s.dom = { root, glow, devices: [] };
+    for (const d of s.devices || []) {
+      const m = M[d.shot];
+      const box = el("div", d.type === "laptop" ? "laptop" : "phone", root);
+      let screen;
+      if (d.type === "laptop") {
+        const h = (d.w * m.viewport.h) / m.viewport.w;
+        css(box, { left: d.x + "px", top: d.y + "px", width: d.w + "px", height: h + 34 + "px" });
+        const ch = el("div", "chrome", box, `<i></i><i></i><i></i><div class="url" style="flex-basis:${d.w * 0.55}px;height:22px;font-size:13px">🔒 <b>toran.org.uk</b>${d.url || ""}</div>`);
+        css(ch, { height: "34px" });
+        screen = el("div", "screen", box);
+        css(screen, { width: d.w + "px", height: h + "px" });
+      } else {
+        const h = (d.w * m.viewport.h) / m.viewport.w;
+        css(box, { left: d.x + "px", top: d.y + "px", width: d.w + 20 + "px", height: h + 20 + "px", padding: "10px", borderRadius: "46px" });
+        el("div", "island", box);
+        css(box.lastChild, { top: "18px", width: "84px", height: "24px", marginLeft: "-42px" });
+        screen = el("div", "screen", box);
+        css(screen, { width: d.w + "px", height: h + "px", borderRadius: "37px" });
+      }
+      const img = el("img", "shot", screen);
+      img.src = SHOTS + m.file;
+      css(img, { width: d.w + "px", height: (d.w * m.height) / m.width + "px", opacity: 1 });
+      css(box, { zIndex: d.z ?? 1 });
+      s.dom.devices.push({ box, d });
+    }
+    const panel = el("div", "abs", root);
+    css(panel, { left: "110px", top: "0", bottom: "0", width: s.panelW ? s.panelW + "px" : "700px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0" });
+    const chip = el("div", "", panel, `<span class="chip"><span style="width:34px;height:34px;display:inline-block">${TILE}</span>${s.chip}</span>`);
+    const ti = el("div", "d", panel, rising(s.title));
+    css(ti, { fontSize: (s.size || 84) + "px", color: "var(--ink)", marginTop: "30px", lineHeight: 1.04 });
+    const sb = el("div", "", panel, s.sub || "");
+    css(sb, { fontSize: "30px", lineHeight: 1.42, color: "var(--muted)", marginTop: "26px", fontWeight: 500, maxWidth: "620px" });
+    const url = el("div", "", panel, `<span style="display:inline-flex;gap:10px;align-items:center;border:2px solid var(--line);background:#fff;border-radius:999px;padding:10px 22px;font-weight:800;font-size:24px;color:var(--lapis)">toran.org.uk</span>`);
+    css(url, { marginTop: "34px" });
+    Object.assign(s.dom, { chip, ti, sb, url });
+    el("div", "brand", root, `<span style="width:30px;height:30px;display:inline-block">${TILE}</span>TORAN`);
+    cue(s.start + 0.5, "swap");
+    return s;
+  }
+
+  function drawIntro(s, t) {
+    const D = s.dom;
+    css(D.glow, { opacity: 0.45 + 0.1 * Math.sin(t * 1.2) });
+    const c = easeOut(ramp(t, 0.15, 0.6));
+    css(D.chip, { opacity: c, transform: `translateY(${(1 - c) * 16}px)` });
+    riseWords(D.ti, t, 0.35, 0.08, 0.75);
+    const b = easeOut(ramp(t, 1.3, 0.8));
+    css(D.sb, { opacity: b, transform: `translateY(${(1 - b) * 18}px)` });
+    const u = easeOut(ramp(t, 1.8, 0.7));
+    css(D.url, { opacity: u, transform: `translateY(${(1 - u) * 14}px)` });
+    D.devices.forEach(({ box, d }, i) => {
+      const p = easeOut(ramp(t, 0.45 + i * 0.35, 1.1));
+      const float = Math.sin(t * 0.9 + i * 1.7) * 6;
+      const drift = (t / s.dur) * 14;
+      css(box, {
+        opacity: p,
+        transform: `perspective(2200px) translateY(${(1 - p) * 90 + float - drift}px) rotateY(${d.rot ?? -8}deg) rotateX(3deg) scale(${0.94 + 0.06 * p})`,
+      });
+    });
+  }
+  const built = scenes.map((s) => (s.kind === "night" ? buildNight(s) : s.kind === "intro" ? buildIntro(s) : buildProduct(s)));
   const progress = el("div", "progress", stage);
   const fade = el("div", "abs", stage);
   css(fade, { inset: 0, background: "#000", opacity: 0, zIndex: 60 });
@@ -536,10 +606,12 @@
       s.dom.root.style.opacity = live ? a : 0;
       s.dom.root.style.display = live ? "block" : "none";
       s.dom.root.style.zIndex = i;
-      if (live) (s.kind === "night" ? drawNight : drawProduct)(s, lt);
+      if (live) (s.kind === "night" ? drawNight : s.kind === "intro" ? drawIntro : drawProduct)(s, lt);
     });
     progress.style.width = (clamp(t / (DURATION - 0.6)) * 1920).toFixed(1) + "px";
-    fade.style.opacity = Math.max(1 - ramp(t, 0, 0.6), ramp(t, DURATION - 0.6, 0.6));
+    const opening = 1 - ramp(t, 0, 0.5);
+    fade.style.background = opening > 0 ? "#f6f4ef" : "#000";
+    fade.style.opacity = Math.max(opening, ramp(t, DURATION - 0.6, 0.6));
   };
   window.render(0);
 })();

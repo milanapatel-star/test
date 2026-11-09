@@ -20,10 +20,14 @@ window.FILM = {
   title: "Committee guide",
   scenes: [
     {
-      kind: "night", type: "title", dur: 6.5,
+      kind: "intro", dur: 6.5,
       chip: "Committee guide",
       title: "Add your mandir's events in minutes",
-      sub: "Logging in, four ways to add events, seva and sharing.<br>About two minutes.",
+      sub: "Logging in, four ways to add events, seva and sharing. About two minutes.",
+      devices: [
+        { type: "laptop", shot: "c-poster-read", x: 880, y: 200, w: 860, rot: -10, url: "/manage/shree-sample-mandir-anytown", z: 1 },
+        { type: "phone", shot: "c-manage-phone", x: 1520, y: 330, w: 290, rot: -6, z: 2 },
+      ],
     },
     {
       kind: "laptop", dur: 10, enter: true, url: "/login",

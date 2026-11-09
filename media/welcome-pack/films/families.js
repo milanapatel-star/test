@@ -18,10 +18,15 @@ window.FILM = {
   title: "Find what's on",
   scenes: [
     {
-      kind: "night", type: "title", dur: 6.5,
+      kind: "intro", dur: 6.5,
       chip: "For families",
       title: "Find what's on at mandirs near you",
-      sub: "Festivals, satsangs, classes and seva, all in one place.<br>No app to download, no account.",
+      sub: "Festivals, satsangs, classes and seva, in one place. Nothing to install, no account.",
+      devices: [
+        { type: "phone", shot: "f-whatson-near", x: 930, y: 230, w: 290, rot: 10, z: 1 },
+        { type: "phone", shot: "f-home", x: 1240, y: 150, w: 320, rot: -6, z: 3 },
+        { type: "phone", shot: "f-event-top", x: 1540, y: 280, w: 270, rot: -12, z: 2 },
+      ],
     },
     {
       kind: "phone", dur: 8.5, enter: true,

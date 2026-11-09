@@ -31,17 +31,22 @@ film says "Example mandir and events" in the corner.
    events every way, plans seva), `b` (a family on a phone), `d` (extras).
    Run `capture/run-capture.sh "0 a b d" --reset` with local Supabase and
    the site running on port 3100.
-2. **Films** (`films/*.js`). Each film is a list of scenes: dark title and
-   list cards, and laptop or phone scenes that show the screenshots with a
+2. **Films** (`films/*.js`). Each film is a list of scenes: a light opening
+   (the title beside Toran's real screens on a laptop and phone), dark list
+   and closing cards, and laptop or phone scenes that show the screenshots with a
    pointer or finger, clicks, zooms, scrolling, typing, highlights and
    captions, all placed from the recorded button positions.
 3. **Engine** (`engine/`). `film.html?film=<name>` draws any frame with
    `render(t)`; `render.mjs` renders stills (`keys`), every frame
    (`frames`) or the sound cues (`cues`).
-4. **Sound** (`sound/music.py`). Original music synthesised in code (the
-   explainer's instruments: tanpura, santoor in Raag Bhupali, temple bell,
-   a soft kit and pads), with clicks, taps, typing and chimes placed on
-   the frames they happen. Nothing is sampled or licensed.
+4. **Sound** (`sound/music.py`). Original music synthesised in code: a
+   bright, modern track at 112 BPM in D major (warm pads, a plucked synth
+   arpeggio, a light four-on-the-floor kit, a rounded bass and a
+   glockenspiel), kept low under the captions. The opening is pads and
+   plucks only, and the dark list cards drop back so they breathe. Clicks,
+   taps, typing and chimes land on the frames they happen. Nothing is
+   sampled or licensed. `STEM=drums|bass|pads|spark` writes one layer on
+   its own, for checking the mix.
 5. **Build**: `./make.sh <mandirs|committee|families> [workers]` runs all
    of it and writes `out/toran-<film>.mp4`.
 
