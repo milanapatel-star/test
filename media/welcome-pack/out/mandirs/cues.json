@@ -2,8 +2,8 @@
  "duration": 108.1,
  "cues": [
   {
-   "t": 0,
-   "kind": "whoosh"
+   "t": 0.5,
+   "kind": "swap"
   },
   {
    "t": 7,
@@ -117,7 +117,7 @@
   {
    "start": 0,
    "dur": 7,
-   "kind": "night",
+   "kind": "intro",
    "title": "Your mandir's events, where families look"
   },
   {

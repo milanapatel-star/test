@@ -2,8 +2,8 @@
  "duration": 133.6,
  "cues": [
   {
-   "t": 0,
-   "kind": "whoosh"
+   "t": 0.5,
+   "kind": "swap"
   },
   {
    "t": 7.8,
@@ -244,7 +244,7 @@
   {
    "start": 0,
    "dur": 6.5,
-   "kind": "night",
+   "kind": "intro",
    "title": "Add your mandir's events in minutes"
   },
   {

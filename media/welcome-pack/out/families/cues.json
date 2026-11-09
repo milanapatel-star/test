@@ -2,8 +2,8 @@
  "duration": 115.1,
  "cues": [
   {
-   "t": 0,
-   "kind": "whoosh"
+   "t": 0.5,
+   "kind": "swap"
   },
   {
    "t": 16.6,
@@ -126,7 +126,7 @@
   {
    "start": 0,
    "dur": 6.5,
-   "kind": "night",
+   "kind": "intro",
    "title": "Find what's on at mandirs near you"
   },
   {
