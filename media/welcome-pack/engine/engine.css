@@ -1,0 +1,92 @@
+/* The welcome-pack films: 1920×1080, in Toran's "Midnight & Gold"
+   (toran-main-code DESIGN.md). Marcellus for headings, Mulish for
+   reading; midnight, one lapis blue, gold for the logo and highlights. */
+:root {
+  --night: #14213d; --night2: #0b1222; --gold: #d9a441; --goldsoft: #f6e7b8;
+  --cream: #f6f4ef; --surface: #fff; --sunk: #eeebe4; --ink: #1a1a22;
+  --muted: #55566a; --lapis: #1f3a8a; --line: rgba(20, 33, 61, .12);
+  --nmuted: #c9ccda; --kumkum: #b3261e; --leaf: #2f6a2b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0 }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--night2) }
+body { font-family: 'Mulish', 'Noto Serif Gujarati', 'Noto Sans Devanagari', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden }
+.scene { position: absolute; inset: 0; opacity: 0 }
+.abs { position: absolute }
+.d { font-family: 'Marcellus', 'Noto Serif Gujarati', 'Noto Sans Devanagari', serif; font-weight: 400; letter-spacing: -.01em; line-height: 1.08 }
+
+/* Backgrounds */
+.bg-night { position: absolute; inset: 0; background: radial-gradient(120% 100% at 50% 30%, #1b2b52 0%, var(--night) 45%, var(--night2) 100%) }
+.bg-cream { position: absolute; inset: 0; background:
+  radial-gradient(60% 70% at 0% 0%, rgba(217,164,65,.16), transparent 60%),
+  radial-gradient(60% 80% at 100% 100%, rgba(31,58,138,.08), transparent 60%),
+  var(--cream) }
+.dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(20,33,61,.07) 1.4px, transparent 1.6px); background-size: 34px 34px; mask-image: linear-gradient(90deg, transparent, #000 55%, #000) }
+.garland { position: absolute; left: 0; right: 0; top: 0; height: 22px; background:
+  radial-gradient(circle at 50% 100%, var(--gold) 3.2px, transparent 3.6px) 0 4px / 46px 22px repeat-x,
+  linear-gradient(var(--gold), var(--gold)) 0 3px / 100% 1.5px no-repeat; opacity: .8 }
+.glow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(246,231,184,.55), rgba(217,164,65,.22) 45%, transparent) }
+
+/* Caption panel (left) */
+.panel { position: absolute; left: 110px; top: 0; bottom: 0; width: 470px; display: flex; flex-direction: column; justify-content: center }
+.cap { position: absolute; left: 0; width: 470px }
+.chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 20px 10px 12px; border-radius: 999px; background: rgba(217,164,65,.16); color: #7a5410; font-weight: 800; font-size: 22px; letter-spacing: .02em }
+.chip .n { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--gold); color: var(--night); font-size: 19px; font-weight: 900 }
+.cap .t { font-family: 'Marcellus', serif; font-size: 60px; line-height: 1.06; color: var(--ink); margin-top: 26px; letter-spacing: -.01em }
+.cap .b { font-size: 29px; line-height: 1.42; color: var(--muted); margin-top: 22px; font-weight: 500 }
+.cap .b b { color: var(--ink); font-weight: 800 }
+
+/* Devices */
+.laptop { position: absolute; border-radius: 22px; background: #fff; box-shadow: 0 2px 0 rgba(255,255,255,.6) inset, 0 50px 100px -30px rgba(20,33,61,.45), 0 0 0 1px rgba(20,33,61,.10); overflow: hidden }
+.chrome { height: 46px; background: #ecebe7; display: flex; align-items: center; gap: 10px; padding: 0 18px; border-bottom: 1px solid rgba(0,0,0,.06) }
+.chrome i { width: 13px; height: 13px; border-radius: 50%; background: #d8d6cf; display: block }
+.chrome i:nth-child(1) { background: #ee6a5f } .chrome i:nth-child(2) { background: #f5bd4f } .chrome i:nth-child(3) { background: #61c454 }
+.chrome .url { margin-left: 22px; flex: 0 0 820px; white-space: nowrap; overflow: hidden; height: 30px; border-radius: 9px; background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 14px; font-size: 16px; color: #555; font-weight: 600 }
+.chrome .url b { color: #222; font-weight: 700 }
+.phone { position: absolute; border-radius: 64px; background: #0b0f19; padding: 13px; box-shadow: 0 0 0 2px #2a3040 inset, 0 60px 120px -30px rgba(20,33,61,.55), 0 0 0 1px rgba(0,0,0,.2) }
+.phone .island { position: absolute; top: 25px; left: 50%; width: 118px; height: 34px; margin-left: -59px; border-radius: 20px; background: #000; z-index: 5 }
+.screen { position: relative; overflow: hidden; background: var(--cream) }
+.phone .screen { border-radius: 52px }
+.zoom { position: absolute; left: 0; top: 0; transform-origin: 0 0 }
+.scroll { position: absolute; left: 0; top: 0 }
+.shot { position: absolute; left: 0; top: 0; opacity: 0; display: block }
+.typer { position: absolute; overflow: hidden; background-repeat: no-repeat }
+.caret { position: absolute; width: 2px; background: var(--lapis) }
+.ring { position: absolute; border: 3px solid var(--gold); border-radius: 14px; box-shadow: 0 0 0 7px rgba(217,164,65,.28); opacity: 0 }
+.tabbar { position: absolute; left: 0; bottom: 0; width: 100%; background-repeat: no-repeat; background-position: bottom left; z-index: 4 }
+.statusbar { position: absolute; left: 0; top: 0; width: 100%; z-index: 4; display: flex; justify-content: space-between; padding: 0 34px; align-items: center; font-weight: 800; font-size: 17px; color: #fff }
+
+/* Pointer and touch */
+.cursor { position: absolute; width: 34px; height: 34px; left: 0; top: 0; z-index: 30; opacity: 0; filter: drop-shadow(0 4px 6px rgba(0,0,0,.3)) }
+.touch { position: absolute; width: 62px; height: 62px; margin: -31px 0 0 -31px; border-radius: 50%; background: rgba(255,255,255,.55); border: 3px solid rgba(20,33,61,.35); z-index: 30; opacity: 0; box-shadow: 0 6px 18px rgba(0,0,0,.25) }
+.ripple { position: absolute; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%; border: 4px solid var(--gold); z-index: 29; opacity: 0 }
+
+/* Callout pill */
+.callout { position: absolute; z-index: 31; background: var(--night); color: var(--cream); font-weight: 800; font-size: 22px; padding: 12px 20px; border-radius: 14px; box-shadow: 0 16px 30px -10px rgba(20,33,61,.6); white-space: nowrap; opacity: 0 }
+.callout:after { content: ""; position: absolute; left: 26px; bottom: -9px; width: 18px; height: 18px; background: var(--night); transform: rotate(45deg); border-radius: 3px }
+
+/* Bottom bar */
+.brand { position: absolute; left: 110px; bottom: 44px; display: flex; align-items: center; gap: 14px; font-family: 'Marcellus'; letter-spacing: .22em; font-size: 22px; color: var(--ink); opacity: .75 }
+.brand.light { color: var(--cream) }
+.example { position: absolute; right: 70px; bottom: 40px; font-size: 18px; font-weight: 700; color: var(--muted); background: rgba(255,255,255,.7); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px }
+.progress { position: absolute; left: 0; bottom: 0; height: 6px; background: var(--gold); z-index: 50 }
+
+/* Night scenes */
+.on { color: var(--cream) } .nm { color: var(--nmuted) } .gold { color: var(--gold) }
+.wm { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .03em .14em }
+.wi { display: inline-block; transform: translateY(110%) }
+.nchip { display: inline-block; padding: 10px 24px; border-radius: 999px; border: 1.5px solid rgba(217,164,65,.55); color: var(--goldsoft); font-weight: 800; font-size: 24px; letter-spacing: .14em; text-transform: uppercase }
+.card { position: absolute; border-radius: 28px; box-shadow: 0 40px 80px rgba(0,0,0,.45); overflow: hidden }
+.chat { width: 520px; background: #0e1621; color: #fff; padding: 0 0 22px }
+.chat .hd { display: flex; gap: 16px; align-items: center; padding: 20px 24px; background: #17212b }
+.chat .av { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 26px; color: #0e1621; background: #f0c36a }
+.chat .n1 { font-size: 26px; font-weight: 800 } .chat .s1 { font-size: 19px; color: #8c99a6 }
+.chat .badge { margin-left: auto; background: var(--kumkum); color: #fff; font-weight: 800; font-size: 26px; border-radius: 999px; padding: 6px 18px; font-variant-numeric: tabular-nums }
+.chat .bub { margin: 14px 22px 0; background: #1e2a36; border-radius: 6px 22px 22px 22px; padding: 12px 18px; font-size: 22px; line-height: 1.3; width: fit-content; max-width: 440px }
+.chat .bub b { display: block; font-size: 18px; color: #f0a00a; margin-bottom: 2px }
+.list { position: absolute; left: 0; width: 1920px; display: flex; flex-direction: column; align-items: center; gap: 22px }
+.li { display: flex; align-items: center; gap: 22px; font-size: 44px; font-weight: 700; color: var(--cream); opacity: 0 }
+.li .tk { width: 52px; height: 52px; border-radius: 50%; background: var(--gold); color: var(--night); display: grid; place-items: center; font-size: 30px; font-weight: 900 }
+.step { display: flex; align-items: center; gap: 26px; font-size: 42px; font-weight: 700; color: var(--cream); opacity: 0 }
+.step .no { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--gold); color: var(--gold); font-family: 'Marcellus'; font-size: 38px; display: grid; place-items: center }
+.url-pill { display: inline-flex; align-items: center; gap: 14px; padding: 18px 34px; border-radius: 999px; background: var(--gold); color: var(--night); font-weight: 900; font-size: 34px }

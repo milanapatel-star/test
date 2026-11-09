@@ -1,0 +1,183 @@
+{
+ "duration": 108.1,
+ "cues": [
+  {
+   "t": 0,
+   "kind": "whoosh"
+  },
+  {
+   "t": 7,
+   "kind": "whoosh"
+  },
+  {
+   "t": 18,
+   "kind": "whoosh"
+  },
+  {
+   "t": 38.7,
+   "kind": "tap"
+  },
+  {
+   "t": 39.1,
+   "kind": "type",
+   "dur": 1
+  },
+  {
+   "t": 43.4,
+   "kind": "type",
+   "dur": 0.1
+  },
+  {
+   "t": 43.4,
+   "kind": "tap"
+  },
+  {
+   "t": 43.9,
+   "kind": "type",
+   "dur": 0.1
+  },
+  {
+   "t": 43.9,
+   "kind": "tap"
+  },
+  {
+   "t": 45.9,
+   "kind": "tap"
+  },
+  {
+   "t": 46.5,
+   "kind": "swap"
+  },
+  {
+   "t": 46.7,
+   "kind": "chime"
+  },
+  {
+   "t": 51.1,
+   "kind": "click"
+  },
+  {
+   "t": 51.5,
+   "kind": "swap"
+  },
+  {
+   "t": 53.2,
+   "kind": "click"
+  },
+  {
+   "t": 53.6,
+   "kind": "swap"
+  },
+  {
+   "t": 55.6,
+   "kind": "swap"
+  },
+  {
+   "t": 58.2,
+   "kind": "click"
+  },
+  {
+   "t": 59.6,
+   "kind": "swap"
+  },
+  {
+   "t": 59.8,
+   "kind": "chime"
+  },
+  {
+   "t": 70.1,
+   "kind": "swap"
+  },
+  {
+   "t": 92.5,
+   "kind": "whoosh"
+  },
+  {
+   "t": 93.7,
+   "kind": "tick"
+  },
+  {
+   "t": 94.6,
+   "kind": "tick"
+  },
+  {
+   "t": 95.5,
+   "kind": "tick"
+  },
+  {
+   "t": 96.4,
+   "kind": "tick"
+  },
+  {
+   "t": 100.5,
+   "kind": "whoosh"
+  }
+ ],
+ "scenes": [
+  {
+   "start": 0,
+   "dur": 7,
+   "kind": "night",
+   "title": "Your mandir's events, where families look"
+  },
+  {
+   "start": 7,
+   "dur": 11,
+   "kind": "night"
+  },
+  {
+   "start": 18,
+   "dur": 6.5,
+   "kind": "night",
+   "title": "Toran puts every mandir's events in one place"
+  },
+  {
+   "start": 24.5,
+   "dur": 13,
+   "kind": "phone",
+   "title": "Your mandir is already listed"
+  },
+  {
+   "start": 37.5,
+   "dur": 12.5,
+   "kind": "phone",
+   "title": "Ask to look after the page"
+  },
+  {
+   "start": 50,
+   "dur": 13.5,
+   "kind": "laptop",
+   "title": "Add events in minutes"
+  },
+  {
+   "start": 63.5,
+   "dur": 12,
+   "kind": "phone",
+   "title": "Families find it, save it, share it"
+  },
+  {
+   "start": 75.5,
+   "dur": 8.5,
+   "kind": "laptop",
+   "title": "Ask for seva"
+  },
+  {
+   "start": 84,
+   "dur": 8.5,
+   "kind": "laptop",
+   "title": "See it working"
+  },
+  {
+   "start": 92.5,
+   "dur": 8,
+   "kind": "night",
+   "title": "Toran is"
+  },
+  {
+   "start": 100.5,
+   "dur": 7,
+   "kind": "night",
+   "title": "Claim your mandir's page"
+  }
+ ]
+}

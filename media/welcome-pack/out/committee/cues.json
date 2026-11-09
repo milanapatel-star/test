@@ -1,0 +1,323 @@
+{
+ "duration": 133.6,
+ "cues": [
+  {
+   "t": 0,
+   "kind": "whoosh"
+  },
+  {
+   "t": 7.8,
+   "kind": "click"
+  },
+  {
+   "t": 8.2,
+   "kind": "type",
+   "dur": 1.5
+  },
+  {
+   "t": 11,
+   "kind": "click"
+  },
+  {
+   "t": 11.5,
+   "kind": "swap"
+  },
+  {
+   "t": 11.8,
+   "kind": "chime"
+  },
+  {
+   "t": 13.9,
+   "kind": "swap"
+  },
+  {
+   "t": 28.6,
+   "kind": "click"
+  },
+  {
+   "t": 29.1,
+   "kind": "swap"
+  },
+  {
+   "t": 31,
+   "kind": "click"
+  },
+  {
+   "t": 31.8,
+   "kind": "swap"
+  },
+  {
+   "t": 33.5,
+   "kind": "click"
+  },
+  {
+   "t": 33.8,
+   "kind": "swap"
+  },
+  {
+   "t": 36.1,
+   "kind": "swap"
+  },
+  {
+   "t": 38.8,
+   "kind": "click"
+  },
+  {
+   "t": 40.1,
+   "kind": "swap"
+  },
+  {
+   "t": 40.3,
+   "kind": "chime"
+  },
+  {
+   "t": 44.6,
+   "kind": "click"
+  },
+  {
+   "t": 45,
+   "kind": "swap"
+  },
+  {
+   "t": 46.2,
+   "kind": "click"
+  },
+  {
+   "t": 46.5,
+   "kind": "type",
+   "dur": 2.2
+  },
+  {
+   "t": 49.8,
+   "kind": "click"
+  },
+  {
+   "t": 50.7,
+   "kind": "swap"
+  },
+  {
+   "t": 53.1,
+   "kind": "click"
+  },
+  {
+   "t": 53.9,
+   "kind": "swap"
+  },
+  {
+   "t": 54.1,
+   "kind": "chime"
+  },
+  {
+   "t": 58.2,
+   "kind": "tap"
+  },
+  {
+   "t": 63.5,
+   "kind": "tap"
+  },
+  {
+   "t": 67.1,
+   "kind": "click"
+  },
+  {
+   "t": 67.5,
+   "kind": "swap"
+  },
+  {
+   "t": 68.5,
+   "kind": "type",
+   "dur": 1.5
+  },
+  {
+   "t": 68.6,
+   "kind": "click"
+  },
+  {
+   "t": 70.3,
+   "kind": "type",
+   "dur": 0.3
+  },
+  {
+   "t": 70.4,
+   "kind": "click"
+  },
+  {
+   "t": 70.9,
+   "kind": "type",
+   "dur": 0.6
+  },
+  {
+   "t": 71.3,
+   "kind": "click"
+  },
+  {
+   "t": 71.8,
+   "kind": "type",
+   "dur": 0.5
+  },
+  {
+   "t": 72.2,
+   "kind": "click"
+  },
+  {
+   "t": 74.8,
+   "kind": "swap"
+  },
+  {
+   "t": 75,
+   "kind": "chime"
+  },
+  {
+   "t": 80.4,
+   "kind": "click"
+  },
+  {
+   "t": 80.6,
+   "kind": "swap"
+  },
+  {
+   "t": 88.8,
+   "kind": "click"
+  },
+  {
+   "t": 90,
+   "kind": "swap"
+  },
+  {
+   "t": 96.4,
+   "kind": "click"
+  },
+  {
+   "t": 97,
+   "kind": "swap"
+  },
+  {
+   "t": 98.4,
+   "kind": "click"
+  },
+  {
+   "t": 99.3,
+   "kind": "swap"
+  },
+  {
+   "t": 100.7,
+   "kind": "click"
+  },
+  {
+   "t": 102,
+   "kind": "swap"
+  },
+  {
+   "t": 105.2,
+   "kind": "click"
+  },
+  {
+   "t": 114.4,
+   "kind": "click"
+  },
+  {
+   "t": 114.6,
+   "kind": "chime"
+  },
+  {
+   "t": 118,
+   "kind": "whoosh"
+  },
+  {
+   "t": 119.3,
+   "kind": "tick"
+  },
+  {
+   "t": 120.3,
+   "kind": "tick"
+  },
+  {
+   "t": 121.3,
+   "kind": "tick"
+  },
+  {
+   "t": 127,
+   "kind": "whoosh"
+  }
+ ],
+ "scenes": [
+  {
+   "start": 0,
+   "dur": 6.5,
+   "kind": "night",
+   "title": "Add your mandir's events in minutes"
+  },
+  {
+   "start": 6.5,
+   "dur": 10,
+   "kind": "laptop",
+   "title": "Log in with your email"
+  },
+  {
+   "start": 16.5,
+   "dur": 11,
+   "kind": "laptop",
+   "title": "Your committee page"
+  },
+  {
+   "start": 27.5,
+   "dur": 16,
+   "kind": "laptop",
+   "title": "Send a photo of the poster"
+  },
+  {
+   "start": 43.5,
+   "dur": 13,
+   "kind": "laptop",
+   "title": "Paste a WhatsApp message"
+  },
+  {
+   "start": 56.5,
+   "dur": 9.5,
+   "kind": "phone",
+   "title": "Share it straight to Toran"
+  },
+  {
+   "start": 66,
+   "dur": 12,
+   "kind": "laptop",
+   "title": "Type it in"
+  },
+  {
+   "start": 78,
+   "dur": 9,
+   "kind": "laptop",
+   "title": "Tick your festivals"
+  },
+  {
+   "start": 87,
+   "dur": 8,
+   "kind": "laptop",
+   "title": "Plans change? Edit it"
+  },
+  {
+   "start": 95,
+   "dur": 14,
+   "kind": "laptop",
+   "title": "Plan the seva rota"
+  },
+  {
+   "start": 109,
+   "dur": 9,
+   "kind": "laptop",
+   "title": "Send this week's events"
+  },
+  {
+   "start": 118,
+   "dur": 9,
+   "kind": "night",
+   "title": "Your weekly routine"
+  },
+  {
+   "start": 127,
+   "dur": 6,
+   "kind": "night",
+   "title": "You're ready"
+  }
+ ]
+}

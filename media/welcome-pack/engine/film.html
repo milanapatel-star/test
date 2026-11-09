@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../source/fonts/local.css">
+<link rel="stylesheet" href="engine.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="../shots/manifest.js"></script>
+<script>
+  // film.html?film=committee loads films/committee.js, then the engine.
+  const name = new URLSearchParams(location.search).get("film");
+  document.write(`<script src="../films/${name}.js"><\/script><script src="engine.js"><\/script>`);
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+{
+ "duration": 115.1,
+ "cues": [
+  {
+   "t": 0,
+   "kind": "whoosh"
+  },
+  {
+   "t": 16.6,
+   "kind": "tap"
+  },
+  {
+   "t": 17,
+   "kind": "swap"
+  },
+  {
+   "t": 18.8,
+   "kind": "tap"
+  },
+  {
+   "t": 19.4,
+   "kind": "swap"
+  },
+  {
+   "t": 35.8,
+   "kind": "tap"
+  },
+  {
+   "t": 36.2,
+   "kind": "swap"
+  },
+  {
+   "t": 36.6,
+   "kind": "chime"
+  },
+  {
+   "t": 43.8,
+   "kind": "tap"
+  },
+  {
+   "t": 46.2,
+   "kind": "chime"
+  },
+  {
+   "t": 52,
+   "kind": "tap"
+  },
+  {
+   "t": 52.4,
+   "kind": "swap"
+  },
+  {
+   "t": 52.5,
+   "kind": "chime"
+  },
+  {
+   "t": 56.2,
+   "kind": "swap"
+  },
+  {
+   "t": 62.9,
+   "kind": "tap"
+  },
+  {
+   "t": 63.4,
+   "kind": "swap"
+  },
+  {
+   "t": 67,
+   "kind": "tap"
+  },
+  {
+   "t": 67.4,
+   "kind": "swap"
+  },
+  {
+   "t": 75.5,
+   "kind": "tap"
+  },
+  {
+   "t": 75.9,
+   "kind": "swap"
+  },
+  {
+   "t": 76,
+   "kind": "chime"
+  },
+  {
+   "t": 87.7,
+   "kind": "swap"
+  },
+  {
+   "t": 92.5,
+   "kind": "whoosh"
+  },
+  {
+   "t": 94.1,
+   "kind": "chime"
+  },
+  {
+   "t": 100.5,
+   "kind": "whoosh"
+  },
+  {
+   "t": 101.7,
+   "kind": "tick"
+  },
+  {
+   "t": 102.55,
+   "kind": "tick"
+  },
+  {
+   "t": 103.4,
+   "kind": "tick"
+  },
+  {
+   "t": 104.25,
+   "kind": "tick"
+  },
+  {
+   "t": 108,
+   "kind": "whoosh"
+  }
+ ],
+ "scenes": [
+  {
+   "start": 0,
+   "dur": 6.5,
+   "kind": "night",
+   "title": "Find what's on at mandirs near you"
+  },
+  {
+   "start": 6.5,
+   "dur": 8.5,
+   "kind": "phone",
+   "title": "Open toran.org.uk"
+  },
+  {
+   "start": 15,
+   "dur": 14,
+   "kind": "phone",
+   "title": "See what's on near you"
+  },
+  {
+   "start": 29,
+   "dur": 12,
+   "kind": "phone",
+   "title": "Open an event"
+  },
+  {
+   "start": 41,
+   "dur": 9,
+   "kind": "phone",
+   "title": "Send it to the family"
+  },
+  {
+   "start": 50,
+   "dur": 11,
+   "kind": "phone",
+   "title": "Follow your mandirs"
+  },
+  {
+   "start": 61,
+   "dur": 11.5,
+   "kind": "phone",
+   "title": "Find a mandir on the map"
+  },
+  {
+   "start": 72.5,
+   "dur": 10,
+   "kind": "phone",
+   "title": "Give seva"
+  },
+  {
+   "start": 82.5,
+   "dur": 10,
+   "kind": "phone",
+   "title": "Every festival, in one place"
+  },
+  {
+   "start": 92.5,
+   "dur": 8,
+   "kind": "night",
+   "title": "Keep Toran on your home screen"
+  },
+  {
+   "start": 100.5,
+   "dur": 7.5,
+   "kind": "night",
+   "title": "Toran is"
+  },
+  {
+   "start": 108,
+   "dur": 6.5,
+   "kind": "night",
+   "title": "See what's on this week"
+  }
+ ]
+}

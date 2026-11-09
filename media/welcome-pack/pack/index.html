@@ -1,0 +1,553 @@
+<title>Toran Welcome Pack</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* Toran's own "Midnight & Gold": a midnight band for the welcome, cream
+   pages below, one lapis blue for what you press, gold for highlights.
+   Layout: a long reference page with a sticky section bar; films first. */
+:root {
+  --bg: #f6f4ef; --surface: #ffffff; --sunk: #eeebe4; --ink: #1a1a22; --muted: #55566a;
+  --line: rgba(20, 33, 61, .13); --lapis: #1f3a8a; --on-lapis: #ffffff;
+  --gold: #d9a441; --gold-ink: #7a5410; --gold-tint: rgba(217, 164, 65, .16);
+  --night: #14213d; --night2: #0b1222; --cream: #f6f4ef; --nmuted: #c9ccda;
+  --leaf: #2f6a2b; --leaf-tint: #e9f2e7; --kumkum: #b3261e;
+  --display: 'Marcellus', Georgia, serif;
+  --text: 'Mulish', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1628; --surface: #16213b; --sunk: #1b2848; --ink: #eef0f6; --muted: #b3b8cc;
+    --line: rgba(226, 182, 90, .18); --lapis: #9db4ff; --on-lapis: #0b1222;
+    --gold-ink: #f0c36a; --gold-tint: rgba(217, 164, 65, .14); --leaf: #9ad19a; --leaf-tint: rgba(154, 209, 154, .12);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1628; --surface: #16213b; --sunk: #1b2848; --ink: #eef0f6; --muted: #b3b8cc;
+  --line: rgba(226, 182, 90, .18); --lapis: #9db4ff; --on-lapis: #0b1222;
+  --gold-ink: #f0c36a; --gold-tint: rgba(217, 164, 65, .14); --leaf: #9ad19a; --leaf-tint: rgba(154, 209, 154, .12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font-family: var(--text); font-size: 18px; line-height: 1.55; margin: 0 }
+h1, h2, h3 { text-wrap: balance; margin: 0 }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(32px, 4.4vw, 46px); line-height: 1.08; letter-spacing: -.01em }
+h3 { font-size: 21px; font-weight: 800; line-height: 1.3 }
+p { margin: 0 }
+a { color: var(--lapis) }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+.muted { color: var(--muted) }
+.eyebrow { font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink) }
+
+/* Welcome band */
+.hero { background: radial-gradient(110% 120% at 50% 0%, #1b2b52 0%, var(--night) 45%, var(--night2) 100%); color: var(--cream); position: relative; overflow: hidden }
+.hero::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 22px;
+  background: radial-gradient(circle at 50% 100%, var(--gold) 3px, transparent 3.5px) 0 4px / 40px 20px repeat-x, linear-gradient(var(--gold), var(--gold)) 0 3px / 100% 1.5px no-repeat; opacity: .8 }
+.hero .wrap { padding-block: 72px 56px; display: grid; gap: 24px }
+.brand { display: flex; align-items: center; gap: 14px; font-family: var(--display); letter-spacing: .22em; font-size: 20px; color: var(--cream) }
+.brand svg { width: 34px; height: 34px }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 6.6vw, 76px); line-height: 1.02; letter-spacing: -.015em; max-width: 15ch }
+.hero .lede { font-size: clamp(19px, 2vw, 22px); color: var(--nmuted); max-width: 60ch }
+.hero .facts { display: flex; flex-wrap: wrap; gap: 10px }
+.hero .facts span { border: 1px solid rgba(217, 164, 65, .45); color: #f6e7b8; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 700 }
+
+/* Section bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+.bar nav { display: flex; gap: 6px; overflow-x: auto; padding-block: 10px; scrollbar-width: none }
+.bar a { flex: 0 0 auto; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 15px; padding: 7px 14px; border-radius: 999px }
+.bar a:hover, .bar a:focus-visible { background: var(--sunk) }
+
+section.block { padding-block: 64px 8px; scroll-margin-top: 64px }
+section.block > .wrap > header { display: grid; gap: 12px; margin-bottom: 30px; max-width: 70ch }
+
+/* Films */
+.films { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px }
+.film { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; min-width: 0 }
+.film video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--night2); max-width: 100% }
+.film .body { padding: 20px 22px 22px; display: grid; gap: 12px; min-width: 0 }
+.film .meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: 800 }
+.pill { background: var(--gold-tint); color: var(--gold-ink); border-radius: 999px; padding: 4px 12px }
+.pill.quiet { background: var(--sunk); color: var(--muted) }
+.film dl { margin: 0; display: grid; gap: 8px; font-size: 16px }
+.film dt { font-weight: 800 }
+.film dd { margin: 0; color: var(--muted) }
+.film details summary { cursor: pointer; font-weight: 800; color: var(--lapis) }
+.made { margin-top: 22px; padding: 18px 22px; border-radius: 18px; background: var(--sunk); font-size: 16px; color: var(--muted) }
+
+/* Checklist */
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0 }
+.phase h3 { display: flex; justify-content: space-between; gap: 12px; align-items: baseline }
+.phase h3 small { font-weight: 700; color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums }
+.check { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line) }
+.check input { width: 22px; height: 22px; margin: 3px 0 0; accent-color: var(--lapis) }
+.check label { cursor: pointer }
+.check b { display: block }
+.check span { color: var(--muted); font-size: 16px }
+.check.done b { text-decoration: line-through; color: var(--muted) }
+.who { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-ink); margin-left: 6px }
+
+/* Steps (playbook) */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step }
+.steps li { display: grid; grid-template-columns: 56px 1fr; gap: 18px; padding: 20px 0; border-top: 1px solid var(--line); counter-increment: step }
+.steps li::before { content: counter(step); width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--gold); color: var(--gold-ink); display: grid; place-items: center; font-family: var(--display); font-size: 22px }
+.steps li > div { display: grid; gap: 6px; min-width: 0 }
+.when { font-size: 14px; font-weight: 800; color: var(--gold-ink); letter-spacing: .04em }
+
+/* Templates */
+.templates { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px }
+.tpl { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0 }
+.tpl pre { white-space: pre-wrap; word-break: break-word; margin: 0; font-family: var(--text); font-size: 16px; line-height: 1.55; background: var(--sunk); border-radius: 14px; padding: 16px }
+.tpl .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap }
+button.copy { font: inherit; font-size: 15px; font-weight: 800; border: 1.5px solid var(--lapis); color: var(--lapis); background: transparent; border-radius: 999px; padding: 7px 16px; cursor: pointer }
+button.copy:hover { background: var(--lapis); color: var(--on-lapis) }
+button.copy:focus-visible, .check input:focus-visible, .bar a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px }
+
+/* Cards (quick-starts) */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px }
+.qs { border-radius: 22px; padding: 26px; display: grid; gap: 14px; align-content: start; min-width: 0 }
+.qs.night { background: radial-gradient(120% 120% at 20% 0%, #1b2b52, var(--night) 55%, var(--night2)); color: var(--cream) }
+.qs.night .muted { color: var(--nmuted) }
+.qs.light { background: var(--surface); border: 1px solid var(--line) }
+.qs h3 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.1 }
+.qs ol { margin: 0; padding-left: 22px; display: grid; gap: 8px }
+.qs ol li::marker { color: var(--gold); font-weight: 800 }
+
+/* FAQ */
+.faq { display: grid; gap: 0; max-width: 80ch }
+.faq details { border-top: 1px solid var(--line); padding: 16px 0 }
+.faq summary { cursor: pointer; font-weight: 800; font-size: 19px; list-style: none; display: flex; justify-content: space-between; gap: 16px }
+.faq summary::after { content: "+"; color: var(--gold-ink); font-size: 24px; line-height: 1 }
+.faq details[open] summary::after { content: "–" }
+.faq details p { margin-top: 10px; color: var(--muted) }
+
+/* Scripts */
+.scripts { display: grid; gap: 18px }
+.script { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 22px }
+.script summary { cursor: pointer; font-weight: 800; font-size: 19px }
+.script table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 16px }
+.script td { padding: 10px 8px; border-top: 1px solid var(--line); vertical-align: top }
+.script td:first-child { width: 64px; font-variant-numeric: tabular-nums; color: var(--gold-ink); font-weight: 800 }
+.script td b { display: block }
+.tablewrap { overflow-x: auto }
+
+/* Scorecard */
+.score { width: 100%; border-collapse: collapse; font-size: 17px; background: var(--surface); border-radius: 18px; overflow: hidden }
+.score th, .score td { text-align: left; padding: 14px 16px; border-top: 1px solid var(--line); vertical-align: top }
+.score th { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-top: 0; background: var(--sunk) }
+.score td.n { font-variant-numeric: tabular-nums; font-weight: 800; white-space: nowrap }
+
+/* Runbook */
+.runbook { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px }
+.rb { border-left: 4px solid var(--gold); background: var(--surface); border-radius: 6px 18px 18px 6px; padding: 18px 20px; display: grid; gap: 8px; min-width: 0 }
+.rb.red { border-left-color: var(--kumkum) }
+
+/* Brand */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px }
+.sw { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--surface) }
+.sw i { display: block; height: 76px }
+.sw div { padding: 10px 12px; font-size: 14px }
+.sw b { display: block; font-size: 15px }
+.sw code { font-variant-numeric: tabular-nums }
+.typeset { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 22px }
+.voice { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px }
+.voice div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; font-size: 16px }
+.voice b { display: block; margin-bottom: 4px }
+
+.links { columns: 2 300px; gap: 28px; padding: 0; list-style: none; margin: 0 }
+.links li { break-inside: avoid; padding: 8px 0; border-top: 1px solid var(--line) }
+.links code { font-size: 15px; color: var(--gold-ink) }
+
+footer { padding-block: 60px; color: var(--muted); font-size: 15px }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important } }
+html { scroll-behavior: smooth }
+</style>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 13H39M24 13V37" stroke="#d9a441" stroke-width="3.6" stroke-linecap="round" fill="none"/><circle cx="13.2" cy="19.2" r="2.25" fill="#d9a441"/><circle cx="18.2" cy="21.4" r="2.25" fill="#d9a441"/><circle cx="29.8" cy="21.4" r="2.25" fill="#d9a441"/><circle cx="34.8" cy="19.2" r="2.25" fill="#d9a441"/></svg>TORAN</div>
+    <h1>Welcome pack</h1>
+    <p class="lede">Everything to take Toran from a finished website to mandirs using it: three onboarding films, the launch checklist, a playbook for signing up each mandir, ready-to-send messages, answers to the questions you'll be asked, and what to do when something goes wrong.</p>
+    <div class="facts"><span>Pilot: mid-December</span><span>Public launch: mid-January</span><span>Prepared 9 November 2026</span></div>
+  </div>
+</div>
+
+<div class="bar"><div class="wrap"><nav aria-label="Sections">
+  <a href="#films">Films</a><a href="#checklist">Launch checklist</a><a href="#playbook">Signing up a mandir</a><a href="#messages">Messages</a><a href="#quickstart">Quick-start cards</a><a href="#faq">Questions</a><a href="#scorecard">Pilot scorecard</a><a href="#runbook">When things go wrong</a><a href="#scripts">Voiceover scripts</a><a href="#brand">Brand</a><a href="#links">Links</a>
+</nav></div></div>
+
+<section class="block" id="films"><div class="wrap">
+  <header>
+    <p class="eyebrow">Three onboarding films</p>
+    <h2>One film for each person you'll talk to</h2>
+    <p class="muted">Each film follows a made-up mandir, Shree Sample Mandir in Anytown (the same one as Toran's /demo page), through Toran's real screens. Captions carry every step, so they work with the sound off on WhatsApp. Send the right film to the right person.</p>
+  </header>
+  <div class="films">
+    <article class="film">
+      <video controls preload="metadata" playsinline poster="films/toran-mandirs.jpg" src="films/toran-mandirs.mp4" aria-label="Film: Toran for mandirs"></video>
+      <div class="body">
+        <div class="meta"><span class="pill">For mandir committees</span><span class="pill quiet">1 min 48 s</span></div>
+        <h3>Toran for mandirs</h3>
+        <dl>
+          <dt>Who it's for</dt><dd>Presidents, trustees and secretaries deciding whether their mandir should join.</dd>
+          <dt>What it shows</dt><dd>Why posters in WhatsApp groups get missed, the mandir's page already on Toran, asking to look after it, adding events from a poster, what families see, seva, and the numbers.</dd>
+          <dt>When to send it</dt><dd>With your first message to a mandir, before a meeting.</dd>
+        </dl>
+      </div>
+    </article>
+    <article class="film">
+      <video controls preload="metadata" playsinline poster="films/toran-committee.jpg" src="films/toran-committee.mp4" aria-label="Film: Committee guide"></video>
+      <div class="body">
+        <div class="meta"><span class="pill">For committee members</span><span class="pill quiet">2 min 13 s</span></div>
+        <h3>Committee guide</h3>
+        <dl>
+          <dt>Who it's for</dt><dd>Whoever will add the events: often a secretary, a youth volunteer or a trustee's son or daughter.</dd>
+          <dt>What it shows</dt><dd>Logging in with an email link, the committee page, the four ways to add events (poster photo, WhatsApp message, typing, ticking festivals), editing, the seva rota, and the weekly message.</dd>
+          <dt>When to send it</dt><dd>As soon as you approve their request to look after the page.</dd>
+        </dl>
+      </div>
+    </article>
+    <article class="film">
+      <video controls preload="metadata" playsinline poster="films/toran-families.jpg" src="films/toran-families.mp4" aria-label="Film: Find what's on"></video>
+      <div class="body">
+        <div class="meta"><span class="pill">For families</span><span class="pill quiet">1 min 55 s</span></div>
+        <h3>Find what's on</h3>
+        <dl>
+          <dt>Who it's for</dt><dd>Everyone who goes to a mandir. Committees post it in their families' WhatsApp group.</dd>
+          <dt>What it shows</dt><dd>Finding events near you, saving one to a calendar, sending it to family, following a mandir, the map, taking a seva slot, festivals and languages, and adding Toran to the home screen.</dd>
+          <dt>When to send it</dt><dd>Once a mandir has its events on Toran, so the link lands on a full page.</dd>
+        </dl>
+      </div>
+    </article>
+  </div>
+  <p class="made">How they were made: Toran's real screens were captured from a copy of the site filled with the example mandir, then animated with a pointer, zooms and typing in Toran's own fonts and colours. The music is original and synthesised, so there's nothing to license. Every event, person and number in them is made up, and each film says so in the corner. To add a spoken voice (in English, Gujarati or Hindi), record the <a href="#scripts">voiceover scripts</a> below; they're timed to the films. The source is in the <code>media/welcome-pack</code> folder of the media repository, so the films can be re-made when the screens change.</p>
+</div></section>
+
+<section class="block" id="checklist"><div class="wrap">
+  <header>
+    <p class="eyebrow">Launch checklist</p>
+    <h2>What has to be true before each launch</h2>
+    <p class="muted">Tick things off as you go; your ticks are kept in this browser. The full technical steps, in order, are in <code>docs/go-live.md</code> in the website repository. Items marked <span class="who">You</span> need you; the rest Claude can do or check.</p>
+  </header>
+  <div class="phases">
+    <div class="phase" data-phase="pilot">
+      <h3>Before the pilot <small>by 15 December</small></h3>
+      <div class="check"><input type="checkbox" id="c1"><label for="c1"><b>Connect toran.org.uk <span class="who">You</span></b><span>Vercel → Settings → Domains, then the DNS records at Namecheap. Every link Toran sends, and every link in the films, uses this address.</span></label></div>
+      <div class="check"><input type="checkbox" id="c2"><label for="c2"><b>Turn on poster and message reading <span class="who">You</span></b><span>Add <code>ANTHROPIC_API_KEY</code> in Vercel, typed straight in there, and set a monthly spending limit in the Anthropic console. Until then the photo and message buttons stay hidden.</span></label></div>
+      <div class="check"><input type="checkbox" id="c3"><label for="c3"><b>Email from your own domain <span class="who">You</span></b><span>Resend with toran.org.uk verified, then Supabase → Emails → SMTP. Login links then come from Toran, not a test address, and land in inboxes rather than spam.</span></label></div>
+      <div class="check"><input type="checkbox" id="c4"><label for="c4"><b>A contact address <span class="who">You</span></b><span>Set up forwarding for hello@ and privacy@toran.org.uk; Claude then puts the address on the Contact page (it's empty now).</span></label></div>
+      <div class="check"><input type="checkbox" id="c5"><label for="c5"><b>ICO registration and the DPIA <span class="who">You</span></b><span>Decision 0006: no public personal data before both. The data protection fee is £52 a year (£47 by direct debit). The number goes in the privacy notice.</span></label></div>
+      <div class="check"><input type="checkbox" id="c6"><label for="c6"><b>Choose the pilot area <span class="who">You</span></b><span>One town or borough with several mandirs you can visit. A full Leicester beats a thin UK.</span></label></div>
+      <div class="check"><input type="checkbox" id="c7"><label for="c7"><b>40 to 60 real upcoming events in the pilot area</b><span>Through the review queue (/ops/posters) from mandirs' own posters and websites, checked before publishing. No scraping of social media (decision 0005).</span></label></div>
+      <div class="check"><input type="checkbox" id="c8"><label for="c8"><b>3 to 5 pilot mandirs with a committee member on Toran <span class="who">You</span></b><span>Use the playbook below. Approve each request in /ops after checking with the mandir by phone.</span></label></div>
+      <div class="check"><input type="checkbox" id="c9"><label for="c9"><b>Merge the open pull requests <span class="who">You</span></b><span>The review queue tidy-up (Toran-com/Toran-Main-Code#160), and anything else that's green.</span></label></div>
+      <div class="check"><input type="checkbox" id="c10"><label for="c10"><b>Try every film's journey on your own phones <span class="who">You</span></b><span>An iPhone and an Android: add to home screen, share a WhatsApp message to Toran, take a seva slot, add an event to your calendar.</span></label></div>
+      <div class="check"><input type="checkbox" id="c11"><label for="c11"><b>Practise restoring a backup</b><span><code>docs/backup-and-restore.md</code>, on the test database, before real committees rely on it.</span></label></div>
+    </div>
+    <div class="phase" data-phase="public">
+      <h3>Before the public launch <small>by mid-January</small></h3>
+      <div class="check"><input type="checkbox" id="d1"><label for="d1"><b>Register the company <span class="who">You</span></b><span>Decision 0007. "Toran Limited" is taken (a restaurant), so pick another registered name, such as Toran Digital Ltd, and trade as Toran. Its name, number and address go in the terms and privacy notice.</span></label></div>
+      <div class="check"><input type="checkbox" id="d2"><label for="d2"><b>Supabase Pro on the live database <span class="who">You</span></b><span>About $25 a month: daily backups you can restore, and no pausing.</span></label></div>
+      <div class="check"><input type="checkbox" id="d3"><label for="d3"><b>Decide on Vercel Pro <span class="who">You</span></b><span>The free plan is for personal, non-commercial use. Once Toran is a company's site, Pro ($20 a month per member) is the safe choice.</span></label></div>
+      <div class="check"><input type="checkbox" id="d4"><label for="d4"><b>Fill every [bracket] in the legal pages <span class="who">You</span></b><span>Privacy notice and terms; a solicitor's quick look is worth it before the public launch.</span></label></div>
+      <div class="check"><input type="checkbox" id="d5"><label for="d5"><b>150 or more upcoming events across the launch area</b><span>Most of them added by committees themselves, which shows the model works.</span></label></div>
+      <div class="check"><input type="checkbox" id="d6"><label for="d6"><b>Turn on the weekly email</b><span>Only once there's enough each week to make it worth opening.</span></label></div>
+      <div class="check"><input type="checkbox" id="d7"><label for="d7"><b>Record Gujarati voiceovers, if you can <span class="who">You</span></b><span>A volunteer reading the scripts below makes the families film far more welcoming for elders.</span></label></div>
+      <div class="check"><input type="checkbox" id="d8"><label for="d8"><b>Open to search engines <span class="who">You</span></b><span>Only when you and your partner decide (go-live step 6).</span></label></div>
+      <div class="check"><input type="checkbox" id="d9"><label for="d9"><b>Launch posts ready</b><span>The message templates below, plus a still from each film.</span></label></div>
+      <div class="check"><input type="checkbox" id="d10"><label for="d10"><b>Think about the trade mark <span class="who">You</span></b><span>A UK trade mark is £170 online for one class, £50 for each extra. Worth filing once the company exists.</span></label></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="playbook"><div class="wrap">
+  <header>
+    <p class="eyebrow">Signing up a mandir</p>
+    <h2>From first message to a committee that runs its own page</h2>
+    <p class="muted">About two weeks per mandir, and around two hours of your time. Do it in person where you can: committees decide on trust, after aarti on a Friday or Sunday morning.</p>
+  </header>
+  <ol class="steps">
+    <li><div><p class="when">Day 0</p><h3>Find the right person</h3><p class="muted">The secretary, a trustee or whoever posts the programme. Use the mandir's own website, its noticeboard, or a visit. Don't collect names or numbers from social media.</p></div></li>
+    <li><div><p class="when">Day 0</p><h3>Send the first message and the mandirs film</h3><p class="muted">"First message to a mandir" below. Show their page on your phone if you meet in person: it already has their address, opening times and how to get there.</p></div></li>
+    <li><div><p class="when">Day 1 to 3</p><h3>A 15-minute conversation</h3><p class="muted">Listen first: how do they share the programme now, what went wrong last Navratri or Diwali, who decides on new things. Then show adding a poster on your phone. Leave the one-page guide (toran.org.uk/for-mandirs/guide/print).</p></div></li>
+    <li><div><p class="when">Same day</p><h3>They ask to look after the page</h3><p class="muted">Either from "Look after this page" on the mandir's page, or send them the join link and QR code from /ops/mandirs → the mandir → "Join link for its committee".</p></div></li>
+    <li><div><p class="when">Within a day</p><h3>Check, then approve</h3><p class="muted">Ring the mandir office or another committee member you trust to confirm this person helps run it. Approve in /ops. Then send "After approving" with the committee film.</p></div></li>
+    <li><div><p class="when">First week</p><h3>Add their first events together</h3><p class="muted">Ask for their next poster. If they're busy, add it yourself through the review queue so their page looks alive straight away; they publish it with one tap.</p></div></li>
+    <li><div><p class="when">Day 7</p><h3>The weekly habit</h3><p class="muted">Show them "Send this week's events" and agree a day, often Thursday, for sending it to their groups. Ask them to invite one colleague, so the page doesn't depend on one person.</p></div></li>
+    <li><div><p class="when">Day 14</p><h3>Show it working, then hand over to families</h3><p class="muted">Open Numbers with them. Give them the families film and the noticeboard poster with a QR code (from their page's print kit), and the families message below for their groups.</p></div></li>
+  </ol>
+</div></section>
+
+<section class="block" id="messages"><div class="wrap">
+  <header>
+    <p class="eyebrow">Messages, ready to send</p>
+    <h2>Copy, fill the [brackets], send</h2>
+    <p class="muted">Written to read well on WhatsApp and by email. Nothing here is sent for you: each one goes from your own phone or inbox.</p>
+  </header>
+  <div class="templates">
+    <div class="tpl"><div class="row"><h3>First message to a mandir</h3><button class="copy" type="button">Copy</button></div>
+<pre>[Jai Shree Krishna / Namaste] [name],
+
+I'm Milan, and I'm building Toran (toran.org.uk): a free website that shows what's on at UK mandirs, from festivals and satsangs to classes and seva, in one place, in English, Gujarati and Hindi.
+
+[Mandir name] already has a page on Toran, with your address and opening times. Your committee can look after it and add events in a couple of minutes, even from a photo of your poster.
+
+This 90-second film shows how it works: [link to the mandirs film]
+
+It's free for mandirs and families, with no adverts and no tracking. Could I have 15 minutes with you, or someone on the committee, this week?
+
+Thank you,
+Milan</pre></div>
+    <div class="tpl"><div class="row"><h3>After a conversation</h3><button class="copy" type="button">Copy</button></div>
+<pre>Thank you for your time today, [name]. As promised:
+
+1. Ask to look after [mandir]'s page here: [link to the mandir's page] → "Look after this page"
+2. I'll confirm with the mandir, usually within a day, and let you know.
+3. Then log in at toran.org.uk with the same email. No password: Toran emails you a link.
+
+If it's easier, send me your next poster and I'll put it on for you while you get started.</pre></div>
+    <div class="tpl"><div class="row"><h3>Join link</h3><button class="copy" type="button">Copy</button></div>
+<pre>Here's your link to look after [mandir]'s page on Toran: [join link from /ops]
+
+It sets up your account with the mandir already chosen. You'll get an email with a login link; there's no password to remember.</pre></div>
+    <div class="tpl"><div class="row"><h3>After approving</h3><button class="copy" type="button">Copy</button></div>
+<pre>You're in! [Mandir]'s page is now yours to look after: toran.org.uk/login
+
+This 2-minute film shows the four ways to add events: [link to the committee film]
+
+The quickest is a photo of your poster. Toran reads it, and nothing goes live until you've checked it. Any questions, just reply here.</pre></div>
+    <div class="tpl"><div class="row"><h3>For a mandir's families group</h3><button class="copy" type="button">Copy</button></div>
+<pre>🙏 [Mandir]'s events are now on Toran: [link to the mandir's page]
+
+Tap Follow to see everything coming up, add it to your calendar, or send it to family. Free, nothing to install, no account.
+
+How it works, in under two minutes: [link to the families film]</pre></div>
+    <div class="tpl"><div class="row"><h3>Weekly nudge to committees</h3><button class="copy" type="button">Copy</button></div>
+<pre>Anything new for this weekend? Add the poster on your Toran page, then tap "Send this week's events" for your groups. About five minutes. 🙏</pre></div>
+    <div class="tpl"><div class="row"><h3>"Is it really free?"</h3><button class="copy" type="button">Copy</button></div>
+<pre>Yes, for mandirs and families. There are no adverts, and Toran doesn't sell or share anyone's data. Families don't need an account at all; committee members give only their email address.</pre></div>
+    <div class="tpl"><div class="row"><h3>Public launch post</h3><button class="copy" type="button">Copy</button></div>
+<pre>Toran is here 🪔
+
+What's on at UK mandirs, in one place: festivals, satsangs, classes and seva near you. Free, no account, no tracking. English · ગુજરાતી · हिन्दी
+
+toran.org.uk</pre></div>
+  </div>
+</div></section>
+
+<section class="block" id="quickstart"><div class="wrap">
+  <header>
+    <p class="eyebrow">Quick-start cards</p>
+    <h2>Everything on one card</h2>
+    <p class="muted">For the end of a meeting, or to screenshot into a chat. The printable committee guide is on the site at /for-mandirs/guide/print.</p>
+  </header>
+  <div class="cards">
+    <div class="qs night">
+      <p class="eyebrow" style="color:#f6e7b8">For committee members</p>
+      <h3>Toran in five steps</h3>
+      <ol>
+        <li>Log in at toran.org.uk with your email. Tap the link Toran sends you.</li>
+        <li>Open your mandir from <b>Your account</b>.</li>
+        <li>Add events: a photo of the poster, a pasted WhatsApp message, typed in, or ticked festivals.</li>
+        <li>Check each one, then tap <b>Publish</b>.</li>
+        <li>Every week, tap <b>Send this week's events</b> for your groups.</li>
+      </ol>
+      <p class="muted">Seva: open <b>Seva</b> on your page, add roles and shifts, and send the rota to your volunteers.</p>
+    </div>
+    <div class="qs light">
+      <p class="eyebrow">For families</p>
+      <h3>Find what's on</h3>
+      <ol>
+        <li>Open toran.org.uk on your phone.</li>
+        <li>Tap <b>Find near me</b> to see events nearest first.</li>
+        <li>Open an event to add it to your calendar or send it on WhatsApp.</li>
+        <li>Tap <b>Follow</b> on your mandirs; they gather in <b>My Toran</b>.</li>
+        <li>Keep Toran on your home screen: Share, then <b>Add to Home Screen</b>.</li>
+      </ol>
+      <p class="muted">Free, no account, and nothing about you is tracked.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="faq"><div class="wrap">
+  <header>
+    <p class="eyebrow">Questions you'll be asked</p>
+    <h2>Short, true answers</h2>
+  </header>
+  <div class="faq">
+    <details><summary>Will this replace our WhatsApp group?</summary><p>No. It makes the group work better: one link to everything coming up, and a weekly message Toran writes for you. Families who aren't in the group can still find you.</p></details>
+    <details><summary>Who can change our page?</summary><p>Only committee members Toran has approved, after checking with the mandir. Each of them can invite colleagues, and anyone can be removed. Toran's admins can correct a mistake if someone reports one.</p></details>
+    <details><summary>What if Toran reads our poster wrongly?</summary><p>Nothing it reads goes live on its own. Every event waits, marked "read by machine: check every detail", until someone on the committee checks it and publishes it.</p></details>
+    <details><summary>What do you keep about people?</summary><p>For committee members: their email address and which mandir they help run. For families: nothing. What they follow, their plan and their seva slots are kept on their own phone. Visits are counted as totals, without cookies.</p></details>
+    <details><summary>Our elders don't use computers.</summary><p>Toran works on any phone, and one younger member can keep the page up to date for everyone. Families only need to open a link. Until a committee is ready, you can add their posters for them.</p></details>
+    <details><summary>Is it in Gujarati and Hindi?</summary><p>Yes. The site works in English, Gujarati and Hindi, and events can have their name and description in Gujarati. The Gujarati wording is still being checked by a reviewer, and the site says so.</p></details>
+    <details><summary>Do volunteers have to sign up for seva?</summary><p>No. They take a slot in one tap, with no account, and Toran doesn't ask their name. The committee sees how many are coming. Roles that need a DBS check are marked, and the mandir checks those itself; Toran never sees certificates.</p></details>
+    <details><summary>We don't want to be listed.</summary><p>That's fine. Toran hides the mandir's page on request, from "Correct or remove something" at the foot of every page.</p></details>
+    <details><summary>We already have a website.</summary><p>Keep it. Toran links to it, can read your events from your website's calendar, and gives you a calendar link to show Toran's events on your own site.</p></details>
+    <details><summary>Who is behind Toran?</summary><p>Milan, who is building it to make mandir events easier to find. [Add the company name and number once it's registered.]</p></details>
+    <details><summary>Sharing to Toran doesn't work on my iPhone.</summary><p>iPhones don't let websites appear in the Share menu. Copy the message in WhatsApp, then paste it into "Paste a WhatsApp message" on your committee page.</p></details>
+  </div>
+</div></section>
+
+<section class="block" id="scorecard"><div class="wrap">
+  <header>
+    <p class="eyebrow">Pilot scorecard</p>
+    <h2>Six numbers to check every Monday</h2>
+    <p class="muted">The targets are suggestions to adjust after the first fortnight. Most numbers are in /ops (Dashboard, Stats and Today) or on a committee's Numbers page.</p>
+  </header>
+  <div class="tablewrap"><table class="score">
+    <thead><tr><th>Measure</th><th>Where to find it</th><th>By the pilot</th><th>By the public launch</th></tr></thead>
+    <tbody>
+      <tr><td>Mandirs with a committee on Toran</td><td>/ops → Mandirs</td><td class="n">3 to 5</td><td class="n">10 or more</td></tr>
+      <tr><td>Upcoming events in the launch area</td><td>What's on, near the area</td><td class="n">40 to 60</td><td class="n">150 or more</td></tr>
+      <tr><td>Share of events added by committees</td><td>/ops → Today</td><td class="n">a third</td><td class="n">over half</td></tr>
+      <tr><td>Visits a week</td><td>/ops → Stats</td><td class="n">200</td><td class="n">1,000</td></tr>
+      <tr><td>Calendar adds and shares a week</td><td>Numbers pages</td><td class="n">20</td><td class="n">100</td></tr>
+      <tr><td>Items in the review queue older than 2 days</td><td>/ops → Review queue</td><td class="n">0</td><td class="n">0</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section class="block" id="runbook"><div class="wrap">
+  <header>
+    <p class="eyebrow">When things go wrong</p>
+    <h2>What to do, quickly</h2>
+  </header>
+  <div class="runbook">
+    <div class="rb red"><h3>The site is down</h3><p class="muted">Check toran.org.uk/api/health and Vercel's status page. Sentry emails you errors, and the Uptime check on GitHub opens an issue. The last good deployment can be promoted again in Vercel → Deployments in one click.</p></div>
+    <div class="rb red"><h3>Someone asks what Toran keeps about them, or to delete it</h3><p class="muted">A legal request: reply within one month. Committee members can leave from their page; for anything else, Claude can find and remove it. Note the date you replied.</p></div>
+    <div class="rb"><h3>An event is wrong</h3><p class="muted">The committee edits it from Next up or Coming up. Reports from "Something wrong here? Tell us" arrive in /ops → Needs attention; fix it or ask the committee, ideally within two working days.</p></div>
+    <div class="rb"><h3>Two people ask to run the same mandir</h3><p class="muted">Don't approve either until you've rung the mandir office. Several people can look after one page, so both may be right.</p></div>
+    <div class="rb"><h3>A poster was read wrongly</h3><p class="muted">Nothing went live, so fix it with "Fix something first" before publishing, or Discard and type it in. Tell Claude if a kind of poster keeps going wrong.</p></div>
+    <div class="rb"><h3>The nightly job didn't run</h3><p class="muted">/ops → Needs attention warns after a day and a half. Vercel → Settings → Cron Jobs → Run starts it by hand.</p></div>
+    <div class="rb"><h3>A mandir wants to leave Toran</h3><p class="muted">Hide its page in /ops → Mandirs (Shown to the public? → Hidden), and remove committee access. Thank them and ask why: it's useful to know.</p></div>
+    <div class="rb"><h3>A safeguarding worry about seva</h3><p class="muted">The mandir runs its own volunteers. Pass the concern to the mandir's committee straight away, and turn off online sign-up for that event if needed.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="scripts"><div class="wrap">
+  <header>
+    <p class="eyebrow">Voiceover scripts</p>
+    <h2>Words to record over each film</h2>
+    <p class="muted">Each line starts at the time shown, and says what's on screen. Read slowly and warmly; a Gujarati reading by a volunteer will mean a lot to elders. Record each film in one take on a phone in a quiet room, and Claude can add it to the film.</p>
+  </header>
+  <div class="scripts" id="scriptlist"></div>
+</div></section>
+
+<section class="block" id="brand"><div class="wrap">
+  <header>
+    <p class="eyebrow">Brand</p>
+    <h2>Midnight &amp; Gold</h2>
+    <p class="muted">The same colours, type and voice as the website and the films. Use them for posters, slides and posts so everything looks like one thing.</p>
+  </header>
+  <div class="swatches">
+    <div class="sw"><i style="background:#14213d"></i><div><b>Midnight</b><code>#14213D</code> backgrounds, the logo tile</div></div>
+    <div class="sw"><i style="background:#0b1222"></i><div><b>Night</b><code>#0B1222</code> deepest backgrounds</div></div>
+    <div class="sw"><i style="background:#d9a441"></i><div><b>Gold</b><code>#D9A441</code> the logo, highlights</div></div>
+    <div class="sw"><i style="background:#f6e7b8"></i><div><b>Soft gold</b><code>#F6E7B8</code> glow, text on midnight</div></div>
+    <div class="sw"><i style="background:#f6f4ef"></i><div><b>Cream</b><code>#F6F4EF</code> page backgrounds</div></div>
+    <div class="sw"><i style="background:#1f3a8a"></i><div><b>Lapis</b><code>#1F3A8A</code> buttons and links only</div></div>
+    <div class="sw"><i style="background:#1a1a22"></i><div><b>Ink</b><code>#1A1A22</code> text</div></div>
+    <div class="sw"><i style="background:#b3261e"></i><div><b>Kumkum</b><code>#B3261E</code> warnings, cancelled</div></div>
+  </div>
+  <div class="typeset">
+    <div class="qs light"><p class="eyebrow">Headings</p><h3 style="font-size:40px">Marcellus</h3><p class="muted">Carved-in-stone capitals, used for headings and the TORAN name, spaced wide.</p></div>
+    <div class="qs light"><p class="eyebrow">Reading</p><h3 style="font-family:var(--text);font-weight:800">Mulish</h3><p class="muted">Everything else. Never smaller than 18px on the site, so it reads well for every age.</p></div>
+  </div>
+  <div class="voice">
+    <div><b>Plain words</b>"Add an event", not "create a listing". "Mandir", not "temple".</div>
+    <div><b>Say what happens</b>A button says what it does: "Publish", then "Published".</div>
+    <div><b>Short and warm</b>One idea a sentence. Respectful greetings. No hype.</div>
+    <div><b>True promises only</b>"Free for mandirs and families. No adverts." Nothing we can't keep.</div>
+  </div>
+</div></section>
+
+<section class="block" id="links"><div class="wrap">
+  <header>
+    <p class="eyebrow">Links</p>
+    <h2>Where everything is</h2>
+  </header>
+  <ul class="links">
+    <li><code>/for-mandirs</code> the page to send committees</li>
+    <li><code>/for-mandirs/guide/print</code> one-page guide to print</li>
+    <li><code>/demo</code> the made-up mandir, to show without logging in</li>
+    <li><code>/demo/poster</code> try reading a poster</li>
+    <li><code>/mandirs/[slug]/print</code> a mandir's noticeboard poster with QR code</li>
+    <li><code>/ops</code> admin dashboard (needs your authenticator app)</li>
+    <li><code>/ops/posters</code> review queue: add and check events</li>
+    <li><code>/ops/mandirs</code> mandirs, join links and QR codes</li>
+    <li><code>/ops/attention</code> reports and things to follow up</li>
+    <li><code>/ops/stats</code> visits by page and by week</li>
+    <li><code>docs/go-live.md</code> the full technical go-live steps</li>
+    <li><code>docs/launch-plan.md</code> the plan and the pilot's questions</li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">Toran welcome pack · prepared 9 November 2026 · Every mandir, person and number in the films is made up.</div></footer>
+
+<script type="application/json" id="scripts-data">__SCRIPTS__</script>
+<script>
+(function () {
+  // Checklist ticks, kept in this browser only.
+  const KEY = "toran-welcome-pack-ticks";
+  let ticks = {};
+  try { ticks = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { ticks = {}; }
+  const phases = document.querySelectorAll(".phase");
+  function count() {
+    phases.forEach((p) => {
+      const all = p.querySelectorAll("input"), done = p.querySelectorAll("input:checked");
+      let small = p.querySelector("h3 small"), base = small.dataset.base || small.textContent;
+      small.dataset.base = base;
+      small.textContent = base + " · " + done.length + " of " + all.length;
+    });
+  }
+  document.querySelectorAll(".check input").forEach((box) => {
+    box.checked = !!ticks[box.id];
+    box.closest(".check").classList.toggle("done", box.checked);
+    box.addEventListener("change", () => {
+      ticks[box.id] = box.checked;
+      box.closest(".check").classList.toggle("done", box.checked);
+      try { localStorage.setItem(KEY, JSON.stringify(ticks)); } catch (e) {}
+      count();
+    });
+  });
+  count();
+
+  // Copy buttons.
+  document.querySelectorAll(".tpl").forEach((tpl) => {
+    const btn = tpl.querySelector("button.copy"), pre = tpl.querySelector("pre");
+    btn.addEventListener("click", () => {
+      const done = () => { btn.textContent = "Copied"; setTimeout(() => (btn.textContent = "Copy"), 1800); };
+      const select = () => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected: copy it"; };
+      try { navigator.clipboard.writeText(pre.textContent).then(done, select); } catch (e) { select(); }
+    });
+  });
+
+  // Voiceover scripts, from the films' own timelines.
+  const data = JSON.parse(document.getElementById("scripts-data").textContent);
+  const names = { mandirs: "Toran for mandirs", committee: "Committee guide", families: "Find what's on" };
+  const list = document.getElementById("scriptlist");
+  const fmt = (t) => Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0");
+  for (const key of ["mandirs", "committee", "families"]) {
+    const d = data[key];
+    const det = document.createElement("details");
+    det.className = "script";
+    const sum = document.createElement("summary");
+    sum.textContent = names[key] + " · " + fmt(d.duration);
+    det.appendChild(sum);
+    const wrap = document.createElement("div"); wrap.className = "tablewrap";
+    const table = document.createElement("table");
+    for (const l of d.lines) {
+      const tr = table.insertRow();
+      tr.insertCell().textContent = fmt(l.t);
+      const c = tr.insertCell();
+      const b = document.createElement("b"); b.textContent = l.title; c.appendChild(b);
+      if (l.text && l.text !== l.title) c.appendChild(document.createTextNode(l.text.replace(l.title + " · ", "")));
+    }
+    wrap.appendChild(table); det.appendChild(wrap); list.appendChild(det);
+  }
+})();
+</script>

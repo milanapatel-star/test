@@ -1,0 +1,11 @@
+# Rendered frames, stills and logs (rebuilt by make.sh)
+out/*/frames/
+out/*/keys/
+out/*/render-*.log
+out/make-*.log
+out/chk*/
+out/*/soundtrack.wav
+# A local login session from the capture run: never commit
+shots/*.json
+!shots/manifest.json
+shots/explore/
