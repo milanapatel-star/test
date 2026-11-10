@@ -11,3 +11,11 @@ shots/*.json
 shots/explore/
 out/share.log
 out/*.log
+# The Reel's own copy of the screens: login sessions never committed
+reel/shots/*.json
+!reel/shots/manifest.json
+# The Reel's working files (rebuilt by reel/make.sh)
+out/reel/*.png
+out/reel/*.jpg
+out/reel/cues.json
+out/reel/*.log

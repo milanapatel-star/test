@@ -1,0 +1,77 @@
+/* The Toran Instagram Reel: 1080 x 1920, Midnight & Gold. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b1426; }
+body { font-family: "Mulish", "Noto Color Emoji", sans-serif; color: #f6f4ef; -webkit-font-smoothing: antialiased; }
+#stage { position: absolute; inset: 0; overflow: hidden; }
+.layer, .scene { position: absolute; inset: 0; }
+.scene { visibility: hidden; }
+.abs { position: absolute; }
+.em { font-family: "Noto Color Emoji"; font-weight: 400; }
+
+/* Background: midnight, two slow glows, a vignette and film grain. */
+.bg { background: #0b1426; }
+.glow { position: absolute; border-radius: 50%; filter: blur(40px); }
+.glow.gold { width: 1100px; height: 1100px; background: radial-gradient(circle, rgba(217,164,65,.30), rgba(217,164,65,0) 65%); }
+.glow.blue { width: 1300px; height: 1300px; background: radial-gradient(circle, rgba(52,92,190,.38), rgba(52,92,190,0) 65%); }
+.cream { background: #f6f4ef; }
+.vignette { background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.45) 100%); pointer-events: none; }
+#grain { position: absolute; inset: 0; width: 1080px; height: 1920px; opacity: .07; mix-blend-mode: overlay; image-rendering: pixelated; }
+.flash { background: #fff8e6; opacity: 0; }
+
+/* Type */
+.kin { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -.02em; line-height: 1.02; }
+.kin .w { display: inline-block; white-space: pre; will-change: transform, opacity, filter; }
+.gold { color: #e9b552; }
+.ink { color: #14213d; }
+.muted { color: #b9bfd3; }
+.serif { font-family: "Marcellus", serif; font-weight: 400; letter-spacing: .02em; }
+.gu { font-family: "Noto Serif Gujarati", serif; font-weight: 600; }
+.hi { font-family: "Noto Sans Devanagari", sans-serif; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; padding: 14px 30px; font-weight: 800; font-size: 40px; line-height: 1; }
+.pill.goldfill { background: #e9b552; color: #14213d; }
+.pill.glass { background: rgba(246,244,239,.12); border: 2px solid rgba(246,244,239,.22); color: #f6f4ef; backdrop-filter: blur(10px); }
+.pill.inkfill { background: #14213d; color: #f6f4ef; }
+.pill.green { background: #1f8a5b; color: #fff; }
+.tag { position: absolute; left: 0; right: 0; text-align: center; top: 228px; font-size: 26px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: rgba(246,244,239,.55); }
+.tag.dark { color: rgba(20,33,61,.5); }
+
+/* WhatsApp-style forwards for the opening. */
+.bubble { position: absolute; max-width: 560px; background: #1f2c34; color: #e9edef; border-radius: 26px; padding: 18px 26px 22px; font-size: 36px; font-weight: 600; line-height: 1.25; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.bubble small { display: block; font-size: 24px; font-style: italic; font-weight: 600; color: #8696a0; margin-bottom: 6px; }
+.bubble.me { background: #005c4b; }
+
+/* Phone */
+.phone3d { position: absolute; perspective: 2400px; }
+.phone { position: relative; border-radius: 82px; background: linear-gradient(145deg, #2a2d36, #0c0d11 40%, #1b1d24); padding: 17px; box-shadow: 0 60px 120px rgba(0,0,0,.55), 0 0 0 3px #3a3e49 inset, 0 0 0 1.5px #000; transform-style: preserve-3d; }
+.screen { position: relative; overflow: hidden; border-radius: 66px; background: #f6f4ef; }
+.screen img { position: absolute; left: 0; top: 0; display: block; }
+.island { position: absolute; z-index: 5; left: 50%; top: 18px; width: 170px; height: 48px; margin-left: -85px; border-radius: 30px; background: #000; }
+.glare { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 60%); }
+.tabover { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; background-repeat: no-repeat; }
+.ripple { position: absolute; z-index: 6; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 6px solid rgba(233,181,82,.95); background: rgba(233,181,82,.25); opacity: 0; }
+
+/* Cards that come out of the phone */
+.card { position: absolute; display: flex; gap: 22px; align-items: center; background: #fffdf8; color: #1a1a22; border-radius: 34px; padding: 22px 30px 22px 22px; box-shadow: 0 30px 70px rgba(0,0,0,.40); font-weight: 700; }
+.card .date { flex: none; width: 104px; height: 112px; border-radius: 24px; background: #14213d; color: #e9b552; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+.card .date b { font-size: 46px; font-weight: 800; color: #f6f4ef; }
+.card .date span { font-size: 22px; font-weight: 800; letter-spacing: .08em; margin-bottom: 6px; }
+.card .t1 { font-size: 36px; font-weight: 800; line-height: 1.1; }
+.card .t2 { font-size: 26px; font-weight: 600; color: #5a5b6e; margin-top: 6px; }
+.card .t3 { font-size: 24px; font-weight: 800; color: #b07d1f; margin-top: 6px; letter-spacing: .02em; }
+
+/* The mark */
+.mark svg, .tile svg { width: 100%; height: 100%; overflow: visible; }
+.word { font-family: "Marcellus", serif; text-transform: uppercase; letter-spacing: .16em; }
+
+/* Festival slot machine */
+.slot { position: absolute; left: 0; right: 0; height: 260px; overflow: hidden; }
+.slot .row { position: absolute; left: 0; right: 0; height: 260px; display: flex; align-items: center; justify-content: center; gap: 30px; font-size: 150px; font-weight: 800; letter-spacing: -.03em; }
+
+/* Poster */
+.poster { position: absolute; background: #fff; padding: 18px; border-radius: 10px; box-shadow: 0 40px 90px rgba(20,33,61,.35); }
+.poster img { display: block; }
+.scan { position: absolute; left: 18px; right: 18px; height: 10px; border-radius: 10px; background: #e9b552; box-shadow: 0 0 40px 18px rgba(233,181,82,.55); }
+.spark { position: absolute; font-family: "Noto Color Emoji"; }
+.particle { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #e9b552; }
+.statusbar { position: absolute; left: 0; right: 0; top: 0; z-index: 4; display: flex; align-items: center; justify-content: space-between; background: #14213d; color: #fff; font-weight: 800; letter-spacing: .02em; }
+.statusbar span { font-size: .7em; letter-spacing: .1em; opacity: .9; }
