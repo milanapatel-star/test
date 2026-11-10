@@ -429,12 +429,14 @@
     return (t) => {
       top.words.forEach((w, i) => punch(w, t, 21.0 + i * 0.2, { from: 1.4 }));
       // Each beat the next festival drops into place.
-      const idx = clamp((t - at0) / 0.5, 0, fests.length - 1);
+      // Each festival snaps in at the start of its beat and holds.
+      const raw = clamp((t - at0) / 0.5, 0, fests.length - 1);
+      const base = Math.floor(raw);
+      const idx = t < at0 ? -1 + eOut(r(t, at0 - 0.14, 0.14)) : raw >= fests.length - 1 ? fests.length - 1 : base === 0 ? 0 : base - 1 + eOut(clamp((raw - base) / 0.28));
       rows.forEach((row, i) => {
         const d = i - idx;
         const p = clamp(d, -1.2, 1.2);
-        const settle = i === Math.round(idx) ? eBack(r(t, at0 + i * 0.5, 0.3)) : 1;
-        put(row, { ty: p * 260 * (i === Math.floor(idx + 0.5) ? (2 - settle) : 1), o: 1 - Math.min(1, Math.abs(d) * 1.1), blur: Math.min(14, Math.abs(d) * 18), s: 1 - Math.min(0.25, Math.abs(d) * 0.2) });
+        put(row, { ty: p * 260, o: 1 - Math.min(1, Math.abs(d) * 1.1), blur: Math.min(14, Math.abs(d) * 18), s: (1 - Math.min(0.25, Math.abs(d) * 0.2)) * (Math.abs(d) < 0.05 && t >= at0 ? 1 + 0.04 * Math.exp(-((t - at0) % 0.5) / 0.08) : 1) });
       });
       bottom.words.forEach((w, i) => punch(w, t, bAt[i], { from: 1.4 }));
       if (ph) {
@@ -572,7 +574,7 @@
     const scan = el("div", "scan", poster);
     const sparks = [0, 1, 2].map(() => el("div", "spark", root, "✨"));
     const ai = el("div", "abs", root, `<span class="pill inkfill" style="font-size:46px"><span class="em">✨</span> AI reads every date</span>`);
-    cue(42.0, "whoosh", { d: 0.4, g: 0.6 });
+    cue(41.0, "whoosh", { d: 0.4, g: 0.6 });
     cue(43.4, "swish");
     cue(44.0, "pop", { f: 1300, g: 0.5 });
     const events = [
@@ -596,9 +598,9 @@
       tag.style.opacity = r(t, 40.0, 0.3);
       a.words.forEach((w, i) => punch(w, t, 40.0 + i * 0.25, { from: 1.4 }));
       b.words.forEach((w, i) => punch(w, t, 41.6 + i * 0.15, { from: 1.3, blur: 8 }));
-      const pp = eExpo(r(t, 41.9, 0.6));
+      const pp = eExpo(r(t, 40.9, 0.6));
       const shrink = eInOut(r(t, 45.0, 0.6));
-      put(poster, { x: lerp(260, 60, shrink), y: lerp(540, 640, shrink), tx: (1 - pp) * -700, rot: lerp(-14, -4, pp), s: lerp(1, 0.78, shrink), o: r(t, 41.9, 0.1) });
+      put(poster, { x: lerp(260, 60, shrink), y: lerp(540, 640, shrink), tx: (1 - pp) * -700, rot: lerp(-14, -4, pp), s: lerp(1, 0.78, shrink), o: r(t, 40.9, 0.1) });
       poster.style.transformOrigin = "0 0";
       const sp = r(t, 43.3, 1.5);
       css(scan, { top: 18 + eInOut(sp) * 640 + "px", opacity: sp > 0 && sp < 1 ? 1 : 0 });
