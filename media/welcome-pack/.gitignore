@@ -19,3 +19,4 @@ out/reel/*.png
 out/reel/*.jpg
 out/reel/cues.json
 out/reel/*.log
+out/reel/review/
