@@ -44,3 +44,12 @@ quick look. When Toran's screens change, capture them again
 `manifest.json`/`manifest.js` from `../shots/` into `shots/`, and rebuild. The
 Reel keeps its own copy because the welcome-pack films are framed for the
 screens as they were when those were made.
+
+## Files
+
+- `../out/toran-reel.mp4`: the full-quality Reel to upload (60 fps, about 69 MB).
+- `../pack/films/toran-reel.mp4`: a smaller copy (30 fps, under 14 MB) for
+  WhatsApp and the welcome pack.
+- `../pack/films/toran-reel-cover.jpg`: the cover (7.35 s: the mark, "Every
+  mandir event in the UK. One place."). Its middle also works in the 3:4
+  crop Instagram uses on the profile grid.
