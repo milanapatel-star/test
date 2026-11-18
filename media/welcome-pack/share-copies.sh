@@ -1,10 +1,11 @@
 #!/bin/bash
 # Share-sized copies of the films (under 14 MB, for WhatsApp and the
 # welcome pack page) and a still from each, into pack/films/.
+# FILMS="hub" ./share-copies.sh makes just that one.
 set -e
 WP=$(cd "$(dirname "$0")" && pwd)
 mkdir -p $WP/pack/films
-for f in mandirs committee families; do
+for f in ${FILMS:-mandirs committee families}; do
   IN=$WP/out/toran-$f.mp4
   D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 $IN)
   # 13.5 MB in all, less 128 kb/s of sound

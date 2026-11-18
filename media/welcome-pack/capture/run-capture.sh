@@ -8,7 +8,8 @@ set -a; . $SP/sb.env; set +a
 if [ "$2" = "--reset" ]; then
   npx -y supabase@2.120.0 db reset >/dev/null 2>&1
   psql "$DB_URL" -q -f $WP/capture/seed.sql
-  rm -f $WP/shots/manifest.json
+  # The manifest is kept: each stage writes over its own screens only,
+  # so capturing one stage leaves the other films' screens as they were.
   # Pages are prerendered when the site is built, so build it again from the
   # fresh database: otherwise the first screens show what the last run added.
   pkill -f "next start"; pkill -f next-server; sleep 1

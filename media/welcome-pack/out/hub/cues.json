@@ -1,0 +1,465 @@
+{
+ "duration": 172.1,
+ "cues": [
+  {
+   "t": 0.5,
+   "kind": "swap"
+  },
+  {
+   "t": 6.5,
+   "kind": "whoosh"
+  },
+  {
+   "t": 7.8,
+   "kind": "tick"
+  },
+  {
+   "t": 8.6,
+   "kind": "tick"
+  },
+  {
+   "t": 9.4,
+   "kind": "tick"
+  },
+  {
+   "t": 10.2,
+   "kind": "tick"
+  },
+  {
+   "t": 11,
+   "kind": "tick"
+  },
+  {
+   "t": 16.1,
+   "kind": "tap"
+  },
+  {
+   "t": 16.5,
+   "kind": "type",
+   "dur": 1.4
+  },
+  {
+   "t": 18.7,
+   "kind": "tap"
+  },
+  {
+   "t": 19.4,
+   "kind": "swap"
+  },
+  {
+   "t": 19.6,
+   "kind": "chime"
+  },
+  {
+   "t": 21.6,
+   "kind": "swap"
+  },
+  {
+   "t": 23.8,
+   "kind": "tap"
+  },
+  {
+   "t": 35.2,
+   "kind": "tap"
+  },
+  {
+   "t": 35.6,
+   "kind": "swap"
+  },
+  {
+   "t": 42.1,
+   "kind": "tap"
+  },
+  {
+   "t": 42.5,
+   "kind": "swap"
+  },
+  {
+   "t": 44.2,
+   "kind": "tap"
+  },
+  {
+   "t": 44.6,
+   "kind": "swap"
+  },
+  {
+   "t": 46.4,
+   "kind": "tap"
+  },
+  {
+   "t": 46.8,
+   "kind": "swap"
+  },
+  {
+   "t": 49,
+   "kind": "swap"
+  },
+  {
+   "t": 52,
+   "kind": "tap"
+  },
+  {
+   "t": 52.4,
+   "kind": "swap"
+  },
+  {
+   "t": 52.6,
+   "kind": "chime"
+  },
+  {
+   "t": 57.1,
+   "kind": "tap"
+  },
+  {
+   "t": 57.5,
+   "kind": "swap"
+  },
+  {
+   "t": 58.4,
+   "kind": "tap"
+  },
+  {
+   "t": 58.9,
+   "kind": "type",
+   "dur": 2.2
+  },
+  {
+   "t": 62.2,
+   "kind": "tap"
+  },
+  {
+   "t": 62.7,
+   "kind": "swap"
+  },
+  {
+   "t": 65.4,
+   "kind": "tap"
+  },
+  {
+   "t": 65.8,
+   "kind": "swap"
+  },
+  {
+   "t": 66,
+   "kind": "chime"
+  },
+  {
+   "t": 69.1,
+   "kind": "tap"
+  },
+  {
+   "t": 69.5,
+   "kind": "swap"
+  },
+  {
+   "t": 70,
+   "kind": "tap"
+  },
+  {
+   "t": 70.4,
+   "kind": "type",
+   "dur": 1.4
+  },
+  {
+   "t": 71.9,
+   "kind": "tap"
+  },
+  {
+   "t": 72.1,
+   "kind": "type",
+   "dur": 0.5
+  },
+  {
+   "t": 72.7,
+   "kind": "tap"
+  },
+  {
+   "t": 72.9,
+   "kind": "type",
+   "dur": 0.4
+  },
+  {
+   "t": 73.4,
+   "kind": "tap"
+  },
+  {
+   "t": 73.6,
+   "kind": "type",
+   "dur": 0.4
+  },
+  {
+   "t": 75.4,
+   "kind": "swap"
+  },
+  {
+   "t": 76.8,
+   "kind": "tap"
+  },
+  {
+   "t": 80,
+   "kind": "swap"
+  },
+  {
+   "t": 81.2,
+   "kind": "tap"
+  },
+  {
+   "t": 81.6,
+   "kind": "swap"
+  },
+  {
+   "t": 81.8,
+   "kind": "chime"
+  },
+  {
+   "t": 85.7,
+   "kind": "tap"
+  },
+  {
+   "t": 88.4,
+   "kind": "swap"
+  },
+  {
+   "t": 90.2,
+   "kind": "tap"
+  },
+  {
+   "t": 90.5,
+   "kind": "chime"
+  },
+  {
+   "t": 94.6,
+   "kind": "tap"
+  },
+  {
+   "t": 95,
+   "kind": "swap"
+  },
+  {
+   "t": 100.2,
+   "kind": "tap"
+  },
+  {
+   "t": 100.6,
+   "kind": "swap"
+  },
+  {
+   "t": 100.8,
+   "kind": "chime"
+  },
+  {
+   "t": 107.6,
+   "kind": "swap"
+  },
+  {
+   "t": 108.2,
+   "kind": "tap"
+  },
+  {
+   "t": 108.6,
+   "kind": "type",
+   "dur": 0.9
+  },
+  {
+   "t": 110.8,
+   "kind": "swap"
+  },
+  {
+   "t": 112.2,
+   "kind": "tap"
+  },
+  {
+   "t": 112.6,
+   "kind": "swap"
+  },
+  {
+   "t": 112.8,
+   "kind": "chime"
+  },
+  {
+   "t": 116,
+   "kind": "swap"
+  },
+  {
+   "t": 120.2,
+   "kind": "tap"
+  },
+  {
+   "t": 120.6,
+   "kind": "swap"
+  },
+  {
+   "t": 123,
+   "kind": "tap"
+  },
+  {
+   "t": 123.4,
+   "kind": "swap"
+  },
+  {
+   "t": 126.2,
+   "kind": "tap"
+  },
+  {
+   "t": 126.6,
+   "kind": "swap"
+  },
+  {
+   "t": 130.4,
+   "kind": "tap"
+  },
+  {
+   "t": 133.2,
+   "kind": "tap"
+  },
+  {
+   "t": 133.6,
+   "kind": "type",
+   "dur": 1.2
+  },
+  {
+   "t": 136.2,
+   "kind": "tap"
+  },
+  {
+   "t": 136.6,
+   "kind": "swap"
+  },
+  {
+   "t": 136.8,
+   "kind": "chime"
+  },
+  {
+   "t": 146,
+   "kind": "tap"
+  },
+  {
+   "t": 146.4,
+   "kind": "chime"
+  },
+  {
+   "t": 156,
+   "kind": "whoosh"
+  },
+  {
+   "t": 157.3,
+   "kind": "tick"
+  },
+  {
+   "t": 158.3,
+   "kind": "tick"
+  },
+  {
+   "t": 159.3,
+   "kind": "tick"
+  },
+  {
+   "t": 165,
+   "kind": "whoosh"
+  }
+ ],
+ "scenes": [
+  {
+   "start": 0,
+   "dur": 6.5,
+   "kind": "intro",
+   "title": "Your mandir's hub on Toran"
+  },
+  {
+   "start": 6.5,
+   "dur": 8.5,
+   "kind": "night",
+   "title": "What it does for your mandir"
+  },
+  {
+   "start": 15,
+   "dur": 10,
+   "kind": "phone",
+   "title": "Log in with your email"
+  },
+  {
+   "start": 25,
+   "dur": 9,
+   "kind": "phone",
+   "title": "Your hub"
+  },
+  {
+   "start": 34,
+   "dur": 7,
+   "kind": "phone",
+   "title": "Press Add events"
+  },
+  {
+   "start": 41,
+   "dur": 15,
+   "kind": "phone",
+   "title": "A photo of the poster"
+  },
+  {
+   "start": 56,
+   "dur": 12,
+   "kind": "phone",
+   "title": "Paste a WhatsApp message"
+  },
+  {
+   "start": 68,
+   "dur": 16,
+   "kind": "phone",
+   "title": "Type it in"
+  },
+  {
+   "start": 84,
+   "dur": 9,
+   "kind": "phone",
+   "title": "Tick your festivals"
+  },
+  {
+   "start": 93,
+   "dur": 11,
+   "kind": "phone",
+   "title": "Keep it right"
+  },
+  {
+   "start": 104,
+   "dur": 15,
+   "kind": "phone",
+   "title": "Add your aarti times"
+  },
+  {
+   "start": 119,
+   "dur": 13,
+   "kind": "phone",
+   "title": "Plan the seva rota"
+  },
+  {
+   "start": 132,
+   "dur": 9,
+   "kind": "phone",
+   "title": "Invite a colleague"
+  },
+  {
+   "start": 141,
+   "dur": 8,
+   "kind": "phone",
+   "title": "Send this week's events"
+  },
+  {
+   "start": 149,
+   "dur": 7,
+   "kind": "phone",
+   "title": "See what's working"
+  },
+  {
+   "start": 156,
+   "dur": 9,
+   "kind": "night",
+   "title": "Your weekly routine"
+  },
+  {
+   "start": 165,
+   "dur": 6.5,
+   "kind": "night",
+   "title": "You're ready"
+  }
+ ]
+}

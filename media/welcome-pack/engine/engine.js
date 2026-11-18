@@ -610,8 +610,12 @@
       const name = `scene at ${s.start.toFixed(1)}s (${(s.captions?.[0]?.title || s.title || s.type || "").replace(/<[^>]+>/g, "")})`;
       if (s.kind === "phone" || s.kind === "laptop") {
         const g = GEO[s.kind], k = g.k, W = g.vw * k, H = g.vh * k;
-        const left = s.ox, top = s.oy, right = s.ox + W, bottom = s.oy + H - (s.kind === "phone" ? 80 * k : 0);
+        const left = s.ox, top = s.oy, right = s.ox + W;
+        // A sheet (FILM.sheets) covers the phone's tab bar, so its buttons
+        // can sit at the very bottom of the screen.
+        const bottomAt = (t) => s.oy + H - (s.kind === "phone" && !(FILM.sheets || []).includes(shotAt(s, t)) ? 80 * k : 0);
         const inFrame = (ref, t, what) => {
+          const bottom = bottomAt(t);
           if (!Array.isArray(ref) || typeof ref[0] !== "string") {
             // raw position: check against the screen too
           } else if (shotAt(s, t) !== ref[0]) {

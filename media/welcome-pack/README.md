@@ -1,6 +1,6 @@
 # Toran welcome pack
 
-Three onboarding films and the welcome pack page that holds them, made for
+Four onboarding films and the welcome pack page that holds them, made for
 the pilot launch (mid-December 2026) and the public launch (mid-January
 2027).
 
@@ -9,6 +9,16 @@ the pilot launch (mid-December 2026) and the public launch (mid-January
 | Toran for mandirs | Committees deciding whether to join | 1:48 | `out/toran-mandirs.mp4` |
 | Committee guide | Committee members who add events | 2:14 | `out/toran-committee.mp4` |
 | Find what's on | Families | 1:56 | `out/toran-families.mp4` |
+| Your mandir's hub | Pilot committees, on the hub since the phone redesign | 2:52 | `out/toran-hub.mp4` |
+
+**Your mandir's hub** follows the committee guide on the site
+(`/for-mandirs/guide`): what the hub does for a mandir, then logging in,
+the To do list, the four ways to add events, repeats and end times, the
+⋯ menu, aarti times and YouTube, seva, inviting a colleague, sharing and
+Numbers. Its screens are stage `h` (`capture/h-hub.spec.ts`), taken on
+their own from a fresh database (`run-capture.sh h --reset`), so it
+doesn't change the other films' screens. The older **Committee guide**
+shows the committee page from before the redesign.
 
 Each is portrait, 1080×1920 (9:16, for phones and WhatsApp), 30 fps,
 H.264 and AAC, with captions burned in so it works with the sound off.
