@@ -1,5 +1,5 @@
 import { devices, expect, test } from "@playwright/test";
-import { latestLoginLink, sql } from "./helpers";
+import { followLoginLink, latestLoginLink, sql } from "./helpers";
 import { day, nextWeekday, snap } from "./zz-capture-lib";
 
 // Stage 1: a committee member (Priya, made up) at Shree Sample Mandir,
@@ -30,7 +30,7 @@ test("committee on a phone", async ({ browser }) => {
   await send.click();
   await expect(page.getByText("Check your email for a login link")).toBeVisible();
   await snap(page, "pc-login-sent", {}, { full: false });
-  await page.goto(await latestLoginLink(EMAIL));
+  await followLoginLink(page, await latestLoginLink(EMAIL));
   await expect(page).toHaveURL(/\/account$/);
   sql(
     `insert into public.mandir_admins (mandir_id, user_id, consented_at) select m.id, u.id, now() from public.mandirs m, auth.users u where m.slug = '${SLUG}' and u.email = '${EMAIL}' on conflict do nothing`,
